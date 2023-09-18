@@ -2,13 +2,16 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClickAnimation : MonoBehaviour
+public class StartAnimation : MonoBehaviour
 {
     [SerializeField]
     private RectTransform Egg;
 
     [SerializeField] 
     private Image BlackScreen;
+    
+    [SerializeField] 
+    private MainMenuView MainMenu;
     
     [SerializeField]
     private int NumberOfClick;
@@ -63,6 +66,14 @@ public class ClickAnimation : MonoBehaviour
     private void LastAnimation()
     {
         DOTween.Sequence().Append(Egg.DOScale(FinalScale, AnimationSpeed))
-            .Join(BlackScreen.DOFade(1, 1));
+            .Join(BlackScreen.DOFade(1, .8f))
+            .OnComplete(SwitchToMainMenu);
+    }
+
+    private void SwitchToMainMenu()
+    {
+        MainMenu.gameObject.SetActive(true);
+        MainMenu.ShowMainMenu();
+        Destroy(transform.parent);
     }
 }
