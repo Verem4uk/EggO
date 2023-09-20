@@ -74,6 +74,6 @@ public class StartAnimation : MonoBehaviour
     {
         MainMenu.gameObject.SetActive(true);
         MainMenu.ShowMainMenu();
-        Destroy(transform.parent);
+        Destroy(gameObject);
     }
 }
