@@ -6,7 +6,7 @@ public class MainMenuView : MonoBehaviour
 {
     [SerializeField] 
     private Image BlackScreen;
-
+    
     public void ShowMainMenu()
     {
         AppearAnimation();
