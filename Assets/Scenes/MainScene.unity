@@ -2226,6 +2226,7 @@ MonoBehaviour:
   AnimationSpeed: 0.3
   PowerOfImpuls: 20
   FinalScale: 5
+  AutoClick: 1
 --- !u!1 &1259444373
 GameObject:
   m_ObjectHideFlags: 0

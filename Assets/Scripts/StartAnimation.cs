@@ -1,3 +1,4 @@
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,11 +29,25 @@ public class StartAnimation : MonoBehaviour
     [SerializeField] 
     private int FinalScale = 5;
 
+    [SerializeField] 
+    private bool AutoClick;
+
+    [SerializeField]
+    private float AutoClickDelay = 1f;
+
     private int CounterOfClicks;
     private float IncrementScale;
     private bool InAnimation;
     private Vector2 OriginalScale;
-    
+
+    private void Start()
+    {
+        if (AutoClick)
+        {
+            StartCoroutine(AutoClickCoroutine());
+        }
+    }
+
     public void Click()
     {
         if (InAnimation)
@@ -68,6 +83,15 @@ public class StartAnimation : MonoBehaviour
         DOTween.Sequence().Append(Egg.DOScale(FinalScale, AnimationSpeed))
             .Join(BlackScreen.DOFade(1, .8f))
             .OnComplete(SwitchToMainMenu);
+    }
+
+    private IEnumerator AutoClickCoroutine()
+    {
+        while (CounterOfClicks < NumberOfClick)
+        {
+            yield return new WaitForSeconds(AutoClickDelay);
+            Click();
+        }
     }
 
     private void SwitchToMainMenu()
