@@ -12,23 +12,48 @@ public class GameCore : MonoBehaviour
     
     [SerializeField]
     private QuestionsCategory QuestionsCategory;
-    
+
+    [SerializeField] 
+    private QuestionsCategory Practises;
+
+    [SerializeField] 
+    private int PracticeFrequency = 5;
+
+    private int CounterForPracticeAppearance;
+    private bool UsePractises;
     private string[] Players;
     private int CurrentPlayerIndex;
     private List<int> UnusedIndexes = new List<int>();
+    private List<int> UnusedPractisesIndexes;
     private int FirstAnsweredPlayerIndex;
     private int CurrentQuestionCounter;
 
-    public void Initialize(string[] players)
+    public void Initialize(string[] players, bool usePractises)
     {
         Players = players;
-        foreach (var t in QuestionsCategory.Questions)
+        foreach (var question in QuestionsCategory.Questions)
         {
-            UnusedIndexes.Add(t.GetID());
+            UnusedIndexes.Add(question.GetID());
         }
 
+        UsePractises = usePractises;
+        InitializePractises();
         UpdatePlayerName();
         GenerateNewQuestion();
+    }
+
+    private void InitializePractises()
+    {
+        if (!UsePractises)
+        {
+            return;
+        }
+
+        UnusedPractisesIndexes = new List<int>();
+        foreach (var practice in Practises.Questions)
+        {
+            UnusedPractisesIndexes.Add(practice.GetID());
+        }
     }
 
     private void UpdatePlayerName() => CurrentPlayersName.text = Players[CurrentPlayerIndex];
@@ -60,7 +85,19 @@ public class GameCore : MonoBehaviour
 
     private void GenerateNewQuestion()
     {
+        CounterForPracticeAppearance++;
         CurrentQuestionCounter = 0;
+
+        if (UsePractises && CounterForPracticeAppearance >= PracticeFrequency && UnusedPractisesIndexes.Count > 0)
+        {
+            CounterForPracticeAppearance = 0;
+            var newNumber = Random.Range(0, UnusedPractisesIndexes.Count);
+            var newQuestion = Practises.GetQuestionByID(UnusedPractisesIndexes[newNumber]);
+            UnusedPractisesIndexes.Remove(newNumber);
+            CurrentQuestion.text = newQuestion.GetRussianText;
+            return;
+        }
+        
         if (UnusedIndexes.Count > 0)
         {
             var newNumber = Random.Range(0, UnusedIndexes.Count);
@@ -69,6 +106,7 @@ public class GameCore : MonoBehaviour
             CurrentQuestion.text = newQuestion.GetRussianText;
             return;
         }
+        
         FinishSession();
     }
 }

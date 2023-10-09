@@ -14,6 +14,9 @@ public class PlayersView : MonoBehaviour
     private List<InputField> Players;
 
     [SerializeField] 
+    private Toggle PractisesToggle;
+
+    [SerializeField] 
     private GameObject PlusButton;
     
     [SerializeField] 
@@ -34,8 +37,9 @@ public class PlayersView : MonoBehaviour
         {
             players[i] = Players[i].text;
         }
-        GameCore.Initialize(players);
+        GameCore.Initialize(players, PractisesToggle.isOn);
         GameCore.gameObject.SetActive(true);
+        gameObject.transform.parent.gameObject.SetActive(false);
     }
 
     public void RemovePlayer()
