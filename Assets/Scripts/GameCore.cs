@@ -19,6 +19,9 @@ public class GameCore : MonoBehaviour
     [SerializeField] 
     private int PracticeFrequency = 5;
 
+    [SerializeField] 
+    private ScreenManager ScreenManager;
+
     private int CounterForPracticeAppearance;
     private bool UsePractises;
     private string[] Players;
@@ -80,7 +83,11 @@ public class GameCore : MonoBehaviour
 
     public void FinishSession()
     {
-        Application.Quit();
+        CounterForPracticeAppearance = 0;
+        CurrentQuestionCounter = 0;
+        CurrentPlayerIndex = 0;
+        FirstAnsweredPlayerIndex = 0;
+        ScreenManager.SwitchToMainMenu();
     }
 
     private void GenerateNewQuestion()

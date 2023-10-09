@@ -12,7 +12,7 @@ public class StartAnimation : MonoBehaviour
     private Image BlackScreen;
     
     [SerializeField] 
-    private MainMenuView MainMenu;
+    private ScreenManager ScreenManager;
     
     [SerializeField]
     private int NumberOfClick;
@@ -82,7 +82,7 @@ public class StartAnimation : MonoBehaviour
     {
         DOTween.Sequence().Append(Egg.DOScale(FinalScale, AnimationSpeed))
             .Join(BlackScreen.DOFade(1, .8f))
-            .OnComplete(SwitchToMainMenu);
+            .OnComplete(ScreenManager.SwitchToMainMenu);
     }
 
     private IEnumerator AutoClickCoroutine()
@@ -92,12 +92,5 @@ public class StartAnimation : MonoBehaviour
             yield return new WaitForSeconds(AutoClickDelay);
             Click();
         }
-    }
-
-    private void SwitchToMainMenu()
-    {
-        MainMenu.gameObject.SetActive(true);
-        MainMenu.ShowMainMenu();
-        Destroy(gameObject);
     }
 }

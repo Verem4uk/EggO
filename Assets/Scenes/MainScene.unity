@@ -696,6 +696,7 @@ MonoBehaviour:
   QuestionsCategory: {fileID: 11400000, guid: 15bcc864b85e79d4481fb837e2ba17f3, type: 2}
   Practises: {fileID: 11400000, guid: 482d0ed753cae364d9a6c9c995311a52, type: 2}
   PracticeFrequency: 5
+  ScreenManager: {fileID: 1956782049}
 --- !u!1 &210450652
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,7 +1021,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1259444378}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1246,7 +1247,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 28.869997, y: -0.5}
+  m_AnchoredPosition: {x: 28.869995, y: -0.5}
   m_SizeDelta: {x: -67.74, y: -3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &445057700
@@ -2763,7 +2764,7 @@ RectTransform:
   - {fileID: 1452972826}
   - {fileID: 445057699}
   m_Father: {fileID: 1259444378}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2934,7 +2935,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Egg: {fileID: 1927485398}
   BlackScreen: {fileID: 320206343}
-  MainMenu: {fileID: 1757822657}
+  ScreenManager: {fileID: 1956782049}
   NumberOfClick: 3
   ScaleMultiple: 30
   AnimationSpeed: 0.3
@@ -3164,8 +3165,8 @@ RectTransform:
   - {fileID: 1361379960}
   - {fileID: 466133845}
   - {fileID: 870489820}
-  - {fileID: 338419435}
   - {fileID: 1109104593}
+  - {fileID: 338419435}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3512,7 +3513,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 31.37, y: -25}
+  m_AnchoredPosition: {x: 31.370003, y: -25}
   m_SizeDelta: {x: 62.74, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1452972827
@@ -3648,6 +3649,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1956782049}
+        m_TargetAssemblyTypeName: ScreenManager, Assembly-CSharp
+        m_MethodName: OpenGameScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1575387214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3769,22 +3782,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1259444373}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1757822652}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1956782049}
+        m_TargetAssemblyTypeName: ScreenManager, Assembly-CSharp
+        m_MethodName: OpenChoosePlayersScreen
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4482,8 +4483,9 @@ GameObject:
   - component: {fileID: 1956782048}
   - component: {fileID: 1956782047}
   - component: {fileID: 1956782046}
+  - component: {fileID: 1956782049}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Main Camera & Screen Manager
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4554,6 +4556,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1956782049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956782045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b9fbfe16af3eec4ca425cfcd063fbf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartScreen: {fileID: 1229106518}
+  MainMenu: {fileID: 1757822652}
+  PlayersMenu: {fileID: 1259444373}
+  MainGame: {fileID: 188386624}
 --- !u!1 &1976010397
 GameObject:
   m_ObjectHideFlags: 0
