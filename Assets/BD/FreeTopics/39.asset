@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: 39
   m_EditorClassIdentifier: 
   ID: 39
+  IsPractice: 0
   RussianText: "\u0427\u0442\u043E \u0432 \u044D\u0442\u0443 \u043C\u0438\u043D\u0443\u0442\u0443
     \u0442\u0435\u0431\u044F \u0431\u043E\u043B\u044C\u0448\u0435 \u0432\u0441\u0435\u0433\u043E
     \u0442\u0440\u0435\u0432\u043E\u0436\u0438\u0442?"
+  EnglishText: What is worrying you the most right now?
+  PolishText: "Co martwi ci\u0119 najbardziej w tej chwili?"

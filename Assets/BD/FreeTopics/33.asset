@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: 33
   m_EditorClassIdentifier: 
   ID: 33
+  IsPractice: 0
   RussianText: "\u041A\u0430\u043A\u0430\u044F \u0442\u0432\u043E\u044F \u043B\u044E\u0431\u0438\u043C\u0430\u044F
     \u043F\u0435\u0441\u043D\u044F?"
+  EnglishText: What is your favorite song?
+  PolishText: Jaka jest twoja ulubiona piosenka?

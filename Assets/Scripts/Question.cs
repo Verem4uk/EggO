@@ -11,6 +11,12 @@ public class Question : ScriptableObject
     
     [SerializeField, TextAreaAttribute]
     private string RussianText;
+    
+    [SerializeField, TextAreaAttribute]
+    private string EnglishText;
+    
+    [SerializeField, TextAreaAttribute]
+    private string PolishText;
 
     public int GetID() => ID;
 

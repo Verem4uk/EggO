@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: 71
   m_EditorClassIdentifier: 
   ID: 71
+  IsPractice: 0
   RussianText: "\u0427\u0442\u043E \u0440\u0430\u0441\u0441\u0442\u0440\u043E\u0438\u043B\u043E
     \u0442\u0435\u0431\u044F \u043D\u0430 \u044D\u0442\u043E\u0439 \u043D\u0435\u0434\u0435\u043B\u0435?"
+  EnglishText: What upset you this week?
+  PolishText: "Co ci\u0119 zdenerwowa\u0142o w tym tygodniu?"

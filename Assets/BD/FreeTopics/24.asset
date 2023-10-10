@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: 24
   m_EditorClassIdentifier: 
   ID: 24
+  IsPractice: 0
   RussianText: "\u0420\u0430\u0441\u0441\u043A\u0430\u0436\u0438 \u0441\u0430\u043C\u0443\u044E
     \u0441\u043C\u0435\u0448\u043D\u0443\u044E \u0438\u0441\u0442\u043E\u0440\u0438\u044E
     \u0438\u0437 \u0436\u0438\u0437\u043D\u0438"
+  EnglishText: Tell the funniest story from your life
+  PolishText: "Opowiedz naj\u015Bmieszniejsz\u0105 histori\u0119 ze swojego \u017Cycia"

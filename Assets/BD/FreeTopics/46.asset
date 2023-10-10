@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: 46
   m_EditorClassIdentifier: 
   ID: 46
+  IsPractice: 0
   RussianText: "\u0427\u0442\u043E \u0431\u044B \u0442\u044B \u0434\u0435\u043B\u0430\u043B,
     \u0435\u0441\u043B\u0438 \u0431\u044B \u0442\u043E\u0447\u043D\u043E \u0437\u043D\u0430\u043B,
     \u0447\u0442\u043E \u0443 \u0442\u0435\u0431\u044F \u0432\u0441\u0451 \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u0441\u044F?"
+  EnglishText: What would you do if you knew for sure that everything would work
+    out for you?
+  PolishText: "Co by\u015B zrobi\u0142, gdyby\u015B by\u0142 pewien, \u017Ce wszystko
+    si\u0119 uda?"

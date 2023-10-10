@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: 14
   m_EditorClassIdentifier: 
   ID: 14
+  IsPractice: 0
   RussianText: "\u041D\u0430\u0437\u043E\u0432\u0438 \u0442\u0440\u0438 \u043E\u0448\u0438\u0431\u043A\u0438
     \u0432 \u0436\u0438\u0437\u043D\u0438, \u043A\u043E\u0442\u043E\u0440\u044B\u0435
     \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435 \u043F\u043E\u0432\u0442\u043E\u0440\u0438\u0448\u044C"
+  EnglishText: Name three mistakes in life that you won't repeat
+  PolishText: "Wymie\u0144 trzy b\u0142\u0119dy w \u017Cyciu, kt\xF3rych ju\u017C
+    nie pope\u0142nisz"
