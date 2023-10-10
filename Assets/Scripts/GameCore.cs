@@ -30,7 +30,9 @@ public class GameCore : MonoBehaviour
     private List<int> UnusedPractisesIndexes;
     private int FirstAnsweredPlayerIndex;
     private int CurrentQuestionCounter;
-
+    private int LanguageIdentifier;
+    private Question CurrentLogicQuestion;
+    
     public void Initialize(string[] players, bool usePractises)
     {
         Players = players;
@@ -81,6 +83,16 @@ public class GameCore : MonoBehaviour
         UpdatePlayerName();
     }
 
+    public void ChangeLanguage(int position)
+    {
+        if (LanguageIdentifier == position)
+        {
+            return;
+        }
+        LanguageIdentifier = position;
+        CurrentQuestion.text = GetTextAccordingLanguage();
+    }
+    
     public void FinishSession()
     {
         CounterForPracticeAppearance = 0;
@@ -99,21 +111,31 @@ public class GameCore : MonoBehaviour
         {
             CounterForPracticeAppearance = 0;
             var newNumber = Random.Range(0, UnusedPractisesIndexes.Count);
-            var newQuestion = Practises.GetQuestionByID(UnusedPractisesIndexes[newNumber]);
+            CurrentLogicQuestion = Practises.GetQuestionByID(UnusedPractisesIndexes[newNumber]);
             UnusedPractisesIndexes.Remove(newNumber);
-            CurrentQuestion.text = newQuestion.GetRussianText;
+            CurrentQuestion.text = GetTextAccordingLanguage();
             return;
         }
         
         if (UnusedIndexes.Count > 0)
         {
             var newNumber = Random.Range(0, UnusedIndexes.Count);
-            var newQuestion = QuestionsCategory.GetQuestionByID(UnusedIndexes[newNumber]);
+            CurrentLogicQuestion = QuestionsCategory.GetQuestionByID(UnusedIndexes[newNumber]);
             UnusedIndexes.Remove(newNumber);
-            CurrentQuestion.text = newQuestion.GetRussianText;
+            CurrentQuestion.text = GetTextAccordingLanguage();
             return;
         }
         
         FinishSession();
+    }
+
+    private string GetTextAccordingLanguage()
+    {
+        return LanguageIdentifier switch
+        {
+            1 => CurrentLogicQuestion.GetRussianText,
+            2 => CurrentLogicQuestion.GetPolishText,
+            _ => CurrentLogicQuestion.GetEnglishText
+        };
     }
 }

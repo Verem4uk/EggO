@@ -21,4 +21,6 @@ public class Question : ScriptableObject
     public int GetID() => ID;
 
     public string GetRussianText => RussianText;
+    public string GetEnglishText => EnglishText;
+    public string GetPolishText => PolishText;
 }
