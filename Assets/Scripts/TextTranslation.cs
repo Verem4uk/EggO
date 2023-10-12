@@ -1,11 +1,8 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Question", menuName = "SO/Question")]
-public class Question : ScriptableObject
+[CreateAssetMenu(fileName = "TextTranslation", menuName = "SO/TextTranslation")]
+public class TextTranslation : ScriptableObject
 {
-    [SerializeField] 
-    private int ID;
-    
     [SerializeField, TextAreaAttribute]
     private string RussianText;
     
@@ -14,9 +11,7 @@ public class Question : ScriptableObject
     
     [SerializeField, TextAreaAttribute]
     private string PolishText;
-
-    public int GetID() => ID;
-
+    
     public string GetRussianText => RussianText;
     public string GetEnglishText => EnglishText;
     public string GetPolishText => PolishText;

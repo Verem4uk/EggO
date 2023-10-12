@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ScreenManager : MonoBehaviour
@@ -13,6 +14,14 @@ public class ScreenManager : MonoBehaviour
 
     [SerializeField] 
     private GameObject MainGame;
+
+    [SerializeField]
+    private List<TranslatableText> TranslatableTexts;
+
+    private void Start()
+    {
+        ChangeLanguage(Saver.Instance.GetLanguageIdentifier());
+    }
 
     public void SwitchToMainMenu()
     {
@@ -36,5 +45,14 @@ public class ScreenManager : MonoBehaviour
         PlayersMenu.SetActive(false);
     }
 
+    public void ChangeLanguage(int position)
+    {
+        Localization.Instance.ChangeLanguage(position);
+        foreach (var translatableText in TranslatableTexts)
+        {
+            translatableText.ApplyLanguage();
+        }
+    }
+    
     public void Quit() => Application.Quit();
 }

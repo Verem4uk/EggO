@@ -30,7 +30,6 @@ public class GameCore : MonoBehaviour
     private List<int> UnusedPractisesIndexes;
     private int FirstAnsweredPlayerIndex;
     private int CurrentQuestionCounter;
-    private int LanguageIdentifier;
     private Question CurrentLogicQuestion;
     
     public void Initialize(string[] players, bool usePractises)
@@ -85,21 +84,8 @@ public class GameCore : MonoBehaviour
 
     public void ChangeLanguage(int position)
     {
-        if (LanguageIdentifier == position)
-        {
-            return;
-        }
-        LanguageIdentifier = position;
-        CurrentQuestion.text = GetTextAccordingLanguage();
-    }
-    
-    public void FinishSession()
-    {
-        CounterForPracticeAppearance = 0;
-        CurrentQuestionCounter = 0;
-        CurrentPlayerIndex = 0;
-        FirstAnsweredPlayerIndex = 0;
-        ScreenManager.SwitchToMainMenu();
+        ScreenManager.ChangeLanguage(position);
+        CurrentQuestion.text = Localization.Instance.GetTextAccordingLanguage(CurrentLogicQuestion);
     }
 
     private void GenerateNewQuestion()
@@ -113,7 +99,7 @@ public class GameCore : MonoBehaviour
             var newNumber = Random.Range(0, UnusedPractisesIndexes.Count);
             CurrentLogicQuestion = Practises.GetQuestionByID(UnusedPractisesIndexes[newNumber]);
             UnusedPractisesIndexes.Remove(newNumber);
-            CurrentQuestion.text = GetTextAccordingLanguage();
+            CurrentQuestion.text = Localization.Instance.GetTextAccordingLanguage(CurrentLogicQuestion);
             return;
         }
         
@@ -122,20 +108,19 @@ public class GameCore : MonoBehaviour
             var newNumber = Random.Range(0, UnusedIndexes.Count);
             CurrentLogicQuestion = QuestionsCategory.GetQuestionByID(UnusedIndexes[newNumber]);
             UnusedIndexes.Remove(newNumber);
-            CurrentQuestion.text = GetTextAccordingLanguage();
+            CurrentQuestion.text = Localization.Instance.GetTextAccordingLanguage(CurrentLogicQuestion);
             return;
         }
         
         FinishSession();
     }
-
-    private string GetTextAccordingLanguage()
+    
+    public void FinishSession()
     {
-        return LanguageIdentifier switch
-        {
-            1 => CurrentLogicQuestion.GetRussianText,
-            2 => CurrentLogicQuestion.GetPolishText,
-            _ => CurrentLogicQuestion.GetEnglishText
-        };
+        CounterForPracticeAppearance = 0;
+        CurrentQuestionCounter = 0;
+        CurrentPlayerIndex = 0;
+        FirstAnsweredPlayerIndex = 0;
+        ScreenManager.SwitchToMainMenu();
     }
 }
