@@ -82,7 +82,7 @@ public class StartAnimation : MonoBehaviour
     {
         DOTween.Sequence().Append(Egg.DOScale(FinalScale, AnimationSpeed))
             .Join(BlackScreen.DOFade(1, .8f))
-            .OnComplete(ScreenManager.SwitchToMainMenu);
+            .OnComplete(ScreenManager.StartApplication);
     }
 
     private IEnumerator AutoClickCoroutine()

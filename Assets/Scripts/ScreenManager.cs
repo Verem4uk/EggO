@@ -13,24 +13,31 @@ public class ScreenManager : MonoBehaviour
     private GameObject PlayersMenu;
 
     [SerializeField] 
-    private GameObject MainGame;
+    private GameCore MainGame;
 
     [SerializeField]
     private List<TranslatableText> TranslatableTexts;
 
-    private void Start()
+    public void StartApplication()
     {
+        if (StartScreen)
+        {
+            Destroy(StartScreen);
+        }
         ChangeLanguage(Saver.Instance.GetLanguageIdentifier());
+        if (Saver.Instance.HasUnfinishedSession())
+        {
+            MainGame.InitializeFromSave(Saver.Instance.Load());
+            OpenGameScreen();
+            return;
+        }
+        SwitchToMainMenu();
     }
 
     public void SwitchToMainMenu()
     {
         MainMenu.gameObject.SetActive(true);
         MainGame.gameObject.SetActive(false);
-        if (StartScreen)
-        {
-            Destroy(StartScreen);
-        }
     }
 
     public void OpenChoosePlayersScreen()
@@ -41,7 +48,7 @@ public class ScreenManager : MonoBehaviour
 
     public void OpenGameScreen()
     {
-        MainGame.SetActive(true);
+        MainGame.gameObject.SetActive(true);
         PlayersMenu.SetActive(false);
     }
 
@@ -53,6 +60,6 @@ public class ScreenManager : MonoBehaviour
             translatableText.ApplyLanguage();
         }
     }
-    
+
     public void Quit() => Application.Quit();
 }

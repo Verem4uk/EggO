@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Question", menuName = "SO/Question")]
+[CreateAssetMenu(fileName = "Question", menuName = "SO/Question"), Serializable]
 public class Question : ScriptableObject
 {
     [SerializeField] 

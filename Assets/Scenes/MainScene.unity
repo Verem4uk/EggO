@@ -6256,7 +6256,7 @@ MonoBehaviour:
   StartScreen: {fileID: 1229106518}
   MainMenu: {fileID: 1757822652}
   PlayersMenu: {fileID: 1259444373}
-  MainGame: {fileID: 188386624}
+  MainGame: {fileID: 188386629}
   TranslatableTexts:
   - {fileID: 445057702}
   - {fileID: 1755403349}

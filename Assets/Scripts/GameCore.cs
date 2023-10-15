@@ -23,60 +23,85 @@ public class GameCore : MonoBehaviour
     [SerializeField] 
     private ScreenManager ScreenManager;
     
-    private int CounterForPracticeAppearance;
-    private bool UsePractises;
-    private string[] Players;
-    private int CurrentPlayerIndex;
-    private List<int> UnusedIndexes = new List<int>();
-    private List<int> UnusedPractisesIndexes;
-    private int FirstAnsweredPlayerIndex;
-    private int CurrentQuestionCounter;
-    private Question CurrentLogicQuestion;
+    [System.Serializable]
+    public struct GameProcessStructure
+    {
+        public string[] Players;
+        public int CurrentPlayerIndex;
+        public int FirstAnsweredPlayerIndex;
+        public int CurrentQuestionCounter;
+        public Question CurrentLogicQuestion;
+        public List<int> UnusedIndexes;
+        public List<int> UnusedPractisesIndexes;
+        public int CounterForPracticeAppearance;
+        public bool UsePractises;
+    }
+
+    private GameProcessStructure GameProcess;
     
     public void Initialize(string[] players, bool usePractises)
     {
-        Players = players;
-        foreach (var question in QuestionsCategory.Questions)
+        GameProcess = new GameProcessStructure
         {
-            UnusedIndexes.Add(question.GetID());
-        }
+            Players = players,
+            UsePractises = usePractises
+        };
 
-        UsePractises = usePractises;
+        InitializeQuestions();
         InitializePractises();
         UpdatePlayerName();
         GenerateNewQuestion();
+
+        void InitializeQuestions()
+        {
+            GameProcess.UnusedIndexes = new List<int>();
+            foreach (var question in QuestionsCategory.Questions)
+            {
+                GameProcess.UnusedIndexes.Add(question.GetID());
+            }
+        }
+        
+        void InitializePractises()
+        {
+            if (!GameProcess.UsePractises)
+            {
+                return;
+            }
+
+            GameProcess.UnusedPractisesIndexes = new List<int>();
+            foreach (var practice in Practises.Questions)
+            {
+                GameProcess.UnusedPractisesIndexes.Add(practice.GetID());
+            }
+        }
     }
 
-    private void InitializePractises()
+    public void InitializeFromSave(GameProcessStructure gameProcessStructure)
     {
-        if (!UsePractises)
-        {
-            return;
-        }
-
-        UnusedPractisesIndexes = new List<int>();
-        foreach (var practice in Practises.Questions)
-        {
-            UnusedPractisesIndexes.Add(practice.GetID());
-        }
+        GameProcess = gameProcessStructure;
+        UpdatePlayerName();
+        UpdateQuestionText();
     }
-
-    private void UpdatePlayerName() => CurrentPlayersName.text = Players[CurrentPlayerIndex];
+    
+    private void UpdatePlayerName() => CurrentPlayersName.text = GameProcess.Players[GameProcess.CurrentPlayerIndex];
+    
+    private void UpdateQuestionText() => CurrentQuestion.text = 
+        Localization.Instance.GetTextAccordingLanguage(GameProcess.CurrentLogicQuestion.GetTextTranslations());
 
     public void Next()
     {
-        if (++CurrentPlayerIndex >= Players.Length)
+        if (++GameProcess.CurrentPlayerIndex >= GameProcess.Players.Length)
         {
-            CurrentPlayerIndex = 0;
+            GameProcess.CurrentPlayerIndex = 0;
         }
         
-        if (++CurrentQuestionCounter >= Players.Length)
+        if (++GameProcess.CurrentQuestionCounter >= GameProcess.Players.Length)
         {
-            if (++FirstAnsweredPlayerIndex >= Players.Length)
+            if (++GameProcess.FirstAnsweredPlayerIndex >= GameProcess.Players.Length)
             {
-                FirstAnsweredPlayerIndex = 0;
+                GameProcess.FirstAnsweredPlayerIndex = 0;
             }
-            CurrentPlayerIndex = FirstAnsweredPlayerIndex;
+            GameProcess.CurrentPlayerIndex = GameProcess.FirstAnsweredPlayerIndex;
             GenerateNewQuestion();
         }
 
@@ -87,32 +112,33 @@ public class GameCore : MonoBehaviour
     {
         ScreenManager.ChangeLanguage(position);
         CurrentQuestion.text = 
-            Localization.Instance.GetTextAccordingLanguage(CurrentLogicQuestion.GetTextTranslations());
+            Localization.Instance.GetTextAccordingLanguage(GameProcess.CurrentLogicQuestion.GetTextTranslations());
     }
 
     private void GenerateNewQuestion()
     {
-        CounterForPracticeAppearance++;
-        CurrentQuestionCounter = 0;
+        GameProcess.CounterForPracticeAppearance++;
+        GameProcess.CurrentQuestionCounter = 0;
 
-        if (UsePractises && CounterForPracticeAppearance >= PracticeFrequency && UnusedPractisesIndexes.Count > 0)
+        if (GameProcess.UsePractises && GameProcess.CounterForPracticeAppearance >= 
+            PracticeFrequency && GameProcess.UnusedPractisesIndexes.Count > 0)
         {
-            CounterForPracticeAppearance = 0;
-            var newNumber = Random.Range(0, UnusedPractisesIndexes.Count);
-            CurrentLogicQuestion = Practises.GetQuestionByID(UnusedPractisesIndexes[newNumber]);
-            UnusedPractisesIndexes.Remove(newNumber);
+            GameProcess.CounterForPracticeAppearance = 0;
+            var newNumber = Random.Range(0, GameProcess.UnusedPractisesIndexes.Count);
+            GameProcess.CurrentLogicQuestion = Practises.GetQuestionByID(GameProcess.UnusedPractisesIndexes[newNumber]);
+            GameProcess.UnusedPractisesIndexes.Remove(newNumber);
             CurrentQuestion.text = 
-                Localization.Instance.GetTextAccordingLanguage(CurrentLogicQuestion.GetTextTranslations());
+                Localization.Instance.GetTextAccordingLanguage(GameProcess.CurrentLogicQuestion.GetTextTranslations());
             return;
         }
         
-        if (UnusedIndexes.Count > 0)
+        if (GameProcess.UnusedIndexes.Count > 0)
         {
-            var newNumber = Random.Range(0, UnusedIndexes.Count);
-            CurrentLogicQuestion = QuestionsCategory.GetQuestionByID(UnusedIndexes[newNumber]);
-            UnusedIndexes.Remove(newNumber);
+            var newNumber = Random.Range(0, GameProcess.UnusedIndexes.Count);
+            GameProcess.CurrentLogicQuestion = QuestionsCategory.GetQuestionByID(GameProcess.UnusedIndexes[newNumber]);
+            GameProcess.UnusedIndexes.Remove(newNumber);
             CurrentQuestion.text = 
-                Localization.Instance.GetTextAccordingLanguage(CurrentLogicQuestion.GetTextTranslations());
+                Localization.Instance.GetTextAccordingLanguage(GameProcess.CurrentLogicQuestion.GetTextTranslations());
             return;
         }
         
@@ -121,10 +147,17 @@ public class GameCore : MonoBehaviour
     
     public void FinishSession()
     {
-        CounterForPracticeAppearance = 0;
-        CurrentQuestionCounter = 0;
-        CurrentPlayerIndex = 0;
-        FirstAnsweredPlayerIndex = 0;
+        GameProcess.CounterForPracticeAppearance = 0;
+        GameProcess.CurrentQuestionCounter = 0;
+        GameProcess.CurrentPlayerIndex = 0;
+        GameProcess.FirstAnsweredPlayerIndex = 0;
+        Saver.Instance.Clear();
         ScreenManager.SwitchToMainMenu();
+    }
+    
+    private void OnApplicationQuit()
+    {
+        Debug.LogError("Quit and save");
+        Saver.Instance.Save(GameProcess);
     }
 }
