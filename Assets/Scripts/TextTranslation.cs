@@ -4,13 +4,13 @@ using UnityEngine;
 public class TextTranslation : ScriptableObject
 {
     [SerializeField, TextAreaAttribute]
-    private string RussianText;
+    public string RussianText;
     
     [SerializeField, TextAreaAttribute]
-    private string EnglishText;
+    public string EnglishText;
     
     [SerializeField, TextAreaAttribute]
-    private string PolishText;
+    public string PolishText;
     
     public string GetRussianText => RussianText;
     public string GetEnglishText => EnglishText;

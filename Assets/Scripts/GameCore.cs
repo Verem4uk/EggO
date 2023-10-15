@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameCore : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class GameCore : MonoBehaviour
 
     [SerializeField] 
     private ScreenManager ScreenManager;
-
+    
     private int CounterForPracticeAppearance;
     private bool UsePractises;
     private string[] Players;
@@ -85,7 +86,8 @@ public class GameCore : MonoBehaviour
     public void ChangeLanguage(int position)
     {
         ScreenManager.ChangeLanguage(position);
-        CurrentQuestion.text = Localization.Instance.GetTextAccordingLanguage(CurrentLogicQuestion);
+        CurrentQuestion.text = 
+            Localization.Instance.GetTextAccordingLanguage(CurrentLogicQuestion.GetTextTranslations());
     }
 
     private void GenerateNewQuestion()
@@ -99,7 +101,8 @@ public class GameCore : MonoBehaviour
             var newNumber = Random.Range(0, UnusedPractisesIndexes.Count);
             CurrentLogicQuestion = Practises.GetQuestionByID(UnusedPractisesIndexes[newNumber]);
             UnusedPractisesIndexes.Remove(newNumber);
-            CurrentQuestion.text = Localization.Instance.GetTextAccordingLanguage(CurrentLogicQuestion);
+            CurrentQuestion.text = 
+                Localization.Instance.GetTextAccordingLanguage(CurrentLogicQuestion.GetTextTranslations());
             return;
         }
         
@@ -108,7 +111,8 @@ public class GameCore : MonoBehaviour
             var newNumber = Random.Range(0, UnusedIndexes.Count);
             CurrentLogicQuestion = QuestionsCategory.GetQuestionByID(UnusedIndexes[newNumber]);
             UnusedIndexes.Remove(newNumber);
-            CurrentQuestion.text = Localization.Instance.GetTextAccordingLanguage(CurrentLogicQuestion);
+            CurrentQuestion.text = 
+                Localization.Instance.GetTextAccordingLanguage(CurrentLogicQuestion.GetTextTranslations());
             return;
         }
         

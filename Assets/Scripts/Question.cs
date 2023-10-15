@@ -5,19 +5,10 @@ public class Question : ScriptableObject
 {
     [SerializeField] 
     private int ID;
-    
-    [SerializeField, TextAreaAttribute]
-    private string RussianText;
-    
-    [SerializeField, TextAreaAttribute]
-    private string EnglishText;
-    
-    [SerializeField, TextAreaAttribute]
-    private string PolishText;
 
+    [SerializeField] 
+    private TextTranslation TextTranslation;
+    
     public int GetID() => ID;
-
-    public string GetRussianText => RussianText;
-    public string GetEnglishText => EnglishText;
-    public string GetPolishText => PolishText;
+    public TextTranslation GetTextTranslations() => TextTranslation;
 }
