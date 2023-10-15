@@ -13,11 +13,4 @@ MonoBehaviour:
   m_Name: 52
   m_EditorClassIdentifier: 
   ID: 52
-  IsPractice: 0
-  RussianText: "\u0420\u0430\u0441\u0441\u043A\u0430\u0436\u0438 \u0432 \u043A\u0430\u043A\u043E\u0439
-    \u0436\u0438\u0437\u043D\u0435\u043D\u043D\u043E\u0439 \u0441\u0438\u0442\u0443\u0430\u0446\u0438\u0438
-    \u0442\u044B \u043D\u0435\u0440\u0432\u043D\u0438\u0447\u0430\u043B \u0441\u0438\u043B\u044C\u043D\u0435\u0435
-    \u0432\u0441\u0435\u0433\u043E"
-  EnglishText: ell about a life situation where you felt the most nervous
-  PolishText: "Opowiedz o sytuacji \u017Cyciowej, w kt\xF3rej czu\u0142e\u015B si\u0119
-    najbardziej zdenerwowany"
+  TextTranslation: {fileID: 11400000, guid: 0511780edd0670a43b375f761da9d8d4, type: 2}

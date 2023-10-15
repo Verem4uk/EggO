@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: 03
   m_EditorClassIdentifier: 
   ID: 3
-  IsPractice: 0
-  RussianText: "\u0427\u0442\u043E \u0442\u044B \u043B\u044E\u0431\u0438\u0448\u044C
-    \u043D\u0430 \u0431\u0443\u043A\u0432\u0443 \"\u041A\"?"
-  EnglishText: What do you like that starts with the letter "K"?
-  PolishText: "Co lubisz na liter\u0119 \"K\"?"
+  TextTranslation: {fileID: 11400000, guid: 6d58bb4b2b197494e9c83aa384321c07, type: 2}

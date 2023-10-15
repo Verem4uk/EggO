@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: 04
   m_EditorClassIdentifier: 
   ID: 4
-  IsPractice: 0
-  RussianText: "\u0415\u0441\u043B\u0438 \u0431\u044B \u044D\u0442\u043E\u0442 \u043C\u0435\u0441\u044F\u0446
-    \u0431\u044B\u043B \u043F\u0435\u0441\u043D\u0435\u0439, \u0442\u043E \u043A\u0430\u043A\u043E\u0439?"
-  EnglishText: If this month were a song, what would it be?
-  PolishText: "Gdyby ten miesi\u0105c by\u0142 piosenk\u0105, to jaka by to by\u0142a?"
+  TextTranslation: {fileID: 11400000, guid: 42037ab684e0a0749be989c64199ee63, type: 2}

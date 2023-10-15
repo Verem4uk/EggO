@@ -13,9 +13,4 @@ MonoBehaviour:
   m_Name: 64
   m_EditorClassIdentifier: 
   ID: 64
-  IsPractice: 0
-  RussianText: "\u041A\u0430\u043A \u0442\u044B \u043F\u0440\u0438\u0432\u044B\u043A
-    \u0441\u043F\u0440\u0430\u0432\u043B\u044F\u0442\u044C\u0441\u044F \u0441 \u0442\u0440\u0443\u0434\u043D\u044B\u043C\u0438
-    \u0441\u0438\u0442\u0443\u0430\u0446\u0438\u044F\u043C\u0438?"
-  EnglishText: How are you used to dealing with difficult situations?
-  PolishText: Jak radzisz sobie w trudnych sytuacjach?
+  TextTranslation: {fileID: 11400000, guid: 175fc59e601f1c74ea9955ea7f67d008, type: 2}

@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: 72
   m_EditorClassIdentifier: 
   ID: 72
-  IsPractice: 0
-  RussianText: "\u041E\u0446\u0435\u043D\u0438 \u044D\u0442\u043E\u0442 \u0434\u0435\u043D\u044C
-    \u043E\u0442 -10 \u0434\u043E 10, \u043F\u043E\u0447\u0435\u043C\u0443?"
-  EnglishText: Rate this day from -10 to 10, why?
-  PolishText: "Oce\u0144 ten dzie\u0144 od -10 do 10, dlaczego?"
+  TextTranslation: {fileID: 11400000, guid: 03c6f89ea022b344fb6135c2d707d373, type: 2}

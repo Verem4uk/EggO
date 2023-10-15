@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: 44
   m_EditorClassIdentifier: 
   ID: 44
-  IsPractice: 0
-  RussianText: "\u041A\u0442\u043E \u0434\u043B\u044F \u0442\u0435\u0431\u044F \u0430\u0432\u0442\u043E\u0440\u0438\u0442\u0435\u0442
-    \u0438 \u043F\u043E\u0447\u0435\u043C\u0443?"
-  EnglishText: Who is an authority figure for you, and why?
-  PolishText: Kto jest autorytetem dla ciebie i dlaczego?
+  TextTranslation: {fileID: 11400000, guid: d97e2bb46a75c11479ddf1e10e9128cc, type: 2}

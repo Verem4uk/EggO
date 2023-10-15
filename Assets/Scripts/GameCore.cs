@@ -22,6 +22,9 @@ public class GameCore : MonoBehaviour
 
     [SerializeField] 
     private ScreenManager ScreenManager;
+
+    [SerializeField] 
+    private Dropdown Dropdown;
     
     [System.Serializable]
     public struct GameProcessStructure
@@ -38,7 +41,9 @@ public class GameCore : MonoBehaviour
     }
 
     private GameProcessStructure GameProcess;
-    
+
+    private void Start() => Dropdown.value = Saver.Instance.GetLanguageIdentifier();
+
     public void Initialize(string[] players, bool usePractises)
     {
         GameProcess = new GameProcessStructure
@@ -154,10 +159,17 @@ public class GameCore : MonoBehaviour
         Saver.Instance.Clear();
         ScreenManager.SwitchToMainMenu();
     }
-    
+
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+        {
+            Saver.Instance.Save(GameProcess);
+        }
+    }
+
     private void OnApplicationQuit()
     {
-        Debug.LogError("Quit and save");
         Saver.Instance.Save(GameProcess);
     }
 }

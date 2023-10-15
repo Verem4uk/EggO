@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: 31
   m_EditorClassIdentifier: 
   ID: 31
-  IsPractice: 0
-  RussianText: "\u041E \u0447\u0451\u043C \u0431\u043E\u043B\u044C\u0448\u0435 \u0432\u0441\u0435\u0433\u043E
-    \u0436\u0430\u043B\u0435\u0435\u0448\u044C?"
-  EnglishText: What do you regret the most?
-  PolishText: "O czym najbardziej \u017Ca\u0142ujesz?"
+  TextTranslation: {fileID: 11400000, guid: 09d16fd626b959f4e9bfecb02a715c43, type: 2}

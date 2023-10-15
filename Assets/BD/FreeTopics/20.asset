@@ -13,9 +13,4 @@ MonoBehaviour:
   m_Name: 20
   m_EditorClassIdentifier: 
   ID: 20
-  IsPractice: 0
-  RussianText: "\u0420\u0430\u0441\u0441\u043A\u0430\u0436\u0438 \u0441\u044E\u0436\u0435\u0442
-    \u0441\u043D\u0430, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u043D\u0435 \u043C\u043E\u0436\u0435\u0448\u044C
-    \u0437\u0430\u0431\u044B\u0442\u044C"
-  EnglishText: Tell the plot of a dream you can't forget
-  PolishText: "Opowiedz fabu\u0142\u0119 snu, kt\xF3rego nie mo\u017Cesz zapomnie\u0107"
+  TextTranslation: {fileID: 11400000, guid: 32a4763e669986045bbea2ac64a55697, type: 2}

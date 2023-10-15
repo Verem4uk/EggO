@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: 43
   m_EditorClassIdentifier: 
   ID: 43
-  IsPractice: 0
-  RussianText: "\u0427\u0442\u043E \u0442\u0435\u0431\u044F \u043F\u0443\u0433\u0430\u0435\u0442
-    \u0432 \u0437\u0430\u0432\u0442\u0440\u0430\u0448\u043D\u0435\u043C \u0434\u043D\u0435?"
-  EnglishText: What scares you about tomorrow?
-  PolishText: "Co ci\u0119 przera\u017Ca w zwi\u0105zku z jutrem?\r"
+  TextTranslation: {fileID: 11400000, guid: 545fb25af54ce824d9395e633fc14e78, type: 2}

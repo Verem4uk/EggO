@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: 13
   m_EditorClassIdentifier: 
   ID: 13
-  IsPractice: 0
-  RussianText: "\u0417\u0430 \u0447\u0442\u043E \u0442\u044B \u0441\u0435\u0431\u0435
-    \u0431\u043B\u0430\u0433\u043E\u0434\u0430\u0440\u0435\u043D?"
-  EnglishText: What are you grateful to yourself for?
-  PolishText: "Za co jeste\u015B wdzi\u0119czny sobie?"
+  TextTranslation: {fileID: 11400000, guid: 4c07e54209faf42459a5953f91a58b84, type: 2}

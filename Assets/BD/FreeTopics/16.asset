@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: 16
   m_EditorClassIdentifier: 
   ID: 16
-  IsPractice: 0
-  RussianText: "\u041A\u043E\u0433\u043E \u0431\u044B \u0445\u043E\u0442\u0435\u043B\u043E\u0441\u044C
-    \u043F\u043E\u0441\u043B\u0430\u0442\u044C \u0438 \u043F\u043E\u0447\u0435\u043C\u0443?"
-  EnglishText: Whom would you like to send away and why?
-  PolishText: "Kogo chcia\u0142by\u015B odes\u0142a\u0107 i dlaczego?"
+  TextTranslation: {fileID: 11400000, guid: 8e5a0836c4266044283acf7dd1f3a577, type: 2}

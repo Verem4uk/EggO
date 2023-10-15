@@ -13,9 +13,4 @@ MonoBehaviour:
   m_Name: 27
   m_EditorClassIdentifier: 
   ID: 27
-  IsPractice: 0
-  RussianText: "\u0427\u0442\u043E \u0441\u0430\u043C\u043E\u0435 \u043F\u043E\u0441\u0442\u044B\u0434\u043D\u043E\u0435
-    \u0442\u044B \u0434\u0435\u043B\u0430\u043B?"
-  EnglishText: What is the most embarrassing thing you have done?
-  PolishText: "Co jest najbardziej \u017Cenuj\u0105c\u0105 rzecz\u0105, jak\u0105
-    zrobi\u0142e\u015B?"
+  TextTranslation: {fileID: 11400000, guid: 656fce5814b2d35489b990caeb70df66, type: 2}

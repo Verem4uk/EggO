@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: 23
   m_EditorClassIdentifier: 
   ID: 23
-  IsPractice: 0
-  RussianText: "\u041A\u0430\u043A\u0443\u044E \u0442\u0430\u0442\u0443\u0438\u0440\u043E\u0432\u043A\u0443
-    \u043D\u0430\u0431\u0438\u043B \u0431\u044B \u043F\u0440\u044F\u043C\u043E \u0441\u0435\u0439\u0447\u0430\u0441?"
-  EnglishText: What tattoo would you get right now?
-  PolishText: "Jakiego tatua\u017Cu chcia\u0142by\u015B teraz?"
+  TextTranslation: {fileID: 11400000, guid: f59fe8f255d0665479f457032f3a62f5, type: 2}

@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: 01
   m_EditorClassIdentifier: 
   ID: 1
-  IsPractice: 0
-  RussianText: "\u0412 \u0440\u0435\u043A\u043B\u0430\u043C\u0435 \u0447\u0435\u0433\u043E
-    \u0445\u043E\u0442\u0435\u043B \u0431\u044B \u0441\u043D\u044F\u0442\u044C\u0441\u044F?"
-  EnglishText: In what kind of advertisement would you like to appear?
-  PolishText: "W jakim rodzaju reklamy chcia\u0142by\u015B wyst\u0105pi\u0107?"
+  TextTranslation: {fileID: 11400000, guid: daadff1ad79f0974f9cdc855a963ded1, type: 2}

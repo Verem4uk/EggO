@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: 66
   m_EditorClassIdentifier: 
   ID: 66
-  IsPractice: 0
-  RussianText: "\u0427\u0435\u043C \u0431\u044B \u0442\u044B \u0445\u043E\u0442\u0435\u043B
-    \u043F\u0440\u0435\u043A\u0440\u0430\u0442\u0438\u0442\u044C \u0437\u0430\u043D\u0438\u043C\u0430\u0442\u044C\u0441\u044F?"
-  EnglishText: What would you like to stop doing?
-  PolishText: "Co chcia\u0142by\u015B przesta\u0107 robi\u0107?"
+  TextTranslation: {fileID: 11400000, guid: c4f86412208a0a7458855e1b1037637b, type: 2}

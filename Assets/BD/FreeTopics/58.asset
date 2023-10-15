@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: 58
   m_EditorClassIdentifier: 
   ID: 58
-  IsPractice: 0
-  RussianText: "\u041A\u0442\u043E \u0437\u043D\u0430\u0435\u0442 \u0442\u0435\u0431\u044F
-    \u043B\u0443\u0447\u0448\u0435 \u0432\u0441\u0435\u0445?"
-  EnglishText: Who knows you best?
-  PolishText: "Kto zna ci\u0119 najlepiej?"
+  TextTranslation: {fileID: 11400000, guid: edca0dc169fb4a64a9725feef773c842, type: 2}

@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: 37
   m_EditorClassIdentifier: 
   ID: 37
-  IsPractice: 0
-  RussianText: "\u041A\u0430\u043A\u043E\u0439 \u0442\u0432\u043E\u0439 \u0433\u043B\u0430\u0432\u043D\u044B\u0439
-    \u0441\u0442\u0440\u0430\u0445?"
-  EnglishText: What is your biggest fear?
-  PolishText: "Jaki jest tw\xF3j najwi\u0119kszy strach?"
+  TextTranslation: {fileID: 11400000, guid: ca40a20c599143e43868945879bb5760, type: 2}
