@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3b0881c561d3f4492f08ad0a16829b, type: 3}
   m_Name: Translation 39
   m_EditorClassIdentifier: 
-  RussianText: "\u0427\u0442\u043E \u0432 \u044D\u0442\u0443 \u043C\u0438\u043D\u0443\u0442\u0443
-    \u0442\u0435\u0431\u044F \u0431\u043E\u043B\u044C\u0448\u0435 \u0432\u0441\u0435\u0433\u043E
-    \u0442\u0440\u0435\u0432\u043E\u0436\u0438\u0442?"
-  EnglishText: What is worrying you the most right now?
-  PolishText: "Co martwi ci\u0119 najbardziej w tej chwili?"
+  RussianText: "\u0418\u0437-\u0437\u0430 \u0447\u0435\u0433\u043E \u0432 \u0434\u0430\u043D\u043D\u044B\u0439
+    \u043C\u043E\u043C\u0435\u043D\u0442 \u0442\u044B \u0447\u0443\u0432\u0441\u0442\u0432\u0443\u0435\u0448\u044C
+    \u0442\u0440\u0435\u0432\u043E\u0433\u0443?"
+  EnglishText: What is causing you anxiety right now
+  PolishText: "Z powodu czego w tej chwili odczuwasz niepok\xF3j?"

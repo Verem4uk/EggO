@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3b0881c561d3f4492f08ad0a16829b, type: 3}
   m_Name: Translation 1
   m_EditorClassIdentifier: 
-  RussianText: "\u0412 \u0440\u0435\u043A\u043B\u0430\u043C\u0435 \u0447\u0435\u0433\u043E
-    \u0445\u043E\u0442\u0435\u043B \u0431\u044B \u0441\u043D\u044F\u0442\u044C\u0441\u044F?"
-  EnglishText: In what kind of advertisement would you like to appear?
-  PolishText: "W jakim rodzaju reklamy chcia\u0142by\u015B wyst\u0105pi\u0107?"
+  RussianText: "\u0412 \u043A\u0430\u043A\u043E\u0439 \u0440\u0435\u043A\u043B\u0430\u043C\u0435
+    \u0442\u044B \u0431\u044B \u0445\u043E\u0442\u0435\u043B(\u0430) \u0441\u043D\u044F\u0442\u044C\u0441\u044F?"
+  EnglishText: In what type of ad would you prefer to appear?
+  PolishText: "W jakiej reklamie by\u015B chcia\u0142(a) pojawi\u0107?"

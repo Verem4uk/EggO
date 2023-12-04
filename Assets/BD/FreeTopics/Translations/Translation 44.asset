@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3b0881c561d3f4492f08ad0a16829b, type: 3}
   m_Name: Translation 44
   m_EditorClassIdentifier: 
-  RussianText: "\u041A\u0442\u043E \u0434\u043B\u044F \u0442\u0435\u0431\u044F \u0430\u0432\u0442\u043E\u0440\u0438\u0442\u0435\u0442
-    \u0438 \u043F\u043E\u0447\u0435\u043C\u0443?"
+  RussianText: "\u041A\u0442\u043E \u0434\u043B\u044F \u0442\u0435\u0431\u044F \u044F\u0432\u043B\u044F\u0435\u0442\u0441\u044F
+    \u0430\u0432\u0442\u043E\u0440\u0438\u0442\u0435\u0442\u043E\u043C  \u0438 \u043F\u043E\u0447\u0435\u043C\u0443?"
   EnglishText: Who is an authority figure for you, and why?
   PolishText: Kto jest autorytetem dla ciebie i dlaczego?

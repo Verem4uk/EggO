@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Translation 38
   m_EditorClassIdentifier: 
   RussianText: "\u041A\u0430\u043A\u0438\u0435 \u043A\u0430\u0447\u0435\u0441\u0442\u0432\u0430
-    \u0442\u0435\u0431\u0435 \u0431\u044B \u0445\u043E\u0442\u0435\u043B\u043E\u0441\u044C
-    \u043F\u0440\u0438\u043E\u0431\u0440\u0435\u0441\u0442\u0438?"
-  EnglishText: What qualities would you like to acquire?
-  PolishText: "Jakie cechy chcia\u0142by\u015B zdoby\u0107?"
+    \u0445\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0430 \u0442\u044B \u0431\u044B
+    \u0445\u043E\u0442\u0435\u043B(\u0430) \u043F\u0440\u0438\u043E\u0431\u0440\u0435\u0441\u0442\u0438?"
+  EnglishText: What qualities of character would you like to gain?
+  PolishText: "Jakie cechy charakteru chcesz zdoby\u0107?"
