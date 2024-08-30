@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3b0881c561d3f4492f08ad0a16829b, type: 3}
   m_Name: Translation 41
   m_EditorClassIdentifier: 
-  RussianText: "\u041E \u0447\u0451\u043C \u043E\u0431\u044B\u0447\u043D\u043E \u0432\u0440\u0435\u0448\u044C
-    \u0434\u0440\u0443\u0433\u0438\u043C \u043B\u044E\u0434\u044F\u043C?"
+  RussianText: "\u041E \u0447\u0451\u043C \u043E\u0431\u044B\u0447\u043D\u043E \u0432\u044B
+    \u0432\u0440\u0435\u0442\u0435 \u0434\u0440\u0443\u0433\u0438\u043C \u043B\u044E\u0434\u044F\u043C?"
   EnglishText: What do you usually lie to other people about?
   PolishText: "O czym zazwyczaj k\u0142amiesz innym osobom?"

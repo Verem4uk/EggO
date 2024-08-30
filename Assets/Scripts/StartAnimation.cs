@@ -1,5 +1,4 @@
 using System.Collections;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,7 +38,7 @@ public class StartAnimation : MonoBehaviour
     private float IncrementScale;
     private bool InAnimation;
     private Vector2 OriginalScale;
-
+/*
     private void Start()
     {
         if (AutoClick)
@@ -66,7 +65,7 @@ public class StartAnimation : MonoBehaviour
         }
         Animate();
     }
-
+/*
     private void Animate()
     {
         var bigOffset = 1 + (ScaleMultiple + PowerOfImpuls) / 100;
@@ -93,4 +92,5 @@ public class StartAnimation : MonoBehaviour
             Click();
         }
     }
+    */
 }

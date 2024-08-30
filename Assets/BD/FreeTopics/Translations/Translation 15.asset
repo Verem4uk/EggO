@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Translation 15
   m_EditorClassIdentifier: 
   RussianText: "\u0427\u0442\u043E \u043C\u043E\u0436\u0435\u0442 \u043F\u043E\u0434\u043D\u044F\u0442\u044C
-    \u0442\u0432\u043E\u0451 \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u0435
+    \u0432\u0430\u0448\u0435 \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u0435
     \u0441\u0435\u0433\u043E\u0434\u043D\u044F?"
   EnglishText: What can lift your mood today?
   PolishText: "Co mo\u017Ce poprawi\u0107 tw\xF3j nastr\xF3j dzisiaj?"

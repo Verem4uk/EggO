@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3b0881c561d3f4492f08ad0a16829b, type: 3}
   m_Name: Translation 10
   m_EditorClassIdentifier: 
-  RussianText: "\u041A\u0430\u043A\u043E\u0439 \u0434\u0435\u043D\u044C \u0442\u044B
-    \u0445\u043E\u0447\u0435\u0448\u044C \u043F\u0440\u043E\u0436\u0438\u0442\u044C
-    \u0435\u0449\u0451 \u0440\u0430\u0437?"
+  RussianText: "\u041A\u0430\u043A\u043E\u0439 \u0434\u0435\u043D\u044C \u0432\u044B
+    \u0431\u044B \u043F\u0440\u043E\u0436\u0438\u043B\u0438 \u0435\u0449\u0451 \u0440\u0430\u0437?"
   EnglishText: Which day would you like to relive?
   PolishText: "Kt\xF3ry dzie\u0144 chcia\u0142by\u015B prze\u017Cy\u0107 jeszcze
     raz?"

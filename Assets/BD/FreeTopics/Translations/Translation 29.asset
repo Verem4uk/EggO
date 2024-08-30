@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3b0881c561d3f4492f08ad0a16829b, type: 3}
   m_Name: Translation 29
   m_EditorClassIdentifier: 
-  RussianText: "\u041D\u0430\u0437\u043E\u0432\u0438 \u0436\u0438\u0432\u043E\u0442\u043D\u043E\u0435,
+  RussianText: "\u041D\u0430\u0437\u043E\u0432\u0438\u0442\u0435 \u0436\u0438\u0432\u043E\u0442\u043D\u043E\u0435,
     \u043A\u043E\u0442\u043E\u0440\u043E\u0435 \u0431\u043E\u043B\u044C\u0448\u0435
-    \u0432\u0441\u0435\u0433\u043E \u043D\u0430 \u0442\u0435\u0431\u044F \u043F\u043E\u0445\u043E\u0436\u0435"
+    \u0432\u0441\u0435\u0433\u043E \u043D\u0430 \u0432\u0430\u0441 \u043F\u043E\u0445\u043E\u0436\u0435."
   EnglishText: Name an animal that is most similar to you
   PolishText: "Podaj zwierz\u0119, kt\xF3re jest najbardziej podobne do ciebie"
