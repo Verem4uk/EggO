@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Blocker
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Particles Sorting
+    uniqueID: 884205535
+    locked: 0
+  - name: Interactable UI
+    uniqueID: 2989551591
     locked: 0
