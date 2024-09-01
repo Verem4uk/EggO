@@ -2,35 +2,19 @@ using UnityEngine;
 
 public class Saver
 {
-    private static Saver instance;
-    private Saver() { }
-
-    public static Saver Instance => instance ??= new Saver();
-
-    public void UpdateLanguage(int value) => PlayerPrefs.SetInt("LanguageIdentifier", value);
+    public void SetLanguage(int value) => PlayerPrefs.SetInt("LanguageIdentifier", value);
 
     public int GetLanguageIdentifier() => PlayerPrefs.GetInt("LanguageIdentifier");
     
-    public bool HasUnfinishedSession() => PlayerPrefs.GetInt("HasUnfinishedSession", 0) == 1;
-    
-    public void Save(GameCore.GameProcessStructure gameParameters)
+    public void Save(Session.SessionData sessionData)
     {
-        PlayerPrefs.SetString("GameParameters", JsonUtility.ToJson(gameParameters));
-        PlayerPrefs.SetInt("HasUnfinishedSession", 1);
+        PlayerPrefs.SetString("Session", JsonUtility.ToJson(sessionData));
         PlayerPrefs.Save();
     }
 
-    public GameCore.GameProcessStructure Load()
+    public Session.SessionData Load()
     {
-        string jsonString = PlayerPrefs.GetString("GameParameters", "");
-        return !string.IsNullOrEmpty(jsonString) ? 
-            JsonUtility.FromJson<GameCore.GameProcessStructure>(jsonString) : 
-            new GameCore.GameProcessStructure();
-    }
-
-    public void Clear()
-    {
-        PlayerPrefs.SetInt("HasUnfinishedSession", 0);
-        PlayerPrefs.Save();
+        string jsonString = PlayerPrefs.GetString("Session", "");
+        return !string.IsNullOrEmpty(jsonString) ? JsonUtility.FromJson<Session.SessionData>(jsonString) : new Session.SessionData();
     }
 }
