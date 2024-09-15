@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Question", menuName = "SO/Question")]
 public class Question : ScriptableObject
 {
-    public string GetID() => name;
+    public int GetID() => int.Parse(name);
     [SerializeField, TextAreaAttribute]
     public string RussianText;
     

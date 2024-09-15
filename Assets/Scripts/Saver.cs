@@ -15,6 +15,6 @@ public class Saver
     public Session.SessionData Load()
     {
         string jsonString = PlayerPrefs.GetString("Session", "");
-        return !string.IsNullOrEmpty(jsonString) ? JsonUtility.FromJson<Session.SessionData>(jsonString) : new Session.SessionData();
+        return !string.IsNullOrEmpty(jsonString) ? JsonUtility.FromJson<Session.SessionData>(jsonString) : new Session.SessionData(0);
     }
 }

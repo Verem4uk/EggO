@@ -8,13 +8,13 @@ public class QuestionsPack : ScriptableObject
     [SerializeField]
     public List<Question> Questions;
 
-    public List<int> GetIndexes() => Questions.Select(question => question.GetInstanceID()).ToList();
+    public List<int> GetIndexes() => Questions.Select(question => question.GetID()).ToList();
 
     public Question GetQuestionByID(int id)
     {
         foreach (var question in Questions)
         {
-            if (question.GetID() == id.ToString())
+            if (question.GetID() == id)
             {
                 return question;
             }

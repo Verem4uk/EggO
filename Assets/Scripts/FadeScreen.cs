@@ -4,9 +4,20 @@ using UnityEngine.UI;
 
 public class FadeScreen : MonoBehaviour
 {
+    [SerializeField] private Image BlackScreen;
+
     private void Start()
     {
-        DOTween.Sequence().Append(gameObject.GetComponent<Image>().DOFade(0, .8f))
-            .OnComplete(() => Destroy(gameObject));
+        FadeIn();
+    }
+
+    public void FadeIn()
+    {
+        DOTween.Sequence().Append(BlackScreen.DOFade(0, .8f));
+    }
+
+    public void FadeOut()
+    {
+        DOTween.Sequence().Append(BlackScreen.DOFade(1, .8f));
     }
 }

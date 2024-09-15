@@ -9,6 +9,12 @@ public class Session
     {
         public int CurrentQuestionIndex;
         public List<int> UsedIndexes;
+        
+        public SessionData(int currentQuestionIndex)
+        {
+            CurrentQuestionIndex = currentQuestionIndex;
+            UsedIndexes = new List<int>();
+        }
     }
 
     public SessionData Data { private set; get; }

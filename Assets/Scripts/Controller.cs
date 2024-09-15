@@ -17,6 +17,7 @@ public class Controller : MonoBehaviour
     {
         MainMenuView.SetActive(false);
         SessionView.gameObject.SetActive(true);
+        SessionView.Initialize(Root.CurrentSession, UnfinishedSession);
     }
 
     public void BackToMenu()
