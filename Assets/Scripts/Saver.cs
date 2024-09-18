@@ -14,7 +14,16 @@ public class Saver
 
     public Session.SessionData Load()
     {
+        return new Session.SessionData((0, 0));
+        /*
         string jsonString = PlayerPrefs.GetString("Session", "");
-        return !string.IsNullOrEmpty(jsonString) ? JsonUtility.FromJson<Session.SessionData>(jsonString) : new Session.SessionData(0);
+        return !string.IsNullOrEmpty(jsonString)
+            ? JsonUtility.FromJson<Session.SessionData>(jsonString) : new Session.SessionData((0, 0));
+        */
+    }
+
+    public void Clear()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }

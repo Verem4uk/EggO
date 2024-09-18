@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class FadeScreen : MonoBehaviour
 {
-    [SerializeField] private Image BlackScreen;
+    [SerializeField] 
+    private Image BlackScreen;
 
     private void Start()
     {
@@ -19,5 +20,6 @@ public class FadeScreen : MonoBehaviour
     public void FadeOut()
     {
         DOTween.Sequence().Append(BlackScreen.DOFade(1, .8f));
+        Application.Quit();
     }
 }

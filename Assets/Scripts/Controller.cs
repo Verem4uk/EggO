@@ -4,6 +4,15 @@ public class Controller : MonoBehaviour
 {
     [SerializeField]
     public QuestionsPack BaseQuestions;
+
+    [SerializeField] 
+    public ImagesQuestionsPack ImagesQuestions;
+
+    [SerializeField] 
+    private int ImageProbability = 5;
+
+    [SerializeField] 
+    private Question LastQuestion;
     
     [SerializeField] 
     private SessionView SessionView;
@@ -29,7 +38,7 @@ public class Controller : MonoBehaviour
     //Entry Point
     private void Start()
     {
-        Root.Initialize(BaseQuestions);
+        Root.Initialize(BaseQuestions, ImagesQuestions, LastQuestion, ImageProbability);
         if (UnfinishedSession)
         {
             Play();

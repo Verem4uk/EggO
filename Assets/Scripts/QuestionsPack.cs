@@ -10,17 +10,5 @@ public class QuestionsPack : ScriptableObject
 
     public List<int> GetIndexes() => Questions.Select(question => question.GetID()).ToList();
 
-    public Question GetQuestionByID(int id)
-    {
-        foreach (var question in Questions)
-        {
-            if (question.GetID() == id)
-            {
-                return question;
-            }
-        }
-        
-        Debug.LogError("There is no an element with ID: "+id);
-        return null;
-    }
+    public IQuestion GetQuestionByID(int id) => Questions.FirstOrDefault(question => question.GetID() == id);
 }

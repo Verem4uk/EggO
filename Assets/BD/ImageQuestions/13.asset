@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0052b04843232d64a83324eb22215a2d, type: 3}
-  m_Name: ParentsAndChildrensPack
+  m_Script: {fileID: 11500000, guid: 9ca9b781e1de8c342885434285044450, type: 3}
+  m_Name: 13
   m_EditorClassIdentifier: 
-  Questions: []
+  Question: {fileID: 11400000, guid: 8578758176bed9d49aa338f05f902bcb, type: 2}
+  Image: {fileID: 21300000, guid: eda230ca8acdd0842893398b6e9fed63, type: 3}
