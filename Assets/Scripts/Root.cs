@@ -1,28 +1,25 @@
-using System.Collections.Generic;
-using UnityEngine;
-
 public static class Root
 {
-    public static Saver Saver { private set; get; }
-    public static QuestionsPack BaseQuestions { private set; get; }
-    public static ImagesQuestionsPack ImagesQuestions { private set; get; }
+    private static Saver Saver;
+    public static QuestionSet Questions { private set; get; }
     public static Session CurrentSession { private set; get; }
-    
-    public static Question LastQuestion { private set; get; }
 
-    public static void Initialize(QuestionsPack questions, ImagesQuestionsPack imagesQuestions, Question lastQuestion,
-        int imageProbability)
+    public static void Initialize(QuestionSet questions)
     {
-        BaseQuestions = questions;
-        ImagesQuestions = imagesQuestions;
-        LastQuestion = lastQuestion;
         Saver = new Saver();
-        //Saver.Clear();
-        CurrentSession = new Session(Saver.Load(), BaseQuestions.GetIndexes(), ImagesQuestions.GetIndexes(), imageProbability);
-        if (CurrentSession != null)
-        {
-            Debug.Log("Session is not null");
-        }
+        //Saver.Clear(); //For clear playerPrefs
+        Questions = questions;
+        CurrentSession = new Session(Saver.Load());
+    }
+
+    public static int GetLanguageIndex()
+    {
+        return Saver.GetLanguageIdentifier();
+    }
+
+    public static void ChangeLanguage(int index)
+    {
+        Saver.SetLanguage(index);
     }
     
     public static void Save()

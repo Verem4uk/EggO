@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: 75
   m_EditorClassIdentifier: 
   RussianText: "\u041A\u0430\u043A\u0438\u043C \u0432\u044B \u0432\u0438\u0434\u0438\u0442\u0435
-    \u0441\u0435\u0431\u044F \u0447\u0435\u0440\u0435\u0437 5 \u043B\u0435\u0442? "
-  EnglishText: How do you see yourself in 5 years? What are you doing and what do
-    you think will be with you?
-  PolishText: "Jak widzisz siebie za 5 lat? Co robisz i jak my\u015Blisz, co b\u0119dzie
-    z tob\u0105?"
+    \u0441\u0435\u0431\u044F \u0447\u0435\u0440\u0435\u0437 5 \u043B\u0435\u0442?
+    \u0427\u0435\u043C \u0432\u044B \u0437\u0430\u043D\u0438\u043C\u0430\u0435\u0442\u0435\u0441\u044C?"
+  EnglishText: How do you see yourself in 5 years? What do you do?
+  PolishText: "Jak widzisz siebie za 5 lat? Czym si\u0119 zajmujesz?"

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RussianText: "\u0425\u043E\u0442\u0435\u043B\u0438 \u0431\u044B \u0432\u044B \u0436\u0438\u0442\u044C
     \u0432\u0435\u0447\u043D\u043E?"
-  EnglishText: 
-  PolishText: 
+  EnglishText: Would you like to live forever?
+  PolishText: "Czy chcia\u0142by\u015B \u017Cy\u0107 wiecznie?"

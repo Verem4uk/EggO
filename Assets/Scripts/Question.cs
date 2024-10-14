@@ -4,7 +4,17 @@ using UnityEngine;
 public class Question : ScriptableObject, IQuestion
 {
     public int GetID() => int.Parse(name);
-    public string GetText() => RussianText;
+
+    public string GetText()
+    {
+        var languageIndex = Root.GetLanguageIndex();
+        return languageIndex switch
+        {
+            1 => PolishText,
+            2 => RussianText,
+            _ => EnglishText
+        };
+    }
     
     [SerializeField, TextAreaAttribute]
     public string RussianText;

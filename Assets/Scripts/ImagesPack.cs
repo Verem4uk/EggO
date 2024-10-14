@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ImageQuestionCategory", menuName = "SO/ImageQuestionCategory")]
-public class ImagesQuestionsPack : ScriptableObject
+[CreateAssetMenu(fileName = "ImagesPack", menuName = "SO/ImagesPack")]
+public class ImagesPack : ScriptableObject
 {
     [SerializeField]
     public List<ImageQuestion> Questions;

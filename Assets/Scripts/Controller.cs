@@ -2,17 +2,8 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
-    [SerializeField]
-    public QuestionsPack BaseQuestions;
-
     [SerializeField] 
-    public ImagesQuestionsPack ImagesQuestions;
-
-    [SerializeField] 
-    private int ImageProbability = 5;
-
-    [SerializeField] 
-    private Question LastQuestion;
+    private QuestionSet QuestionSet;
     
     [SerializeField] 
     private SessionView SessionView;
@@ -20,13 +11,11 @@ public class Controller : MonoBehaviour
     [SerializeField] 
     private GameObject MainMenuView;
 
-    private bool UnfinishedSession;
-
     public void Play()
     {
         MainMenuView.SetActive(false);
         SessionView.gameObject.SetActive(true);
-        SessionView.Initialize(Root.CurrentSession, UnfinishedSession);
+        SessionView.Initialize(Root.CurrentSession);
     }
 
     public void BackToMenu()
@@ -35,27 +24,25 @@ public class Controller : MonoBehaviour
         MainMenuView.SetActive(true);
     }
 
+    public void SwitchLanguage(int index)
+    {
+        Root.ChangeLanguage(index);
+        SessionView.ChangeLanguage();
+    }
+
     //Entry Point
     private void Start()
     {
-        Root.Initialize(BaseQuestions, ImagesQuestions, LastQuestion, ImageProbability);
-        if (UnfinishedSession)
-        {
-            Play();
-        }
+        Root.Initialize(QuestionSet);
     }
-
+    
     //Exit Point
     private void OnApplicationPause(bool pauseStatus)
     {
         if (pauseStatus)
         {
+            Debug.Log("Data was saved");
             Root.Save();
-            UnfinishedSession = true;
-        }
-        else
-        {
-            UnfinishedSession = false;
         }
     }
 }

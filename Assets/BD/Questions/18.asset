@@ -17,5 +17,6 @@ MonoBehaviour:
     \u0441\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435 \u043E\u0442 0 \u0434\u043E
     10. \u041F\u043E\u0447\u0435\u043C\u0443 \u0432\u044B \u043F\u043E\u0441\u0442\u0430\u0432\u0438\u043B\u0438
     \u0442\u0430\u043A\u0443\u044E \u043E\u0446\u0435\u043D\u043A\u0443?"
-  EnglishText: Rate your emotional state from 0 to 10
-  PolishText: "Oce\u0144 sw\xF3j stan emocjonalny od 0 do 10"
+  EnglishText: Rate your emotional state from 0 to 10. Why did you give this rating?
+  PolishText: "Oce\u0144 sw\xF3j stan emocjonalny od 0 do 10. Dlaczego poda\u0142e\u015B
+    t\u0119 ocen\u0119?"

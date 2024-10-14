@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "QuestionCategory", menuName = "SO/QuestionCategory")]
 public class QuestionsPack : ScriptableObject
 {
+    [SerializeField] 
+    public int PackID;
+    
     [SerializeField]
     public List<Question> Questions;
 

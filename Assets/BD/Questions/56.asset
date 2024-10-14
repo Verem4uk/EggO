@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 56
   m_EditorClassIdentifier: 
   RussianText: "\u0417\u0430\u043A\u043E\u043D\u0447\u0438\u0442\u0435 \u0444\u0440\u0430\u0437\u0443:
-    \"\u042F \u043B\u0443\u0447\u0448\u0435 \u0432\u0441\u0435\u0433\u043E ...\""
-  EnglishText: Finish the sentence, "The best way I..."
-  PolishText: "Doko\u0144cz zdanie: \"Najlepsz\u0105 rzecz\u0105 ja...\"."
+    \"\u042F \u043B\u0443\u0447\u0448\u0435 \u0432\u0441\u0435\u0433\u043E \u0443\u043C\u0435\u044E...\""
+  EnglishText: "Finish the sentence, \u201CMy best skill is...\u201D"
+  PolishText: "Doko\u0144cz zdanie: \u201EJestem najlepszy w...\u201D."

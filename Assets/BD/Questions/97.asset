@@ -15,5 +15,6 @@ MonoBehaviour:
   RussianText: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u0435 \u044D\u0442\u0443
     \u0444\u0440\u0430\u0437\u0443: \xAB\u041C\u043D\u0435 \u0431\u044B \u0445\u043E\u0442\u0435\u043B\u043E\u0441\u044C
     \u0440\u0430\u0437\u0434\u0435\u043B\u0438\u0442\u044C \u0441 \u043A\u0435\u043C-\u043D\u0438\u0431\u0443\u0434\u044C...\xBB."
-  EnglishText: 
-  PolishText: 
+  EnglishText: "Continue this sentence, \u201CI would like to share with someone...\u201D."
+  PolishText: "Kontynuuj to zdanie: \u201EChcia\u0142bym podzieli\u0107 si\u0119
+    z kim\u015B...\u201D."

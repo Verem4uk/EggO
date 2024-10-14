@@ -18,30 +18,42 @@ public class SessionView : MonoBehaviour
     [SerializeField] 
     private GameObject TrueExitButton;
 
-    [SerializeField] 
-    private Dropdown LanguageDropdown;
-
     private Session Session;
+    private bool InsideImageQuestion;
+
+    private IQuestion CurrentQuestion;
     
-    public void Initialize(Session session, bool pausedSession)
+    public void Initialize(Session session)
     {
         Session = session;
-        if (session == null)
-        {
-            Debug.Log("Session is null");
-        }
-        CurrentQuestionText.text = pausedSession ? 
-            session.GetCurrentQuestion().GetText() : session.GetRandomQuestion().GetText();
+        CurrentQuestion = session.GetRandomQuestion();
+        CurrentQuestionText.text = CurrentQuestion.GetText();
+    }
+
+    public void ChangeLanguage()
+    {
+        CurrentQuestionText.text = CurrentQuestion.GetText();
     }
         
     public void Next()
     {
-        var newQuestion = Session.GetRandomQuestion();
-        CurrentQuestionText.text = newQuestion.GetText();
-        if (newQuestion is IImageQuestion imageQuestion)
+        if (InsideImageQuestion)
+        {
+            InsideImageQuestion = false;
+            ImageHolder.gameObject.SetActive(true);
+            CurrentQuestion = Root.Questions.QuestionAfterImage;
+            CurrentQuestionText.text = CurrentQuestion.GetText();
+            return;
+        }
+        
+        CurrentQuestion = Session.GetRandomQuestion();
+        CurrentQuestionText.text = CurrentQuestion.GetText();
+        
+        if (CurrentQuestion is IImageQuestion imageQuestion)
         {
             ImageHolder.sprite = imageQuestion.GetImage();
-            ImageHolder.gameObject.SetActive(true);
+            CurrentQuestionText.text = imageQuestion.GetText();
+            InsideImageQuestion = true;
             return;
         }
         ImageHolder.gameObject.SetActive(false);
@@ -50,7 +62,8 @@ public class SessionView : MonoBehaviour
     public void Exit()
     {
         ImageHolder.gameObject.SetActive(false);
-        CurrentQuestionText.text = Root.LastQuestion.GetText();
+        CurrentQuestion = Root.Questions.LastQuestionInSession;
+        CurrentQuestionText.text = CurrentQuestion.GetText();
         NextButton.gameObject.SetActive(false);
         ExitButton.gameObject.SetActive(false);
         TrueExitButton.gameObject.SetActive(true);

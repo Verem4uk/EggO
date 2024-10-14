@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RussianText: "\u041D\u0430 \u043A\u043E\u0433\u043E \u0432\u044B \u0437\u043B\u0438\u0442\u0435\u0441\u044C
     \u0438 \u043F\u043E\u0447\u0435\u043C\u0443?"
-  EnglishText: Whom would you like to send away and why?
-  PolishText: "Kogo chcia\u0142by\u015B odes\u0142a\u0107 i dlaczego?"
+  EnglishText: Who are you angry at and why?
+  PolishText: "Na kogo si\u0119 gniewasz i dlaczego?"

@@ -15,6 +15,7 @@ public class TranslatableText : MonoBehaviour
     [SerializeField, TextAreaAttribute]
     public string RussianText;
 
+    /*
     public void ApplyLanguage()
     {
         var currentLanguage =  Root.Saver.GetLanguageIdentifier();
@@ -25,4 +26,5 @@ public class TranslatableText : MonoBehaviour
             _ => EnglishText
         };
     }
+    */
 }

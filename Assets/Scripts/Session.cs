@@ -7,18 +7,7 @@ public class Session
     [System.Serializable]
     public struct SessionData
     {
-        public (int, int) CurrentQuestionIndex;
         public Dictionary<int, List<int>> UsedIndexes;
-        
-        public SessionData((int, int) currentQuestionIndex)
-        {
-            CurrentQuestionIndex = currentQuestionIndex;
-            UsedIndexes = new Dictionary<int, List<int>>
-            {
-                [0] = new List<int>(),
-                [1] = new List<int>()
-            };
-        }
     }
 
     public SessionData Data { private set; get; }
@@ -28,21 +17,25 @@ public class Session
 
     private int NoImageCounter;
     
-    public Session(SessionData data, List<int> baseQuestionsIndexes, List<int> imagesQuestionsIndexes, int imageProbability)
+    public Session(SessionData data)
     {
-        Data = data;
-        AvailableQuestionsIndexes = baseQuestionsIndexes.Except(data.UsedIndexes[0]).ToList();
-        AvailableImagesQuestionsIndexes = imagesQuestionsIndexes.Except(data.UsedIndexes[1]).ToList();
-        ImageProbability = imageProbability;
-        CheckBaseRestIndexes();
-    }
+        ImageProbability = Root.Questions.ImageProbability;
+        
+        if (data.UsedIndexes == null)
+        {
+            data.UsedIndexes = new Dictionary<int, List<int>>();
+            data.UsedIndexes.Add(0, new List<int>());
+            data.UsedIndexes.Add(1, new List<int>());
+        }
 
-    public IQuestion GetCurrentQuestion()
-    {
-        Debug.Log("GetCurrentSession");
-        return Data.CurrentQuestionIndex.Item1 == 0 ? 
-            Root.BaseQuestions.GetQuestionByID(AvailableQuestionsIndexes[Data.CurrentQuestionIndex.Item2]) : 
-            Root.ImagesQuestions.GetQuestionByID(AvailableImagesQuestionsIndexes[Data.CurrentQuestionIndex.Item2]);
+        Data = data;
+        var allBaseIndexes = Root.Questions.FreeQuestionsPack.GetIndexes();
+        AvailableQuestionsIndexes = allBaseIndexes.Except(data.UsedIndexes[0]).ToList();
+        CheckBaseRestIndexes();
+        
+        var allImageIndexes = Root.Questions.FreeImagesPack.GetIndexes();
+        AvailableImagesQuestionsIndexes = allImageIndexes.Except(data.UsedIndexes[1]).ToList();
+        CheckImageRestIndexes();
     }
     
     public IQuestion GetRandomQuestion()
@@ -58,26 +51,24 @@ public class Session
         
             Data.UsedIndexes[0].Add(newUsedIndex);
             var updatedData = Data;
-            updatedData.CurrentQuestionIndex = (0, newUsedIndex);
             Data = updatedData;
         
             CheckBaseRestIndexes();
-            return Root.BaseQuestions.GetQuestionByID(newUsedIndex);
+            return Root.Questions.FreeQuestionsPack.GetQuestionByID(newUsedIndex);
         }
 
         NoImageCounter = 0;
         
         var randomImageNumber = Random.Range(0, AvailableImagesQuestionsIndexes.Count);
         var newImageUsedIndex = AvailableImagesQuestionsIndexes[randomImageNumber];
-        AvailableQuestionsIndexes.Remove(newImageUsedIndex);
+        AvailableImagesQuestionsIndexes.Remove(newImageUsedIndex);
         
         Data.UsedIndexes[1].Add(newImageUsedIndex);
         var updatedImageData = Data;
-        updatedImageData.CurrentQuestionIndex = (1, newImageUsedIndex);
         Data = updatedImageData;
 
         CheckImageRestIndexes();
-        return Root.ImagesQuestions.GetQuestionByID(newImageUsedIndex);
+        return Root.Questions.FreeImagesPack.GetQuestionByID(newImageUsedIndex);
     }
 
     private void CheckBaseRestIndexes()
@@ -85,7 +76,7 @@ public class Session
         if (AvailableQuestionsIndexes.Count == 0)
         {
             Data.UsedIndexes[0].Clear();
-            AvailableQuestionsIndexes = Root.BaseQuestions.GetIndexes();
+            AvailableQuestionsIndexes = Root.Questions.FreeQuestionsPack.GetIndexes();
         }
     }
     
@@ -94,7 +85,7 @@ public class Session
         if (AvailableImagesQuestionsIndexes.Count == 0)
         {
             Data.UsedIndexes[1].Clear();
-            AvailableImagesQuestionsIndexes = Root.ImagesQuestions.GetIndexes();
+            AvailableImagesQuestionsIndexes = Root.Questions.FreeImagesPack.GetIndexes();
         }
     }
 }
