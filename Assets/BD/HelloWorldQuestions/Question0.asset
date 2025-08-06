@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff3b0881c561d3f4492f08ad0a16829b, type: 3}
+  m_Name: Question0
+  m_EditorClassIdentifier: 
+  RussianText: "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0442\u0435\u0441\u044C
+    (\u0438\u043C\u044F, \u0447\u0435\u043C \u0437\u0430\u043D\u0438\u043C\u0430\u0435\u0442\u0435\u0441\u044C,
+    + \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u043D\u044B\u0439 \u0444\u0430\u043A\u0442)
+    (\u043A\u0430\u0436\u0434\u044B\u0439 \u0438\u0433\u0440\u043E\u043A)."
+  EnglishText: 'Please introduce yourself: your name, what you do, and an interesting
+    fact about you (each player).'
+  PolishText: "Prosz\u0119 si\u0119 przedstawi\u0107: imi\u0119, czym si\u0119 Pa\u0144stwo
+    zajmuj\u0105 oraz ciekawostka o sobie (ka\u017Cdy gracz)."

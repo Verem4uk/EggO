@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca9b781e1de8c342885434285044450, type: 3}
+  m_Name: ImageQuestion0
+  m_EditorClassIdentifier: 
+  RussianText: "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u044C\u0442\u0435,
+    \u0447\u0442\u043E \u0432\u044B \u043D\u0430\u0445\u043E\u0434\u0438\u0442\u0435\u043B\u044C\u0441\u044F
+    \u0432 \u043B\u0435\u0441\u0443. \u041E\u043F\u0438\u0448\u0438\u0442\u0435 \u043B\u0435\u0441
+    \u0438 \u0440\u0430\u0441\u0441\u043A\u0430\u0436\u0438\u0442\u0435 \u0447\u0442\u043E
+    \u0432\u044B \u0447\u0443\u0432\u0441\u0442\u0432\u0443\u0435\u0442\u0435. \u0412\u044B
+    \u0438\u0434\u0435\u0442\u0435 \u0441\u0430\u043C\u0438 \u0438\u043B\u0438 \u0441
+    \u043A\u0435\u043C-\u0442\u043E?"
+  EnglishText: Imagine that you are in a forest. Describe the forest and share what
+    you feel. Are you walking alone or with someone?
+  PolishText: "Prosz\u0119 wyobrazi\u0107 sobie, \u017Ce znajduj\u0105 si\u0119 Pa\u0144stwo
+    w lesie. Prosz\u0119 opisa\u0107 ten las i powiedzie\u0107, co Pa\u0144stwo czuj\u0105.
+    Czy id\u0105 Pa\u0144stwo sami, czy z kim\u015B?"
+  Image: {fileID: -1343518637512107228, guid: 2d66549af365fcd4aacdad7656b24801, type: 3}
