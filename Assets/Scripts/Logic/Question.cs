@@ -2,9 +2,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Question", menuName = "SO/Question")]
 public class Question : ScriptableObject, IQuestion
-{
-    public int GetID() => int.Parse(name);
-
+{  
     public string GetText()
     {
         var languageIndex = Root.GetLanguageIndex();

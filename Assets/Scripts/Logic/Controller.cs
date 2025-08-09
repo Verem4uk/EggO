@@ -8,24 +8,26 @@ public class Controller : MonoBehaviour
     
     [SerializeField] 
     private SessionView SessionView;
-    
+
+    [SerializeField]
+    private RoadMapScreen RoadMap;
+
     [SerializeField] 
     private CanvasGroup MainMenuView;
     
     [SerializeField]
     private ColorChanger Background;
-
-    public void Play()
+        
+    public void OpenRoadMap()
     {
         StartCoroutine(FadeOutAndSwitch());
     }
-
-    private IEnumerator FadeOutAndSwitch()
+    public void PlaySession()
     {
-        Background.ToggleColor();
-
-        yield return new WaitForSeconds(0.5f);
-
+        StartCoroutine(PlayAfterHide());
+    }    
+    private IEnumerator FadeOutAndSwitch()
+    {        
         float duration = 0.5f; 
         float time = 0f;
 
@@ -37,16 +39,30 @@ public class Controller : MonoBehaviour
             yield return null;
         }
 
+        Background.ToggleColor(Color.white);
+
+        yield return new WaitForSeconds(0.5f);
+
         MainMenuView.alpha = 0f;
-        MainMenuView.gameObject.SetActive(false); 
+        MainMenuView.gameObject.SetActive(false);
+        RoadMap.gameObject.SetActive(true);        
+    }
+    private IEnumerator PlayAfterHide()
+    {
+        yield return StartCoroutine(routine: RoadMap.HideSequence());
+        Background.ToggleColor();
+        yield return new WaitForSeconds(0.5f);
+        RoadMap.gameObject.SetActive(false);
         SessionView.gameObject.SetActive(true);
         SessionView.Initialize(Root.CurrentSession);
     }
 
     public void BackToMenu()
     {
+        RoadMap.gameObject.SetActive(false);
         SessionView.gameObject.SetActive(false);
         MainMenuView.gameObject.SetActive(true);
+        MainMenuView.alpha = 1;
     }
         
     public void SwitchLanguage(int index)
@@ -70,14 +86,14 @@ public class Controller : MonoBehaviour
         if (pauseStatus)
         {
             Debug.Log("Data was saved");
-            Root.Save();
+            //Root.Save();
         }
     }
 
     private void OnApplicationQuit()
     {
         Debug.Log("Data was saved");
-        Root.Save();
+        //Root.Save();
     }
 }
 

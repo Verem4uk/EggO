@@ -3,9 +3,10 @@ using Newtonsoft.Json;
 
 public class Saver
 {
-    public void SetLanguage(int value) => PlayerPrefs.SetInt("LanguageIdentifier", value);
+    private int languageIndex;
+    public void SetLanguage(int value) => languageIndex = value;//PlayerPrefs.SetInt("LanguageIdentifier", value);
 
-    public int GetLanguageIdentifier() => PlayerPrefs.GetInt("LanguageIdentifier");
+    public int GetLanguageIdentifier() => languageIndex;// PlayerPrefs.GetInt("LanguageIdentifier");
     
     public void Save(Session.SaveData sessionData)
     {

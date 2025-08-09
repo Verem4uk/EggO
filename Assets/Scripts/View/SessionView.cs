@@ -37,24 +37,19 @@ public class SessionView : MonoBehaviour
     public void Next()
     {               
         CurrentQuestion = Session.GetQuestion();
+        if(CurrentQuestion == null)
+        {
+            ExitButton.GetComponent<Button>().onClick.Invoke();
+            return;
+        }
         CurrentQuestionText.text = CurrentQuestion.GetText();
         
         if (CurrentQuestion.HasImage())
         {
             ImageHolder.sprite = CurrentQuestion.GetImage();
-            CurrentQuestionText.text = CurrentQuestion.GetText();
+            ImageHolder.gameObject.SetActive(true);
             return;
         }
         ImageHolder.gameObject.SetActive(false);
-    }
-
-    public void Exit()
-    {
-        ImageHolder.gameObject.SetActive(false);
-        CurrentQuestionText.text = CurrentQuestion.GetText();
-        NextButton.gameObject.SetActive(false);
-        ExitButton.gameObject.SetActive(false);
-        TrueExitButton.gameObject.SetActive(true);
-        Screen.sleepTimeout = SleepTimeout.SystemSetting;
-    }
+    }    
 }
