@@ -54,10 +54,10 @@ public class RoadMapScreen : MonoBehaviour
         float startAlpha = originalColor.a;
         float t = 0f;
 
-        while (t < fadeDuration)
+        while (t < 0.5f)
         {
             t += Time.deltaTime;
-            float alpha = Mathf.Lerp(startAlpha, 0f, t / fadeDuration);
+            float alpha = Mathf.Lerp(startAlpha, 0f, t / 0.5f);
             img.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
             yield return null;
         }
@@ -73,6 +73,7 @@ public class RoadMapScreen : MonoBehaviour
 
     public IEnumerator HideSequence()
     {
+        pointMap.Deactivate();
         Coroutine[] fades = new Coroutine[imageBlocks.Length];
         for (int i = 0; i < imageBlocks.Length; i++)
         {
@@ -82,7 +83,7 @@ public class RoadMapScreen : MonoBehaviour
         foreach (var fade in fades)
         {
             yield return fade;
-        }
+        }        
     }
 
     private void OnDisable()

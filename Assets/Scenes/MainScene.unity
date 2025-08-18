@@ -254,9 +254,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038a6491fec69d144b403b6143208305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInDuration: 0.35
+  fadeInDuration: 0.8
   fadeOutDuration: 0.35
-  imagesFadeInDuration: 0.25
+  imagesFadeInDuration: 0.8
   imagesFadeOutDuration: 0.25
   useUnscaledTime: 0
   images:
@@ -2706,8 +2706,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 320, y: -504.76242}
-  m_SizeDelta: {x: 640, y: 909.52484}
+  m_AnchoredPosition: {x: 320, y: -558.0692}
+  m_SizeDelta: {x: 640, y: 1016.1384}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1271464615
 GameObject:

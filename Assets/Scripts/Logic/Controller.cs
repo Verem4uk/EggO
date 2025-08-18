@@ -39,7 +39,7 @@ public class Controller : MonoBehaviour
             yield return null;
         }
 
-        Background.ToggleColor(Color.white);
+        Background.ToggleColor();
 
         yield return new WaitForSeconds(0.5f);
 
@@ -50,7 +50,6 @@ public class Controller : MonoBehaviour
     private IEnumerator PlayAfterHide()
     {
         yield return StartCoroutine(routine: RoadMap.HideSequence());
-        Background.ToggleColor();
         yield return new WaitForSeconds(0.5f);
         RoadMap.gameObject.SetActive(false);
         SessionView.gameObject.SetActive(true);
@@ -59,6 +58,7 @@ public class Controller : MonoBehaviour
 
     public void BackToMenu()
     {
+        Background.ToggleColor(Color.black);
         RoadMap.gameObject.SetActive(false);
         SessionView.gameObject.SetActive(false);
         MainMenuView.gameObject.SetActive(true);

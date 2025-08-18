@@ -6,12 +6,13 @@ public class ColorChanger : MonoBehaviour
 {
     public Image targetImage;
     public float duration = 0.5f;
-    public Color customColor = Color.white;
+    public Color customColor;
     private bool isBlack = true;
 
     public void ToggleColor()
     {
-        ToggleColor(customColor);
+        Debug.Log("Change color to " + customColor);
+        ToggleColor(customColor);        
     }
 
     public void ToggleColor(Color color)
