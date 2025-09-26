@@ -22,4 +22,8 @@ MonoBehaviour:
   PolishText: "Prosz\u0119 wyobrazi\u0107 sobie, \u017Ce dalej na \u015Bcie\u017Cce
     widz\u0105 Pa\u0144stwo chat\u0119. Prosz\u0119 j\u0105 opisa\u0107 \u2014 wejd\u0105
     Pa\u0144stwo do \u015Brodka czy omin\u0105 j\u0105 z daleka?"
-  Image: {fileID: -1923994175756728024, guid: 8428ab0880147da46a490d0477f4997b, type: 3}
+  Images:
+  - {fileID: -1923994175756728024, guid: 8428ab0880147da46a490d0477f4997b, type: 3}
+  - {fileID: -5072557114322916609, guid: d945c95b8dc3bd040ac45c885cae4819, type: 3}
+  - {fileID: 3198413410729557013, guid: 511241ae81ecdc44f8002837b2bf6196, type: 3}
+  - {fileID: 7846822367210436989, guid: 84ed806ffef1fa041957ac4009e3a0f5, type: 3}

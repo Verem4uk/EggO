@@ -24,4 +24,8 @@ MonoBehaviour:
   PolishText: "Prosz\u0119 wyobrazi\u0107 sobie, \u017Ce znajduj\u0105 si\u0119 Pa\u0144stwo
     w lesie. Prosz\u0119 opisa\u0107 ten las i powiedzie\u0107, co Pa\u0144stwo czuj\u0105.
     Czy id\u0105 Pa\u0144stwo sami, czy z kim\u015B?"
-  Image: {fileID: -1343518637512107228, guid: 2d66549af365fcd4aacdad7656b24801, type: 3}
+  Images:
+  - {fileID: -1343518637512107228, guid: 2d66549af365fcd4aacdad7656b24801, type: 3}
+  - {fileID: -5853957616262885276, guid: 93f16e0857fec714d9be021e4d4837b7, type: 3}
+  - {fileID: 5323667809464736900, guid: 2a9078b32206296499b36cb1840823ff, type: 3}
+  - {fileID: 4251731714145846241, guid: f52f1d56f55efd84b8d0cc90d193660f, type: 3}

@@ -7,7 +7,7 @@ public class SessionView : MonoBehaviour
     private Text CurrentQuestionText;
 
     [SerializeField] 
-    private Image ImageHolder;
+    private Image[] ImageHolders;
 
     [SerializeField] 
     private GameObject NextButton;
@@ -46,10 +46,15 @@ public class SessionView : MonoBehaviour
         
         if (CurrentQuestion.HasImage())
         {
-            ImageHolder.sprite = CurrentQuestion.GetImage();
-            ImageHolder.gameObject.SetActive(true);
+            var images = CurrentQuestion.GetImages();
+            for(int i = 0; i < images.Length; i++)
+            {
+                ImageHolders[i].sprite = images[i];
+            }
+
+            ImageHolders[0].transform.parent.gameObject.SetActive(true);
             return;
         }
-        ImageHolder.gameObject.SetActive(false);
+        ImageHolders[0].transform.parent.gameObject.SetActive(false);
     }    
 }

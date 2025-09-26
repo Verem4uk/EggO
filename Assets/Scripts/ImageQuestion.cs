@@ -4,7 +4,7 @@ using UnityEngine;
 public class ImageQuestion : Question
 {
     [SerializeField] 
-    private Sprite Image;
+    private Sprite[] Images;
     public override bool HasImage() => true;
-    public override Sprite GetImage() => Image;    
+    public override Sprite[] GetImages() => Images;    
 }

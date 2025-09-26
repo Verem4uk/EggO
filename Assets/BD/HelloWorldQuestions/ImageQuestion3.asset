@@ -32,4 +32,8 @@ MonoBehaviour:
     Prosz\u0119 opisa\u0107 st\xF3\u0142 i kubek oraz zawarto\u015B\u0107 kubka (je\u015Bli
     co\u015B w nim jest). Czy podejm\u0105 Pa\u0144stwo jakie\u015B dzia\u0142anie
     (zabra\u0107 ze sob\u0105 / rozbi\u0107 / wypi\u0107 zawarto\u015B\u0107)?"
-  Image: {fileID: 9103656482713568619, guid: e1225adaee41ab0469defd07f56922d4, type: 3}
+  Images:
+  - {fileID: 9103656482713568619, guid: e1225adaee41ab0469defd07f56922d4, type: 3}
+  - {fileID: -7423708226498581497, guid: 4a3b7fc56cf010c40a85a32eab729e39, type: 3}
+  - {fileID: -6045592402411493769, guid: 211688eb9033898499639d7755b642ca, type: 3}
+  - {fileID: -7742070619544541808, guid: 39b0afa48c8132c49b3232cfeb09b601, type: 3}

@@ -24,5 +24,5 @@ public class Question : ScriptableObject, IQuestion
     public string PolishText;
        
     public virtual bool HasImage() => false;
-    public virtual Sprite GetImage() => null;
+    public virtual Sprite[] GetImages() => null;
 }

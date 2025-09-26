@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e1225adaee41ab0469defd07f56922d4
+guid: f52f1d56f55efd84b8d0cc90d193660f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9103656482713568619
-    second: cup_0
+      213: 4251731714145846241
+    second: forest3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -110,6 +110,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
     buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -126,7 +139,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cup_0
+      name: forest3_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b650359765fa65e70800000000000000
-      internalID: 9103656482713568619
+      spriteID: 1e30de5a77f210b30800000000000000
+      internalID: 4251731714145846241
       vertices: []
       indices: 
       edges: []
@@ -161,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cup_0: 9103656482713568619
+      forest3_0: 4251731714145846241
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -22,4 +22,8 @@ MonoBehaviour:
   PolishText: "Prosz\u0119 wyobrazi\u0107 sobie, \u017Ce w lesie spotykaj\u0105 Pa\u0144stwo
     zwierz\u0119. Prosz\u0119 opisa\u0107 to zwierz\u0119 oraz swoj\u0105 reakcj\u0119
     na nie."
-  Image: {fileID: -9032679894510146780, guid: 70f56b757e517744db652487603bc814, type: 3}
+  Images:
+  - {fileID: -9032679894510146780, guid: 70f56b757e517744db652487603bc814, type: 3}
+  - {fileID: -6799923080937117041, guid: c039fb5f0560082468e53f3c33c06bdc, type: 3}
+  - {fileID: 6402135132341667973, guid: cc082c0a413a47a489cb48a7aae11ae7, type: 3}
+  - {fileID: -7055600282185952077, guid: c62df93180019874188f065d3a8a1836, type: 3}

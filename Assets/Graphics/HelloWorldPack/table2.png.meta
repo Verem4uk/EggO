@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 70f56b757e517744db652487603bc814
+guid: 211688eb9033898499639d7755b642ca
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9032679894510146780
-    second: animal_0
+      213: -6045592402411493769
+    second: table2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -110,6 +110,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
     buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -126,7 +139,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: animal_0
+      name: table2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 42be8ed3e7975a280800000000000000
-      internalID: -9032679894510146780
+      spriteID: 776667dadbdb91ca0800000000000000
+      internalID: -6045592402411493769
       vertices: []
       indices: 
       edges: []
@@ -161,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      animal_0: -9032679894510146780
+      table2_0: -6045592402411493769
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
