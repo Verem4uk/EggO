@@ -4,7 +4,7 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     [SerializeField] 
-    private Level[] Questions;
+    private Level[] Levels;
     
     [SerializeField] 
     private SessionView SessionView;
@@ -77,7 +77,7 @@ public class Controller : MonoBehaviour
     //Entry Point
     private void Start()
     {
-        Root.Initialize(Questions);
+        Root.Initialize(Levels);
     }
     
     //Exit Point
