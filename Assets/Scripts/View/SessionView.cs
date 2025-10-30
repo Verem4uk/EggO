@@ -35,13 +35,15 @@ public class SessionView : MonoBehaviour
     }
         
     public void Next()
-    {               
+    {
+        Debug.Log("Click text");
         CurrentQuestion = Session.GetQuestion();
         if(CurrentQuestion == null)
         {
             ExitButton.GetComponent<Button>().onClick.Invoke();
             return;
         }
+        Debug.Log("Text "+ CurrentQuestion.GetText());
         CurrentQuestionText.text = CurrentQuestion.GetText();
         
         if (CurrentQuestion.HasImage())

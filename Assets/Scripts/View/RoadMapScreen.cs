@@ -4,11 +4,10 @@ using UnityEngine.UI;
 
 
 public class RoadMapScreen : MonoBehaviour
-{
-    public Image[] imageBlocks;
-    public PointMap pointMap;
+{    
+    public PointMap[] pointsMap;
 
-    public float fadeDuration = 0.2f;
+    //public float delayBetweenPoints = 0.2f;
     public float delayBeforeStart = 0.5f;
 
     private void OnEnable()
@@ -20,78 +19,29 @@ public class RoadMapScreen : MonoBehaviour
     {
         yield return new WaitForSeconds(delayBeforeStart);
 
-        foreach (var img in imageBlocks)
+        foreach (var point in pointsMap)
         {
-            yield return StartCoroutine(FadeInImage(img));
+            point.ResetEggO();
         }
 
-        pointMap.Activate();
-    }
-       
-    private IEnumerator FadeInImage(Image img)
-    {
-        img.gameObject.SetActive(true);
-        Color originalColor = img.color;
-        Color color = originalColor;
-        color.a = 0f;
-        img.color = color;
-
-        float t = 0f;
-        while (t < fadeDuration)
+        foreach (var point in pointsMap)
         {
-            t += Time.deltaTime;
-            color.a = Mathf.Lerp(0f, originalColor.a, t / fadeDuration);
-            img.color = color;
-            yield return null;
+            yield return StartCoroutine(point.Show());
         }
 
-        img.color = originalColor;
-    }
-
-    private IEnumerator FadeOutImage(Image img)
-    {
-        Color originalColor = img.color;
-        float startAlpha = originalColor.a;
-        float t = 0f;
-
-        while (t < 0.5f)
+        foreach (var point in pointsMap)
         {
-            t += Time.deltaTime;
-            float alpha = Mathf.Lerp(startAlpha, 0f, t / 0.5f);
-            img.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
-            yield return null;
+            yield return StartCoroutine(point.UnlockIfAvailable());
         }
-
-        img.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
-        img.gameObject.SetActive(false);
-    }
-
-    public void HideAll()
-    {
-        StartCoroutine(HideSequence());        
     }
 
     public IEnumerator HideSequence()
     {
-        pointMap.Deactivate();
-        Coroutine[] fades = new Coroutine[imageBlocks.Length];
-        for (int i = 0; i < imageBlocks.Length; i++)
-        {
-            fades[i] = StartCoroutine(FadeOutImage(imageBlocks[i]));
-        }
+        yield return new WaitForSeconds(delayBeforeStart);
 
-        foreach (var fade in fades)
+        foreach (var point in pointsMap)
         {
-            yield return fade;
-        }        
-    }
-
-    private void OnDisable()
-    {
-        foreach(var img in imageBlocks)
-        {
-            var originalColor = img.color;
-            img.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1);
+            point.Disable();
         }
-    }
+    }   
 }

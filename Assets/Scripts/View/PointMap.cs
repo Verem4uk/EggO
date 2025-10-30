@@ -1,15 +1,18 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class PointMap : MonoBehaviour
 {
+    [SerializeField]
+    private int ID;
+
     [SerializeField] 
-    private Image eggo; 
+    private Image LockedEggO; 
     
     [SerializeField] 
-    private Image Eggo; 
+    private Image ActiveEggO; 
     
     [SerializeField] 
     private TextMeshProUGUI Text;    
@@ -17,47 +20,72 @@ public class PointMap : MonoBehaviour
     [SerializeField] 
     private Pulsation Pulsation;        
 
-    public void Activate()
+    public IEnumerator Show()
     {
-        StartCoroutine(ShowSequence());
+        var maxPastLevel = Saver.GetLevel();
+        if (ID <= maxPastLevel)
+        {
+            ActiveEggO.gameObject.SetActive(true);
+            Text.gameObject.SetActive(true);
+
+            yield return StartCoroutine(FadeInImage(ActiveEggO, 0.5f));
+            yield return StartCoroutine(FadeText(Text, 0.5f, true));
+        }
+        else
+        {
+            yield return StartCoroutine(FadeInImage(LockedEggO, 0.5f));
+        }        
     }
 
-    public void Deactivate()
+    public IEnumerator UnlockIfAvailable()
     {
-        StartCoroutine(HideSequence());
+        if (Saver.GetLevel() + 1 == ID)
+        {
+            yield return StartCoroutine(FadeOutImage(LockedEggO, 0.5f));
+            ActiveEggO.gameObject.SetActive(true);            
+            yield return StartCoroutine(FadeInImage(ActiveEggO, 0.5f));
+            Text.gameObject.SetActive(true);
+            yield return StartCoroutine(FadeText(Text, 0.5f, true));
+            Pulsation.enabled = true;
+        }
     }
 
-    private void OnDisable()
+    public void Disable()
     {
-        Pulsation.enabled = false;
-        Eggo.gameObject.SetActive(false);
-        Text.gameObject.SetActive(false);
+        StartCoroutine(Hide());
     }
 
-    private IEnumerator ShowSequence()
-    {        
-        yield return StartCoroutine(FadeOutImage(eggo, 0.5f));
-                        
-        Eggo.gameObject.SetActive(true);
-        Text.gameObject.SetActive(true);
-                
-        SetAlpha(Eggo, 0f);
-        SetAlpha(Text, 0f);
-
-        yield return StartCoroutine(FadeInImage(Eggo.GetComponent<Image>(), 0.5f));
-        yield return StartCoroutine(FadeText(Text, 0.5f, true));
-
-        Pulsation.enabled = true;
-    }
-
-    private IEnumerator HideSequence()
+    private IEnumerator Hide()
     {
-        Pulsation.enabled = false;
-        yield return StartCoroutine(FadeOutImage(Eggo.GetComponent<Image>(), 0.5f));
-        yield return StartCoroutine(FadeText(Text, 0.5f, false));
+        if (ActiveEggO.gameObject.activeInHierarchy)
+        {
+            Pulsation.enabled = false;
+            yield return StartCoroutine(FadeOutImage(ActiveEggO, 0.5f));
+            yield return StartCoroutine(FadeText(Text, 0.5f, false));
+        }
+        else
+        {
+            yield return StartCoroutine(FadeOutImage(LockedEggO, 0.5f));
+        }         
     }
 
-    private IEnumerator FadeOutImage(Image img, float duration)
+    private IEnumerator FadeInImage(Image img, float duration) //appear
+    {
+        float t = 0f;
+        Color original = img.color;
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float alpha = Mathf.Lerp(0f, 1f, t / duration);
+            img.color = new Color(original.r, original.g, original.b, alpha);
+            yield return null;
+        }
+
+        img.color = new Color(original.r, original.g, original.b, 1f);
+    }
+
+    private IEnumerator FadeOutImage(Image img, float duration) //disappear
     {
         float t = 0f;
         Color original = img.color;
@@ -73,21 +101,7 @@ public class PointMap : MonoBehaviour
         img.color = new Color(original.r, original.g, original.b, 0f);
     }
 
-    private IEnumerator FadeInImage(Image img, float duration)
-    {
-        float t = 0f;
-        Color original = img.color;
-
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            float alpha = Mathf.Lerp(0f, 1f, t / duration);
-            img.color = new Color(original.r, original.g, original.b, alpha);
-            yield return null;
-        }
-
-        img.color = new Color(original.r, original.g, original.b, 1f);
-    }
+    
 
     private IEnumerator FadeText(TextMeshProUGUI text, float duration, bool fadeIn)
     {
@@ -114,5 +128,19 @@ public class PointMap : MonoBehaviour
         var c = graphic.color;
         graphic.color = new Color(c.r, c.g, c.b, alpha);
     }
-    
+
+    public void ResetEggO()
+    {
+        Pulsation.enabled = false;
+        ActiveEggO.gameObject.SetActive(false);
+        Text.gameObject.SetActive(false);
+        SetAlpha(ActiveEggO, 0f);
+        SetAlpha(LockedEggO, 0f);
+        SetAlpha(Text, 0f);
+    }
+
+    private void OnDisable()
+    {
+        ResetEggO();
+    }
 }

@@ -1,29 +1,13 @@
 using UnityEngine;
-using Newtonsoft.Json;
 
-public class Saver
-{
-    private int languageIndex;
-    public void SetLanguage(int value) => languageIndex = value;//PlayerPrefs.SetInt("LanguageIdentifier", value);
-
-    public int GetLanguageIdentifier() => languageIndex;// PlayerPrefs.GetInt("LanguageIdentifier");
+public static class Saver
+{    
+    public static void SetLanguage(int value) => PlayerPrefs.SetInt("Language", value);
+    public static int GetLanguage() => PlayerPrefs.GetInt("Language");
+    public static void SetLevel(int value) => PlayerPrefs.SetInt("Level", value);
+    public static int GetLevel() => PlayerPrefs.GetInt("Level");         
     
-    public void Save(Session.SaveData sessionData)
-    {
-        string json = JsonConvert.SerializeObject(sessionData);
-        PlayerPrefs.SetString("Session", json);
-        PlayerPrefs.Save();
-    }
-
-    public Session.SaveData Load()
-    {
-        string jsonString = PlayerPrefs.GetString("Session", "");
-        return !string.IsNullOrEmpty(jsonString)
-            ? JsonConvert.DeserializeObject<Session.SaveData>(jsonString)
-            : new Session.SaveData();
-    }
-    
-    public void Clear()
+    public static void Clear()
     {
         PlayerPrefs.DeleteAll();
     }

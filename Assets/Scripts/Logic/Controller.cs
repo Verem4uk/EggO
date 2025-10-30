@@ -22,9 +22,11 @@ public class Controller : MonoBehaviour
     {
         StartCoroutine(FadeOutAndSwitch());
     }
-    public void PlaySession()
+    public void PlaySession(int level)
     {
-        StartCoroutine(PlayAfterHide());
+        Debug.Log("Play session " + level);
+        StartCoroutine(PlayAfterHide());        
+        SessionView.Initialize(new Session(level));
     }    
     private IEnumerator FadeOutAndSwitch()
     {        
@@ -52,8 +54,7 @@ public class Controller : MonoBehaviour
         yield return StartCoroutine(routine: RoadMap.HideSequence());
         yield return new WaitForSeconds(0.5f);
         RoadMap.gameObject.SetActive(false);
-        SessionView.gameObject.SetActive(true);
-        SessionView.Initialize(Root.CurrentSession);
+        SessionView.gameObject.SetActive(true);        
     }
 
     public void BackToMenu()
