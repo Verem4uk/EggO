@@ -35,23 +35,28 @@ public class SessionView : MonoBehaviour
     }
         
     public void Next()
-    {
-        Debug.Log("Click text");
+    {        
         CurrentQuestion = Session.GetQuestion();
         if(CurrentQuestion == null)
         {
             ExitButton.GetComponent<Button>().onClick.Invoke();
             return;
         }
-        Debug.Log("Text "+ CurrentQuestion.GetText());
+        
         CurrentQuestionText.text = CurrentQuestion.GetText();
         
         if (CurrentQuestion.HasImage())
         {
             var images = CurrentQuestion.GetImages();
-            for(int i = 0; i < images.Length; i++)
+            for(int i = 0; i < ImageHolders.Length; i++)
             {
-                ImageHolders[i].sprite = images[i];
+                if(i < images.Length)
+                {
+                    ImageHolders[i].sprite = images[i];
+                    ImageHolders[i].gameObject.SetActive(true);
+                    continue;
+                }                
+                ImageHolders[i].gameObject.SetActive(false);
             }
 
             ImageHolders[0].transform.parent.gameObject.SetActive(true);

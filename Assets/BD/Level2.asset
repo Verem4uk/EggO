@@ -38,6 +38,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 241fafecc099b8447b59c71a29602972, type: 2}
   - {fileID: 11400000, guid: a74788269f868064c893844241a899aa, type: 2}
   - {fileID: 11400000, guid: 628410e1bcd89d340ab23c6a1e2582ec, type: 2}
+  - {fileID: 11400000, guid: 26a6d5d14aa5de245a12c48313109d82, type: 2}
+  - {fileID: 11400000, guid: c5fb2c8b72a3a7f45bd2740b576368c3, type: 2}
+  - {fileID: 11400000, guid: 1a574c7b75532944cb6ca6a222cfc99f, type: 2}
+  - {fileID: 11400000, guid: 394c8ea69e15fa24f9452eb49f60f048, type: 2}
+  - {fileID: 11400000, guid: e40f2134de915af468634af08b934709, type: 2}
+  - {fileID: 11400000, guid: b406dbdeba8c23f4dba2edab04e72c7f, type: 2}
+  - {fileID: 11400000, guid: 4fadf4d2102fbf5439ef47713c8e73fb, type: 2}
+  - {fileID: 11400000, guid: d7db0647093435a478370708f172aa52, type: 2}
+  - {fileID: 11400000, guid: 071200df40c7ba64aa0e9ad320dd1421, type: 2}
+  - {fileID: 11400000, guid: 63e7df631fcecbc46988c9a0a578f1d2, type: 2}
   - {fileID: 11400000, guid: 119c9f2f099247641a17cab292071112, type: 2}
   startRandomIndex: 1
   endRandomIndex: 23

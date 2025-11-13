@@ -75,6 +75,11 @@ public class Controller : MonoBehaviour
         }        
     }
 
+    public void ClearPrefs()
+    {
+        Saver.Clear();
+    }
+
     //Entry Point
     private void Start()
     {

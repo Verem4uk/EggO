@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca9b781e1de8c342885434285044450, type: 3}
+  m_Name: ImageQuestion 12
+  m_EditorClassIdentifier: 
+  RussianText: "5 \u043B\u0435\u0442 \u043D\u0435 \u0435\u0441\u0442\u044C \u043E\u0432\u043E\u0449\u0435\u0439
+    \u0438\u043B\u0438 5 \u043B\u0435\u0442 \u043D\u0435 \u0435\u0441\u0442\u044C
+    \u043C\u044F\u0441\u0430?"
+  EnglishText: Five years without eating vegetables or five years without eating
+    meat?
+  PolishText: "5 lat bez warzyw czy 5 lat bez mi\u0119sa?"
+  Images:
+  - {fileID: -7499369215416399559, guid: 24297a3c21bbc744bb434ba247bde131, type: 3}
+  - {fileID: 8220230389387330440, guid: 4b03a557a1632d340b2c18c1c1b9bcf4, type: 3}

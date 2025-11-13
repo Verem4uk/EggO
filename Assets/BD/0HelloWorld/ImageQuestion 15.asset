@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca9b781e1de8c342885434285044450, type: 3}
+  m_Name: ImageQuestion 15
+  m_EditorClassIdentifier: 
+  RussianText: "\u0420\u043E\u0441\u043A\u043E\u0448\u044C \u0438\u043B\u0438 \u043C\u0438\u043D\u0438\u043C\u0430\u043B\u0438\u0437\u043C?"
+  EnglishText: Luxury or minimalism?
+  PolishText: Luksus czy minimalizm?
+  Images:
+  - {fileID: 7153156257545099143, guid: 3fdfa3eae92c921428db84c60a6ca71d, type: 3}
+  - {fileID: 4831607820573236104, guid: f3d58d0fc0906eb43b08d9dcbcaf539b, type: 3}
