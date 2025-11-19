@@ -432,7 +432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentQuestionText: {fileID: 1262612373}
-  ImageHolders:
+  Images:
   - {fileID: 505378467}
   - {fileID: 433899357}
   - {fileID: 698339485}
@@ -440,6 +440,9 @@ MonoBehaviour:
   NextButton: {fileID: 192473814}
   ExitButton: {fileID: 1271464615}
   TrueExitButton: {fileID: 408964826}
+  ImageHolder: {fileID: 819790680}
+  MinCellSize: 250
+  MaxCellSize: 300
 --- !u!114 &188386630
 MonoBehaviour:
   m_ObjectHideFlags: 0

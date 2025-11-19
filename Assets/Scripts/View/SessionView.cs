@@ -7,7 +7,7 @@ public class SessionView : MonoBehaviour
     private Text CurrentQuestionText;
 
     [SerializeField] 
-    private Image[] ImageHolders;
+    private Image[] Images;
 
     [SerializeField] 
     private GameObject NextButton;
@@ -17,6 +17,15 @@ public class SessionView : MonoBehaviour
     
     [SerializeField] 
     private GameObject TrueExitButton;
+
+    [SerializeField]
+    private GridLayoutGroup ImageHolder;
+
+    [SerializeField]
+    private int MinCellSize = 250;
+
+    [SerializeField]
+    private int MaxCellSize = 300;
 
     private Session Session;
     
@@ -48,20 +57,29 @@ public class SessionView : MonoBehaviour
         if (CurrentQuestion.HasImage())
         {
             var images = CurrentQuestion.GetImages();
-            for(int i = 0; i < ImageHolders.Length; i++)
+            for(int i = 0; i < Images.Length; i++)
             {
                 if(i < images.Length)
                 {
-                    ImageHolders[i].sprite = images[i];
-                    ImageHolders[i].gameObject.SetActive(true);
+                    Images[i].sprite = images[i];
+                    Images[i].gameObject.SetActive(true);
                     continue;
                 }                
-                ImageHolders[i].gameObject.SetActive(false);
+                Images[i].gameObject.SetActive(false);
             }
 
-            ImageHolders[0].transform.parent.gameObject.SetActive(true);
+            if(images.Length > 2)
+            {
+                ImageHolder.cellSize = new Vector2(MinCellSize, MinCellSize);
+            }
+            else
+            {
+                ImageHolder.cellSize = new Vector2(MaxCellSize, MaxCellSize);
+            }
+
+            ImageHolder.gameObject.SetActive(true);
             return;
         }
-        ImageHolders[0].transform.parent.gameObject.SetActive(false);
+        ImageHolder.gameObject.SetActive(false);
     }    
 }
