@@ -6,7 +6,16 @@ public class Level : ScriptableObject
 {
     [SerializeField] 
     public int ID;
-    
+
+    [SerializeField]
+    public Sprite Icon;
+
+    [SerializeField]
+    public Sprite BackGround;
+
+    [SerializeField]
+    public AudioClip Audio;
+
     [SerializeField]
     public List<Question> Questions;
 
