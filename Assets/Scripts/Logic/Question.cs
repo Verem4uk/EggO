@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Question", menuName = "SO/Question")]
-public class Question : ScriptableObject, IQuestion
-{  
+public class Question : LevelsElement, IQuestion
+{
+    public int ID;
     public string GetText()
     {
         var languageIndex = Root.GetLanguageIndex();
@@ -22,7 +24,13 @@ public class Question : ScriptableObject, IQuestion
     
     [SerializeField, TextAreaAttribute]
     public string PolishText;
-       
+
+    public int GetID() => ID;       
     public virtual bool HasImage() => false;
     public virtual Sprite[] GetImages() => null;
+
+    public override IQuestion GetNextElement(List<int> exceptIndexes = null)
+    {
+        return exceptIndexes == null || exceptIndexes.Count == 0 ? this : null;
+    }
 }
