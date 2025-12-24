@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "QuestionBlock", menuName = "SO/RandomBlock")]
+[CreateAssetMenu(fileName = "QuestionBlock", menuName = "SO/QuestionBlock")]
 public class QuestionsBlock : LevelsElement
 {
     [SerializeField]

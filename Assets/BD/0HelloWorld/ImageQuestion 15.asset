@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca9b781e1de8c342885434285044450, type: 3}
   m_Name: ImageQuestion 15
   m_EditorClassIdentifier: 
-  RussianText: "\u0420\u043E\u0441\u043A\u043E\u0448\u044C \u0438\u043B\u0438 \u043C\u0438\u043D\u0438\u043C\u0430\u043B\u0438\u0437\u043C?"
+  ID: 0
+  RussianText: "\u0412 \u043A\u0430\u043A\u043E\u043C \u0441\u0442\u0438\u043B\u0435
+    \u0432\u044B \u0431\u044B \u0445\u043E\u0442\u0435\u043B\u0438 \u0441\u0435\u0431\u0435
+    \u0436\u0438\u043B\u044C\u0435?"
   EnglishText: Luxury or minimalism?
   PolishText: Luksus czy minimalizm?
   Images:

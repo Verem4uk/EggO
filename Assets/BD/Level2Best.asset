@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0052b04843232d64a83324eb22215a2d, type: 3}
+  m_Name: Level2Best
+  m_EditorClassIdentifier: 
+  ID: 2
+  Icon: {fileID: -7161711778296916251, guid: 1f64e2d1c0debac42a65d77e0884a201, type: 3}
+  BackGround: {fileID: 21300000, guid: c65fe1cc5bce830479f9d0061cd6b841, type: 3}
+  Audio: {fileID: 0}
+  Elements:
+  - {fileID: 11400000, guid: a47af95723a9a2946882461cefd81c6b, type: 2}
+  - {fileID: 11400000, guid: 95076b9ee44a1e34fb3ef86fe3469024, type: 2}
+  - {fileID: 11400000, guid: f9e9396c33275094181321551b990391, type: 2}
+  - {fileID: 11400000, guid: 3bb90bca654efe840863471c202d3e02, type: 2}
+  - {fileID: 11400000, guid: 119c9f2f099247641a17cab292071112, type: 2}

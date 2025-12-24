@@ -12,5 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ffdfb57993aa24e957761d3385c2bb, type: 3}
   m_Name: ThisOrThat
   m_EditorClassIdentifier: 
-  AmountForOneSession: 6
-  Questions: []
+  AmountForOneSession: 8
+  Questions:
+  - {fileID: 11400000, guid: e7fba904d420a6d46826720705d5ff30, type: 2}
+  - {fileID: 11400000, guid: 31d08c3971d84804aa2db989a0ef3c29, type: 2}
+  - {fileID: 11400000, guid: 89a8869a329f21746bfea227a17c4399, type: 2}
+  - {fileID: 11400000, guid: 3190e0f7c3e1c004ea3310c23cbf07b7, type: 2}
+  - {fileID: 11400000, guid: 8618fcd10bc55104abb400e2adf9b193, type: 2}
+  - {fileID: 11400000, guid: 62612fdbf328e3f418a15973191b03dd, type: 2}
+  - {fileID: 11400000, guid: 003d5c01a3e6f5e49955ccbd6624b247, type: 2}
+  - {fileID: 11400000, guid: 2b9f5e2b2b1f3d54fa1a850b9dd8742a, type: 2}
+  - {fileID: 11400000, guid: 54e0ad008b4569e4a9e6fab06b9077ed, type: 2}
+  - {fileID: 11400000, guid: 12a80f7c39537e5498460bb91c88bf33, type: 2}
+  - {fileID: 11400000, guid: 3859856b640543e47b3afa4f31d11328, type: 2}
+  - {fileID: 11400000, guid: 01fd3bef98512784abf1e24488aa8139, type: 2}
+  - {fileID: 11400000, guid: 097a7f677212a6346bbc4e1dcb095d05, type: 2}
+  - {fileID: 11400000, guid: dabbb9c55b5405e429a060734692589e, type: 2}
+  - {fileID: 11400000, guid: 2c3c51d1cafd6144f859090ae17ba0b8, type: 2}
+  - {fileID: 11400000, guid: 1ddafa77544b30e49bc46db6b497c515, type: 2}
+  - {fileID: 11400000, guid: 1a3badd85c4c54e42a5f02aafeec5865, type: 2}
+  - {fileID: 11400000, guid: 5afbf15fc92fa724582990e20131ae04, type: 2}
+  - {fileID: 11400000, guid: a4c1af9f18a98b24c896ab441c8d239f, type: 2}
+  - {fileID: 11400000, guid: 673cf66a167885b43bd299aa686d85bf, type: 2}
+  - {fileID: 11400000, guid: 68d1fccf01d30c944a565884771bf642, type: 2}
+  - {fileID: 11400000, guid: 7683c7bcfb564f544bbce18de66fcf49, type: 2}
+  - {fileID: 11400000, guid: 5291034f3533e8d408b39325eeed589e, type: 2}
+  - {fileID: 11400000, guid: f2f8c10fc119c194d899226f669b3bf9, type: 2}
+  - {fileID: 11400000, guid: 3272cff2623186a459f8d4dcda50c484, type: 2}

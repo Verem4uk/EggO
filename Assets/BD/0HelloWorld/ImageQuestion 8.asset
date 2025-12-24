@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca9b781e1de8c342885434285044450, type: 3}
   m_Name: ImageQuestion 8
   m_EditorClassIdentifier: 
-  RussianText: "\u0425\u043E\u043A\u043A\u0435\u0439 \u0438\u043B\u0438 \u0444\u0443\u0442\u0431\u043E\u043B?"
+  ID: 0
+  RussianText: "\u041B\u044E\u0431\u0438\u0442\u0435 \u0441\u043F\u043E\u0440\u0442?
+    \u041A\u0430\u043A \u0431\u043E\u043B\u0435\u043B\u044C\u0448\u0438\u043A \u0438\u043B\u0438
+    \u043A\u0430\u043A \u0430\u043A\u0442\u0438\u0432\u043D\u044B\u0439 \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A?"
   EnglishText: Hockey or football?
   PolishText: "Hokej czy pi\u0142ka no\u017Cna?"
   Images:
