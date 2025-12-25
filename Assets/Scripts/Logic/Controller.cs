@@ -26,7 +26,8 @@ public class Controller : MonoBehaviour
     {
         Debug.Log("Play session " + level);
         StartCoroutine(PlayAfterHide());        
-        SessionView.Initialize(new Session(level));
+        SessionView.Initialize(new Session(level), Root.Levels[--level]);
+        
     }    
     private IEnumerator FadeOutAndSwitch()
     {        

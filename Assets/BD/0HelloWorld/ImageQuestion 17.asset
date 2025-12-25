@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca9b781e1de8c342885434285044450, type: 3}
   m_Name: ImageQuestion 17
   m_EditorClassIdentifier: 
+  ID: 23
   RussianText: "\u0412\u044B \u0431\u043E\u043B\u044C\u0448\u0435 \u043B\u0438\u0434\u0435\u0440
     \u0438\u043B\u0438 \u043A\u043E\u043C\u0430\u043D\u0434\u043D\u044B\u0439 \u0438\u0433\u0440\u043E\u043A?"
   EnglishText: Are you more of a leader or a team player?

@@ -10,7 +10,7 @@ public class SessionView : MonoBehaviour
     private Image[] Images;
 
     [SerializeField] 
-    private GameObject NextButton;
+    private NextButton NextButton;
     
     [SerializeField] 
     private GameObject ExitButton;
@@ -25,17 +25,21 @@ public class SessionView : MonoBehaviour
     private int MinCellSize = 250;
 
     [SerializeField]
-    private int MaxCellSize = 300;
+    private int MidCellSize = 300;
+
+    [SerializeField]
+    private int MaxCellSize = 800;
 
     private Session Session;
     
     private IQuestion CurrentQuestion;
     
-    public void Initialize(Session session)
+    public void Initialize(Session session, Level level)
     {
         Session = session;        
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Next();
+        NextButton.UpdateButton(level.Icon, level.Audio);        
     }
 
     public void ChangeLanguage()
@@ -68,18 +72,26 @@ public class SessionView : MonoBehaviour
                 Images[i].gameObject.SetActive(false);
             }
 
-            if(images.Length > 2)
+            switch (images.Length)
             {
-                ImageHolder.cellSize = new Vector2(MinCellSize, MinCellSize);
-            }
-            else
-            {
-                ImageHolder.cellSize = new Vector2(MaxCellSize, MaxCellSize);
+                case > 2:
+                    ImageHolder.cellSize = new Vector2(MinCellSize, MinCellSize);
+                    CurrentQuestionText.gameObject.SetActive(true);
+                    break;
+                case 1:
+                    ImageHolder.cellSize = new Vector2(MaxCellSize, MaxCellSize);
+                    CurrentQuestionText.gameObject.SetActive(false);
+                    break;
+                default:
+                    ImageHolder.cellSize = new Vector2(MidCellSize, MidCellSize);
+                    CurrentQuestionText.gameObject.SetActive(true);
+                    break;
             }
 
             ImageHolder.gameObject.SetActive(true);
             return;
         }
         ImageHolder.gameObject.SetActive(false);
+        CurrentQuestionText.gameObject.SetActive(true);
     }    
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca9b781e1de8c342885434285044450, type: 3}
   m_Name: ImageQuestion 12
   m_EditorClassIdentifier: 
-  ID: 0
+  ID: 18
   RussianText: "\u0427\u0442\u043E \u0434\u0443\u043C\u0430\u0435\u0442\u0435 \u043E
     \u0432\u0435\u0433\u0435\u0442\u0430\u0440\u0438\u0430\u043D\u0441\u0442\u0432\u0435?"
   EnglishText: Five years without eating vegetables or five years without eating

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca9b781e1de8c342885434285044450, type: 3}
   m_Name: ImageQuestion 3
   m_EditorClassIdentifier: 
-  ID: 0
+  ID: 3
   RussianText: 
   EnglishText: 
   PolishText: 

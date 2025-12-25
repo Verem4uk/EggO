@@ -8,7 +8,7 @@ public class Session
 
     private int CurrentElementIndex;
     private LevelsElement CurrentElement;
-    private List<int> CurrentElementIndexes;
+    private List<int> CurrentElementIndexes = new List<int>();
                     
     public Session(int level)
     {   
@@ -33,10 +33,7 @@ public class Session
         }
                 
         if (CurrentElement is RandomQuestionsBlock randomBlock)
-        {
-            if (CurrentElementIndexes == null)
-                CurrentElementIndexes = new List<int>();
-
+        {            
             if (CurrentElementIndexes.Count >= randomBlock.AmountForOneSession)
             {
                 CurrentElement = null;

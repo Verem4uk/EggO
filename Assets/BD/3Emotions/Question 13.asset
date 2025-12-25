@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3b0881c561d3f4492f08ad0a16829b, type: 3}
   m_Name: Question 13
   m_EditorClassIdentifier: 
+  ID: 13
   RussianText: "\u041D\u0430\u0437\u043E\u0432\u0438\u0442\u0435 \u043E\u0448\u0438\u0431\u043A\u0443,
     \u043A\u043E\u0442\u043E\u0440\u0443\u044E \u0432\u044B \u0441\u043E\u0432\u0435\u0440\u0448\u0438\u043B\u0438
     \u0438 \u043A\u043E\u0442\u043E\u0440\u0443\u044E \u0431\u043E\u043B\u044C\u0448\u0435
