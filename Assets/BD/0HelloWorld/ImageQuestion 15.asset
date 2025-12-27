@@ -16,8 +16,8 @@ MonoBehaviour:
   RussianText: "\u0412 \u043A\u0430\u043A\u043E\u043C \u0441\u0442\u0438\u043B\u0435
     \u0432\u044B \u0431\u044B \u0445\u043E\u0442\u0435\u043B\u0438 \u0441\u0435\u0431\u0435
     \u0436\u0438\u043B\u044C\u0435?"
-  EnglishText: Luxury or minimalism?
-  PolishText: Luksus czy minimalizm?
+  EnglishText: In what style would you like your home to be?
+  PolishText: "W jakim stylu chcia\u0142(a)by\u015B mie\u0107 swoje mieszkanie/dom?"
   Images:
   - {fileID: 7153156257545099143, guid: 3fdfa3eae92c921428db84c60a6ca71d, type: 3}
   - {fileID: 4831607820573236104, guid: f3d58d0fc0906eb43b08d9dcbcaf539b, type: 3}

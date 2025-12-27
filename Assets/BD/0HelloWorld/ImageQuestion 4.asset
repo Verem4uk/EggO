@@ -15,8 +15,8 @@ MonoBehaviour:
   ID: 10
   RussianText: "\u041A\u0430\u043A\u0438\u0435 \u043A\u0443\u0445\u043D\u0438 \u043C\u0438\u0440\u0430
     \u0432\u0430\u043C \u043D\u0440\u0430\u0432\u044F\u0442\u0441\u044F?"
-  EnglishText: Asian or Italian cuisine?
-  PolishText: "Kuchnia azjatycka czy w\u0142oska?"
+  EnglishText: Which world cuisines do you like?
+  PolishText: "Jakie kuchnie \u015Bwiata lubisz?"
   Images:
   - {fileID: -2122348120520869266, guid: ca28b9e21c42ffa458275b2550b263f8, type: 3}
   - {fileID: 1730341545539276745, guid: ec0181368c4452b4c895780bf180ee5e, type: 3}

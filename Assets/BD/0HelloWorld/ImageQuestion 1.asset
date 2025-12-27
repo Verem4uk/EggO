@@ -17,8 +17,9 @@ MonoBehaviour:
     \u0436\u0438\u0432\u043E\u0442\u043D\u043E\u0435? \u0415\u0441\u043B\u0438 \u043D\u0435\u0442,
     \u0442\u043E \u043C\u043E\u0436\u0435\u0442 \u0445\u043E\u0442\u0435\u043B\u0438
     \u0431\u044B \u0437\u0430\u0432\u0435\u0441\u0442\u0438?"
-  EnglishText: Dogs or cats?
-  PolishText: Psy czy koty?
+  EnglishText: Do you have a pet? If not, would you like to get one in the future?
+  PolishText: "Czy masz zwierz\u0119 domowe? Je\u015Bli nie, to czy chcia\u0142(a)by\u015B
+    mie\u0107 jakie\u015B w przysz\u0142o\u015Bci?"
   Images:
   - {fileID: 2075271617830697031, guid: 851ba344a0b90b945b7b7ccd54e30fc3, type: 3}
   - {fileID: 3885584326478366207, guid: ea5a8611a98a9bf4590b386036a06b5f, type: 3}

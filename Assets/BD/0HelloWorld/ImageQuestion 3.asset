@@ -15,8 +15,8 @@ MonoBehaviour:
   ID: 9
   RussianText: "\u041A\u0430\u043A\u0438\u0435 \u043D\u0430\u043F\u0438\u0442\u043A\u0438
     \u043F\u0440\u0435\u0434\u043F\u043E\u0447\u0438\u0442\u0430\u0435\u0442\u0435?"
-  EnglishText: Coffe or tea?
-  PolishText: Kawa lub herbata?
+  EnglishText: What drinks do you prefer?
+  PolishText: Jakie napoje preferujesz?
   Images:
   - {fileID: 8713089029095449065, guid: 10039854ffa566946829039eddeb8079, type: 3}
   - {fileID: 8004772570451257956, guid: 9c2e2b4fce973a840a688d6d01ceabde, type: 3}

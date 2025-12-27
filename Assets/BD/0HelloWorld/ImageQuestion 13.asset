@@ -17,9 +17,9 @@ MonoBehaviour:
     \u043A \u0444\u0438\u0437\u0438\u0447\u0435\u0441\u043A\u043E\u0439 \u0444\u043E\u0440\u043C\u0435
     / \u0434\u0438\u0435\u0442\u0430\u043C / \u0437\u0430\u043D\u044F\u0442\u0438\u044F\u043C
     \u0432 \u0441\u043F\u043E\u0440\u0442\u0437\u0430\u043B\u0435?"
-  EnglishText: Become very fat or very muscular (requires effort)?
-  PolishText: "Sta\u0107 si\u0119 bardzo grubym lub bardzo umi\u0119\u015Bnionym
-    (trzeba w\u0142o\u017Cy\u0107 w to wysi\u0142ek)?"
+  EnglishText: What is your attitude towards physical fitness, diets, and working
+    out at the gym?
+  PolishText: "Jak podchodzisz do kondycji fizycznej, diet i trening\xF3w na si\u0142owni?"
   Images:
   - {fileID: -3503071915526282242, guid: 9275b749a1349a743805f6d109c8a0ba, type: 3}
   - {fileID: 1189527934681910064, guid: b4c4bb008d8339244a8760bf1bed99c8, type: 3}

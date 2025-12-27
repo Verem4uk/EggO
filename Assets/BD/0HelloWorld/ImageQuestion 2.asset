@@ -16,8 +16,8 @@ MonoBehaviour:
   RussianText: "\u041A\u0443\u0434\u0430 \u0431\u044B \u0432\u044B \u0445\u043E\u0442\u0435\u043B\u0438
     \u043E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C\u0441\u044F \u0432 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439
     \u043E\u0442\u043F\u0443\u0441\u043A?"
-  EnglishText: The sea or the mountains?
-  PolishText: "Morze czy g\xF3ry?"
+  EnglishText: Where would you like to go on your next vacation?
+  PolishText: "Dok\u0105d chcia\u0142(a)by\u015B pojecha\u0107 na nast\u0119pny urlop?"
   Images:
   - {fileID: -3939441638775530828, guid: c5d13b1169d945549b4f61c011a153a4, type: 3}
   - {fileID: 4908348846211105124, guid: b35796e320ebbcd4e8678584bad7098b, type: 3}

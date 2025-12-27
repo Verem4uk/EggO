@@ -16,8 +16,8 @@ MonoBehaviour:
   RussianText: "\u041B\u044E\u0431\u0438\u0442\u0435 \u0441\u043F\u043E\u0440\u0442?
     \u041A\u0430\u043A \u0431\u043E\u043B\u0435\u043B\u044C\u0448\u0438\u043A \u0438\u043B\u0438
     \u043A\u0430\u043A \u0430\u043A\u0442\u0438\u0432\u043D\u044B\u0439 \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A?"
-  EnglishText: Hockey or football?
-  PolishText: "Hokej czy pi\u0142ka no\u017Cna?"
+  EnglishText: Do you like sports? As a fan or as an active participant?
+  PolishText: Czy lubisz sport? Jako kibic czy jako aktywny uczestnik?
   Images:
   - {fileID: -9008027219243876946, guid: 58b19ee2c4e03fb498ffc9a345060560, type: 3}
   - {fileID: -5812031859161952695, guid: 565696b69ae5ff140b9be413bcbb9a11, type: 3}

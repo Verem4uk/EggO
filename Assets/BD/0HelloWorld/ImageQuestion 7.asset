@@ -18,8 +18,10 @@ MonoBehaviour:
     \u043E\u043F\u0440\u043E\u0431\u043E\u0432\u0430\u0442\u044C, \u043D\u043E \u043D\u0438\u043A\u0430\u043A
     \u043D\u0435 \u043C\u043E\u0436\u0435\u0442\u0435 \u043D\u0430\u0439\u0442\u0438
     \u043D\u0430 \u043D\u0435\u0435 \u0432\u0440\u0435\u043C\u044F?"
-  EnglishText: Horseback riding or go-karting?
-  PolishText: Wycieczka konna czy jazda gokartem?
+  EnglishText: "What activity have you wanted to try for a long time but haven\u2019t
+    been able to find time for?"
+  PolishText: "Jak\u0105 aktywno\u015B\u0107 chcia\u0142(a)by\u015B wypr\xF3bowa\u0107
+    od dawna, ale nie mo\u017Cesz znale\u017A\u0107 na ni\u0105 czasu?"
   Images:
   - {fileID: 7326405743383370440, guid: 900e7851b0d7fb54d8fca00b919a029f, type: 3}
   - {fileID: 1831821621819114801, guid: 2c79b80dd85dc3e419acaddd45861360, type: 3}

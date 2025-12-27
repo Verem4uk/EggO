@@ -17,8 +17,8 @@ MonoBehaviour:
     \u0431\u043E\u043B\u044C\u0448\u0435 \u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u0442\u044C
     \u0438\u043B\u0438 \u0434\u0435\u0439\u0441\u0442\u0432\u0443\u0435\u0442\u0435
     \u0441\u043F\u043E\u043D\u0442\u0430\u043D\u043D\u043E?"
-  EnglishText: Planning or spontaneity?
-  PolishText: "Planowanie czy spontaniczno\u015B\u0107?"
+  EnglishText: Do you prefer to plan things or act spontaneously?
+  PolishText: "Wolisz planowa\u0107, czy dzia\u0142a\u0107 spontanicznie?"
   Images:
   - {fileID: -4402346522550544014, guid: bafcab2dc0fdaa14db5d8d53c16906bd, type: 3}
   - {fileID: -7811546694390439287, guid: d36aaa407478ffa4a85311d6eb49d8da, type: 3}
