@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1371d19049cd9054180a298829ee8071
+guid: 60e9299e7416c1b4588f8aba7ab77399
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -719760546393899341
-    second: StoneEggo_0
+      213: -5503561720935393864
+    second: StoneEggo-removebg-preview_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,11 +139,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: StoneEggo_0
+      name: StoneEggo-removebg-preview_0
       rect:
         serializedVersion: 2
-        x: 38
-        y: 23
+        x: 37
+        y: 24
         width: 425
         height: 468
       alignment: 0
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3beb9d4b895e206f0800000000000000
-      internalID: -719760546393899341
+      spriteID: 8b5553026cb6f93b0800000000000000
+      internalID: -5503561720935393864
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      StoneEggo_0: -719760546393899341
+      StoneEggo-removebg-preview_0: -5503561720935393864
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

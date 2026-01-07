@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 6
   Icon: {fileID: -6202925161240072444, guid: fe8f135425c22b045a9b313abb3cd0c2, type: 3}
+  ButtonSound: {fileID: 8300000, guid: fecefac67ecaba545a87d28016e8d61d, type: 3}
   BackGround: {fileID: 21300000, guid: c65fe1cc5bce830479f9d0061cd6b841, type: 3}
-  Audio: {fileID: 0}
+  BackGroundAudio: {fileID: 8300000, guid: 177bba9e5419e4d4999fbff72c4f28af, type: 3}
   Elements:
   - {fileID: 11400000, guid: a47af95723a9a2946882461cefd81c6b, type: 2}
   - {fileID: 11400000, guid: 29749c2406b7d854db7b5d49ba999475, type: 2}

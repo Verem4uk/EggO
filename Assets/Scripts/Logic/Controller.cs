@@ -17,18 +17,39 @@ public class Controller : MonoBehaviour
     
     [SerializeField]
     private ColorChanger Background;
-        
+
+    [SerializeField]
+    private AudioSource AudioSource;
+
+    [SerializeField]
+    private AudioClip DefaultAudio;
+
     public void OpenRoadMap()
     {
         StartCoroutine(FadeOutAndSwitch());
     }
-    public void PlaySession(int level)
+    public void PlaySession(int levelIndex)
     {
-        Debug.Log("Play session " + level);
+        Debug.Log("Play session " + levelIndex);
         StartCoroutine(PlayAfterHide());        
-        SessionView.Initialize(new Session(level), Root.Levels[--level]);
-        
+        var level = Root.Levels[--levelIndex]; 
+        SessionView.Initialize(new Session(++levelIndex), level);
+
+        HandleAudio(level);
     }    
+
+    private void HandleAudio(Level level)
+    {
+        var audio = level.BackGroundAudio;
+        if(audio == null)
+        {
+            AudioSource.Stop();
+            return;
+        }
+        AudioSource.clip = level.BackGroundAudio;
+        AudioSource.Play();
+    }
+
     private IEnumerator FadeOutAndSwitch()
     {        
         float duration = 0.5f; 
@@ -60,11 +81,14 @@ public class Controller : MonoBehaviour
 
     public void BackToMenu()
     {
+        Debug.Log("BackToMainMenu");
         Background.ToggleColor(Color.black);
         RoadMap.gameObject.SetActive(false);
         SessionView.gameObject.SetActive(false);
         MainMenuView.gameObject.SetActive(true);
         MainMenuView.alpha = 1;
+        AudioSource.clip = DefaultAudio;
+        AudioSource.Play();
     }
         
     public void SwitchLanguage(int index)

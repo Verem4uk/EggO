@@ -10,10 +10,13 @@ public class Level : ScriptableObject
     public Sprite Icon;
 
     [SerializeField]
+    public AudioClip ButtonSound;
+
+    [SerializeField]
     public Sprite BackGround;
 
     [SerializeField]
-    public AudioClip Audio;
+    public AudioClip BackGroundAudio;
 
     [SerializeField]
     public LevelsElement[] Elements;

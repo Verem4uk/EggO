@@ -39,7 +39,7 @@ public class SessionView : MonoBehaviour
         Session = session;        
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Next();
-        NextButton.UpdateButton(level.Icon, level.Audio);        
+        NextButton.UpdateButton(level.Icon, level.ButtonSound);        
     }
 
     public void ChangeLanguage()
