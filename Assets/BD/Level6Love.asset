@@ -15,9 +15,9 @@ MonoBehaviour:
   ID: 6
   Icon: {fileID: -6202925161240072444, guid: fe8f135425c22b045a9b313abb3cd0c2, type: 3}
   ButtonSound: {fileID: 8300000, guid: fecefac67ecaba545a87d28016e8d61d, type: 3}
-  BackgroundColor: {r: 1, g: 1, b: 1, a: 1}
-  SmokeColor: {r: 1, g: 0.34528297, b: 0.34528297, a: 1}
-  TextColor: {r: 0, g: 0, b: 0, a: 1}
+  BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  SmokeColor: {r: 1, g: 0, b: 0, a: 1}
+  TextColor: {r: 1, g: 1, b: 1, a: 1}
   BackGroundAudio: {fileID: 8300000, guid: 177bba9e5419e4d4999fbff72c4f28af, type: 3}
   Elements:
   - {fileID: 11400000, guid: a47af95723a9a2946882461cefd81c6b, type: 2}

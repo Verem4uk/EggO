@@ -12,8 +12,11 @@ public class PointMap : MonoBehaviour
     private Image LockedEggO; 
     
     [SerializeField] 
-    private Image ActiveEggO; 
-    
+    private Image ActiveEggO;
+
+    [SerializeField]
+    private Image PastEggO;
+
     [SerializeField] 
     private TextMeshProUGUI Text;    
     
@@ -23,15 +26,18 @@ public class PointMap : MonoBehaviour
     public IEnumerator Show()
     {
         var maxPastLevel = Saver.GetLevel();
+
         if (ID <= maxPastLevel)
         {
-            ActiveEggO.gameObject.SetActive(true);
+            PastEggO.gameObject.SetActive(true);
+            
             Text.gameObject.SetActive(true);
 
-            yield return StartCoroutine(FadeInImage(ActiveEggO, 0.5f));
+            yield return StartCoroutine(FadeInImage(PastEggO, 0.5f));
             yield return StartCoroutine(FadeText(Text, 0.5f, true));
         }
-        else
+
+        if (ID > maxPastLevel)
         {
             yield return StartCoroutine(FadeInImage(LockedEggO, 0.5f));
         }        
@@ -55,15 +61,22 @@ public class PointMap : MonoBehaviour
         StartCoroutine(Hide());
     }
 
-    private IEnumerator Hide()
+    public IEnumerator Hide()
     {
         if (ActiveEggO.gameObject.activeInHierarchy)
         {
             Pulsation.enabled = false;
-            yield return StartCoroutine(FadeOutImage(ActiveEggO, 0.5f));
+            yield return StartCoroutine(FadeOutImage(ActiveEggO, 0.5f));            
             yield return StartCoroutine(FadeText(Text, 0.5f, false));
         }
-        else
+        
+        if (PastEggO.gameObject.activeInHierarchy)
+        {            
+            yield return StartCoroutine(FadeOutImage(PastEggO, 0.5f));
+            yield return StartCoroutine(FadeText(Text, 0.5f, false));
+        }
+                   
+        if(LockedEggO.gameObject.activeInHierarchy)
         {
             yield return StartCoroutine(FadeOutImage(LockedEggO, 0.5f));
         }         
@@ -73,6 +86,7 @@ public class PointMap : MonoBehaviour
     {
         float t = 0f;
         Color original = img.color;
+        img.color = new Color(original.r, original.g, original.b, 0);
 
         while (t < duration)
         {
@@ -108,7 +122,7 @@ public class PointMap : MonoBehaviour
         float t = 0f;
         Color original = text.color;
 
-        float startAlpha = fadeIn ? 0f : 1f;
+        float startAlpha = original.a;
         float endAlpha = fadeIn ? 1f : 0f;
 
         while (t < duration)

@@ -3,7 +3,10 @@ using System.Collections;
 
 
 public class RoadMapScreen : MonoBehaviour
-{    
+{
+    [SerializeField]
+    private CanvasGroupAutoFadeWithImages Canvas;
+
     public PointMap[] pointsMap;
 
     //public float delayBetweenPoints = 0.2f;
@@ -16,6 +19,8 @@ public class RoadMapScreen : MonoBehaviour
 
     private IEnumerator ShowSequence()
     {
+
+
         yield return new WaitForSeconds(delayBeforeStart);
 
         foreach (var point in pointsMap)
@@ -36,11 +41,16 @@ public class RoadMapScreen : MonoBehaviour
 
     public IEnumerator HideSequence()
     {
-        yield return new WaitForSeconds(delayBeforeStart);
+        //yield return new WaitForSeconds(delayBeforeStart);
 
         foreach (var point in pointsMap)
         {
             point.Disable();
+            yield return new WaitForSeconds(.2f);
         }
+
+        yield return new WaitForSeconds(.5f);
+
+        Canvas.HideAndDeactivate();
     }   
 }

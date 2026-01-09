@@ -22,9 +22,6 @@ public class SessionView : MonoBehaviour
     private Material SmokeMaterial;
 
     [SerializeField]
-    private Image BackGround;
-
-    [SerializeField]
     private GridLayoutGroup ImageHolder;
 
     [SerializeField]
@@ -46,7 +43,6 @@ public class SessionView : MonoBehaviour
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Next();
         NextButton.UpdateButton(level.Icon, level.ButtonSound);
-        BackGround.color = level.BackgroundColor;
         SmokeMaterial.SetColor("_EmissionColor", level.SmokeColor);
         CurrentQuestionText.color = level.TextColor;
     }

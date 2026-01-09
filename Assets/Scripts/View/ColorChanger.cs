@@ -7,8 +7,7 @@ public class ColorChanger : MonoBehaviour
     public Image targetImage;
     public float duration = 0.5f;
     public Color customColor;
-    private bool isBlack = true;
-
+    
     public void ToggleColor()
     {
         Debug.Log("Change color to " + customColor);
@@ -17,14 +16,19 @@ public class ColorChanger : MonoBehaviour
 
     public void ToggleColor(Color color)
     {
-        StopAllCoroutines();        
-        StartCoroutine(SmoothColorChange(isBlack ? Color.black : color, isBlack ? color : Color.black));
-        isBlack = !isBlack;
+        StopAllCoroutines();     
+        if(color == null)
+        {
+            color = customColor; 
+        }
+        StartCoroutine(SmoothColorChange(color));
     }
 
-    private IEnumerator SmoothColorChange(Color from, Color to)
+    private IEnumerator SmoothColorChange(Color to)
     {
         float time = 0f;
+        var from = targetImage.color;
+
         while (time < duration)
         {
             time += Time.deltaTime;

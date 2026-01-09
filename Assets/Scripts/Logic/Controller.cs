@@ -32,6 +32,7 @@ public class Controller : MonoBehaviour
         StartCoroutine(PlayAfterHide());        
         var level = Root.Levels[--levelIndex]; 
         SessionView.Initialize(new Session(++levelIndex), level);
+        Background.ToggleColor(level.BackgroundColor);
 
         AudioController.HandleAudio(level);
     }    
@@ -61,7 +62,7 @@ public class Controller : MonoBehaviour
     private IEnumerator PlayAfterHide()
     {
         yield return StartCoroutine(routine: RoadMap.HideSequence());
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
         RoadMap.gameObject.SetActive(false);
         SessionView.gameObject.SetActive(true);        
     }
