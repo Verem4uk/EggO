@@ -19,6 +19,12 @@ public class SessionView : MonoBehaviour
     private GameObject TrueExitButton;
 
     [SerializeField]
+    private Material SmokeMaterial;
+
+    [SerializeField]
+    private Image BackGround;
+
+    [SerializeField]
     private GridLayoutGroup ImageHolder;
 
     [SerializeField]
@@ -39,7 +45,10 @@ public class SessionView : MonoBehaviour
         Session = session;        
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Next();
-        NextButton.UpdateButton(level.Icon, level.ButtonSound);        
+        NextButton.UpdateButton(level.Icon, level.ButtonSound);
+        BackGround.color = level.BackgroundColor;
+        SmokeMaterial.SetColor("_EmissionColor", level.SmokeColor);
+        CurrentQuestionText.color = level.TextColor;
     }
 
     public void ChangeLanguage()

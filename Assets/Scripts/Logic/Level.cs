@@ -13,7 +13,13 @@ public class Level : ScriptableObject
     public AudioClip ButtonSound;
 
     [SerializeField]
-    public Sprite BackGround;
+    public Color BackgroundColor;
+
+    [SerializeField]
+    public Color SmokeColor;
+
+    [SerializeField]
+    public Color TextColor;
 
     [SerializeField]
     public AudioClip BackGroundAudio;
