@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ca9b781e1de8c342885434285044450, type: 3}
-  m_Name: ImageQuestion 19
+  m_Name: ImageQuestion 20
   m_EditorClassIdentifier: 
-  ID: 30
+  ID: 29
   RussianText: 
   EnglishText: 
   PolishText: 
   Images:
-  - {fileID: -6976733073963839632, guid: 2213e89f3a3f58643b35670cd99daccd, type: 3}
+  - {fileID: 21300000, guid: eda230ca8acdd0842893398b6e9fed63, type: 3}
