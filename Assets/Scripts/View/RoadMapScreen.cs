@@ -9,18 +9,27 @@ public class RoadMapScreen : MonoBehaviour
 
     public PointMap[] pointsMap;
 
-    //public float delayBetweenPoints = 0.2f;
+    [SerializeField]
+    private TranslatableText[] translatableTexts; 
+
     public float delayBeforeStart = 0.5f;
 
     private void OnEnable()
     {
         StartCoroutine(ShowSequence());
+        UpdateTexts();        
+    }
+
+    public void UpdateTexts()
+    {
+        foreach (var text in translatableTexts)
+        {
+            text.Actualize();
+        }
     }
 
     private IEnumerator ShowSequence()
     {
-
-
         yield return new WaitForSeconds(delayBeforeStart);
 
         foreach (var point in pointsMap)

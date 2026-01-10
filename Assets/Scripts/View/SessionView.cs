@@ -49,7 +49,10 @@ public class SessionView : MonoBehaviour
 
     public void ChangeLanguage()
     {
-        CurrentQuestionText.text = CurrentQuestion.GetText();
+        if(CurrentQuestion != null)
+        {
+            CurrentQuestionText.text = CurrentQuestion.GetText();
+        }        
     }
         
     public void Next()

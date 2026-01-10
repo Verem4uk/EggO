@@ -81,11 +81,11 @@ public class Controller : MonoBehaviour
         
     public void SwitchLanguage(int index)
     {
+        Debug.Log("Change language to " + index);
         Root.ChangeLanguage(index);
-        if (SessionView.isActiveAndEnabled)
-        {
-            SessionView.ChangeLanguage();
-        }        
+        
+        SessionView.ChangeLanguage();
+        RoadMap.UpdateTexts();
     }
 
     public void ClearPrefs()
