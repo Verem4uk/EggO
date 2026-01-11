@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ffdfb57993aa24e957761d3385c2bb, type: 3}
   m_Name: RandomBlock
   m_EditorClassIdentifier: 
-  AmountForOneSession: 10
+  AmountForOneSession: 5
   Questions:
   - {fileID: 11400000, guid: 283b98e67965bc7458f3ff69421eca09, type: 2}
   - {fileID: 11400000, guid: 05b53dd75eba5324c942014e7d63ca70, type: 2}

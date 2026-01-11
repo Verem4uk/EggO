@@ -64,7 +64,13 @@ public class SessionView : MonoBehaviour
             return;
         }
         
-        CurrentQuestionText.text = CurrentQuestion.GetText();
+        var text = CurrentQuestion.GetText();
+        if(text == null || text == "")
+        {
+            text = Session.GetCounterInfo();
+        }
+
+        CurrentQuestionText.text = text;
         
         if (CurrentQuestion.HasImage())
         {
@@ -83,23 +89,19 @@ public class SessionView : MonoBehaviour
             switch (images.Length)
             {
                 case > 2:
-                    ImageHolder.cellSize = new Vector2(MinCellSize, MinCellSize);
-                    CurrentQuestionText.gameObject.SetActive(true);
+                    ImageHolder.cellSize = new Vector2(MinCellSize, MinCellSize);                    
                     break;
                 case 1:
-                    ImageHolder.cellSize = new Vector2(MaxCellSize, MaxCellSize);
-                    CurrentQuestionText.gameObject.SetActive(false);
+                    ImageHolder.cellSize = new Vector2(MaxCellSize, MaxCellSize);                    
                     break;
                 default:
-                    ImageHolder.cellSize = new Vector2(MidCellSize, MidCellSize);
-                    CurrentQuestionText.gameObject.SetActive(true);
+                    ImageHolder.cellSize = new Vector2(MidCellSize, MidCellSize);                    
                     break;
             }
 
             ImageHolder.gameObject.SetActive(true);
             return;
         }
-        ImageHolder.gameObject.SetActive(false);
-        CurrentQuestionText.gameObject.SetActive(true);
+        ImageHolder.gameObject.SetActive(false);        
     }    
 }

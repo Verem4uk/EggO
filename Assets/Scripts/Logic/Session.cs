@@ -17,6 +17,13 @@ public class Session
         CurrentElementIndex = 0;
     }
 
+    public string GetCounterInfo()
+    {
+        return CurrentElement is RandomQuestionsBlock randomBlock
+            ? (CurrentElementIndexes.Count).ToString() + "/" + randomBlock.AmountForOneSession.ToString()
+            : "";
+    }
+
     public IQuestion GetQuestion()
     {
         if (CurrentElement == null)
