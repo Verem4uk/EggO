@@ -313,11 +313,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7889194531680463780, guid: 3f9306e0a6a7d4f4d90636d27a23d60e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 180
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7889194531680463780, guid: 3f9306e0a6a7d4f4d90636d27a23d60e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 180
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7889194531680463780, guid: 3f9306e0a6a7d4f4d90636d27a23d60e, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2101,11 +2101,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7889194531680463780, guid: 3f9306e0a6a7d4f4d90636d27a23d60e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 210
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7889194531680463780, guid: 3f9306e0a6a7d4f4d90636d27a23d60e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 210
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8248047063046125703, guid: 3f9306e0a6a7d4f4d90636d27a23d60e, type: 3}
       propertyPath: m_TargetGraphic
@@ -3426,11 +3426,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7889194531680463780, guid: 3f9306e0a6a7d4f4d90636d27a23d60e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 240
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7889194531680463780, guid: 3f9306e0a6a7d4f4d90636d27a23d60e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 240
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7889194531680463780, guid: 3f9306e0a6a7d4f4d90636d27a23d60e, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -5723,11 +5723,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7889194531680463780, guid: 3f9306e0a6a7d4f4d90636d27a23d60e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 280
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7889194531680463780, guid: 3f9306e0a6a7d4f4d90636d27a23d60e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 280
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8248047063046125703, guid: 3f9306e0a6a7d4f4d90636d27a23d60e, type: 3}
       propertyPath: m_TargetGraphic
