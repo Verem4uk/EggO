@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "QuestionBlock", menuName = "SO/QuestionBlock")]
@@ -7,19 +6,28 @@ public class QuestionsBlock : LevelsElement
     [SerializeField]
     public Question[] Questions;
 
-    public override IQuestion GetNextElement(List<int> exeptIndexes = null)
+    private int NextIndex = 0;
+
+    public override void PrepareQuestions()
+    {
+        for (int i = 0; i < Questions.Length; i++)
+        {
+            if (Questions[i].HasImage())
+            {
+                ((ImageQuestion)Questions[i]).PrepareImagesAsync();
+            }               
+        }
+        NextIndex = 0;
+    }
+
+    public override IQuestion GetNextElement()
     {
         if (Questions == null || Questions.Length == 0)
             return null;
 
-        foreach (var question in Questions)
-        {
-            if (exeptIndexes == null || !exeptIndexes.Contains(question.ID))
-            {
-                return question;
-            }
-        }
+        if (NextIndex >= Questions.Length)
+            return null; 
 
-        return null;
+        return Questions[NextIndex++];
     }
 }

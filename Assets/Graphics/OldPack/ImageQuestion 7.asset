@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 21300000, guid: 0f036331ed456494e920bbc226bf1110, type: 3}
+  imageKeys:
+  - OldPack/Playing.png

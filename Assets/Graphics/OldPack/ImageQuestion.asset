@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 4130640169021434097, guid: 1048f2a660c975740994f83a6eebfdca, type: 3}
+  imageKeys:
+  - OldPack/BlackDog.jpg

@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: -4232229043241166709, guid: 15ecac9a54668ac4e9bc394c08916dc3, type: 3}
+  imageKeys:
+  - SlavicPack/Warion.jpeg

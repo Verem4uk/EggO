@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 21300000, guid: 446310db1f02774478e5d26aa1886918, type: 3}
+  imageKeys:
+  - OldPack/TreeAndBaby.png

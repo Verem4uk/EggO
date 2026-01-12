@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 21300000, guid: 0415d27334e978e41b3b1c8ff935a227, type: 3}
+  imageKeys:
+  - OldPack/Thoughts.png

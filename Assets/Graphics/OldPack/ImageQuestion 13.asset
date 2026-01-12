@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 21300000, guid: 74d917b4b80f0e443b48f3e408652b16, type: 3}
+  imageKeys:
+  - OldPack/stairs.jpg

@@ -19,6 +19,6 @@ MonoBehaviour:
   EnglishText: Are you a supporter of healthy eating or more of a fast food lover?
   PolishText: "Czy jeste\u015B zwolennikiem zdrowego od\u017Cywiania, czy raczej
     lubisz fast food?"
-  Images:
-  - {fileID: -5299272737124294912, guid: 41e7e1683be4b15429c9cd7a173af666, type: 3}
-  - {fileID: 970592215792060153, guid: 66c7fb9c49ea52640864a7a126abc3b3, type: 3}
+  imageKeys:
+  - ThisOrThat/10fastfood.jpeg
+  - ThisOrThat/10healthyfood.jpeg

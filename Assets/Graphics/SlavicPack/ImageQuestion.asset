@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: -5479620187238129941, guid: 7b4bcdcf3d75bf2488b9ed791cc050dc, type: 3}
+  imageKeys:
+  - SlavicPack/Beast.jpeg

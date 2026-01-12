@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: -1548542343388229337, guid: 66a5af6fb7031b34ea7b74a03d235386, type: 3}
+  imageKeys:
+  - SlavicPack/Witch.jpeg

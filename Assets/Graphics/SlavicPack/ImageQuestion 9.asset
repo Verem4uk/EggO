@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 1232255488101627123, guid: 1282ff847a48f75449f21ba5626a7530, type: 3}
+  imageKeys:
+  - SlavicPack/work.jpeg

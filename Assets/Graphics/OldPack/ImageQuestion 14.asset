@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 21300000, guid: 26d126594c6830d4488715a54d6bf14d, type: 3}
+  imageKeys:
+  - OldPack/synergy.png

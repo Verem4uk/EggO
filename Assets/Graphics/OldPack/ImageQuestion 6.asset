@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 21300000, guid: 44a249ba76c8c4f4d8ba0e46ebb81aea, type: 3}
+  imageKeys:
+  - OldPack/oilPit.jpeg

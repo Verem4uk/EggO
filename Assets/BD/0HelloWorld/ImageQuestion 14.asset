@@ -17,6 +17,6 @@ MonoBehaviour:
     \u043D\u0430 \u043F\u0440\u043E\u0448\u043B\u043E\u043C \u0438\u043B\u0438 \u0431\u0443\u0434\u0443\u0449\u0435\u043C?"
   EnglishText: Is your focus now on the past or the future?
   PolishText: "Czy skupiasz si\u0119 teraz na przesz\u0142o\u015Bci czy przysz\u0142o\u015Bci?"
-  Images:
-  - {fileID: -3526696257552774058, guid: 5c8003284a1a7e84ba5463b9674d123a, type: 3}
-  - {fileID: 6068396561712182813, guid: a5f286dc758244d4bae9fc380f8c3406, type: 3}
+  imageKeys:
+  - ThisOrThat/14moreaboutfuture.jpeg
+  - ThisOrThat/14moreaboutpast.jpeg

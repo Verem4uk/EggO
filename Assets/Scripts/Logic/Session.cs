@@ -15,6 +15,16 @@ public class Session
         Level = Root.Levels[--level];
         LevelIndex = level;
         CurrentElementIndex = 0;
+
+        PrepareQuestions();
+    }
+
+    public void PrepareQuestions()
+    {
+        foreach (var element in Level.Elements)
+        {
+            element.PrepareQuestions();            
+        }
     }
 
     public string GetCounterInfo()
@@ -30,8 +40,8 @@ public class Session
         {
             if (CurrentElementIndex >= Level.Elements.Length)
             {
-                Saver.SetLevel(++LevelIndex);
-                return null; // конец сессии
+                Saver.SetLevel(++LevelIndex);                
+                return null; // the end of the session
             }
 
             CurrentElement = Level.Elements[CurrentElementIndex];
@@ -47,7 +57,7 @@ public class Session
                 return GetQuestion();
             }
 
-            var nextQuestion = randomBlock.GetNextElement(CurrentElementIndexes);
+            var nextQuestion = randomBlock.GetNextElement();
             if (nextQuestion == null)
             {                
                 CurrentElement = null;
@@ -58,7 +68,7 @@ public class Session
             return nextQuestion;
         }
 
-        var question = CurrentElement.GetNextElement(CurrentElementIndexes);
+        var question = CurrentElement.GetNextElement();
         if (question == null)
         {
             CurrentElement = null;

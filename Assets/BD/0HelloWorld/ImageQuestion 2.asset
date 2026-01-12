@@ -18,6 +18,6 @@ MonoBehaviour:
     \u043E\u0442\u043F\u0443\u0441\u043A?"
   EnglishText: Where would you like to go on your next vacation?
   PolishText: "Dok\u0105d chcia\u0142(a)by\u015B pojecha\u0107 na nast\u0119pny urlop?"
-  Images:
-  - {fileID: -3939441638775530828, guid: c5d13b1169d945549b4f61c011a153a4, type: 3}
-  - {fileID: 4908348846211105124, guid: b35796e320ebbcd4e8678584bad7098b, type: 3}
+  imageKeys:
+  - ThisOrThat/2beach.jpeg
+  - ThisOrThat/2hills.jpeg

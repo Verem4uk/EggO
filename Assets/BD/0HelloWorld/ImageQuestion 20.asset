@@ -17,6 +17,6 @@ MonoBehaviour:
     \u0438\u043B\u0438 \u0444\u0440\u0438\u043B\u0430\u043D\u0441?"
   EnglishText: Stable job or freelance work?
   PolishText: "Sta\u0142a praca czy freelancing?"
-  Images:
-  - {fileID: -4066073287699104236, guid: a368fefd976632b40b7c5c0b5be53a1d, type: 3}
-  - {fileID: 6201801952621175671, guid: f8f9173bf9d69f24bbcce5600fda7b8c, type: 3}
+  imageKeys:
+  - ThisOrThat/20freelanse.jpeg
+  - ThisOrThat/20stableJob.jpeg

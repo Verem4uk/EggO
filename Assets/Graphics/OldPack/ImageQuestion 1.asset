@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 4113829005332862926, guid: 9128599328f1b7845ae15007a653808a, type: 3}
+  imageKeys:
+  - OldPack/blackHourse.jpg

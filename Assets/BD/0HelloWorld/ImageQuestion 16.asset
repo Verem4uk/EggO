@@ -18,6 +18,6 @@ MonoBehaviour:
   EnglishText: Are you used to listening to your mind or your heart?
   PolishText: "Czy jeste\u015B przyzwyczajony do s\u0142uchania g\u0142osu rozumu
     czy serca?"
-  Images:
-  - {fileID: 4331141031137782725, guid: bedebc8c101c0ce4dab7951aee98ea03, type: 3}
-  - {fileID: -3334985429458609705, guid: aa974ce5b5e7a6c49a5c998a9e86c609, type: 3}
+  imageKeys:
+  - ThisOrThat/16brain.jpeg
+  - ThisOrThat/16heart.jpeg

@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 8329937893907690735, guid: c9a023000cbf82c45bdd5404e7298f60, type: 3}
+  imageKeys:
+  - WaterPack/010.jpeg

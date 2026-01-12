@@ -20,6 +20,6 @@ MonoBehaviour:
   EnglishText: What is your attitude towards physical fitness, diets, and working
     out at the gym?
   PolishText: "Jak podchodzisz do kondycji fizycznej, diet i trening\xF3w na si\u0142owni?"
-  Images:
-  - {fileID: -3503071915526282242, guid: 9275b749a1349a743805f6d109c8a0ba, type: 3}
-  - {fileID: 1189527934681910064, guid: b4c4bb008d8339244a8760bf1bed99c8, type: 3}
+  imageKeys:
+  - ThisOrThat/13superfat.jpeg
+  - ThisOrThat/13supermusculat.jpeg

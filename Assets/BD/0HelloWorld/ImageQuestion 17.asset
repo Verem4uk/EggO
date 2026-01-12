@@ -17,6 +17,6 @@ MonoBehaviour:
     \u0438\u043B\u0438 \u043A\u043E\u043C\u0430\u043D\u0434\u043D\u044B\u0439 \u0438\u0433\u0440\u043E\u043A?"
   EnglishText: Are you more of a leader or a team player?
   PolishText: "Jeste\u015B bardziej liderem czy graczem zespo\u0142owym?"
-  Images:
-  - {fileID: -8670494196712350201, guid: 7564f2e1c623e584dbf7b2d1469b1cf3, type: 3}
-  - {fileID: 721351511000627682, guid: 98850c51b9a02684bbbf0b4d1d8ca95a, type: 3}
+  imageKeys:
+  - ThisOrThat/17leadership.jpeg
+  - ThisOrThat/17teamplayer.jpeg

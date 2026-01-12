@@ -17,6 +17,6 @@ MonoBehaviour:
     \u0437\u0438\u043C\u043E\u0439?"
   EnglishText: What kind of vacation do you prefer in winter?
   PolishText: "Jak wypoczywasz zim\u0105?"
-  Images:
-  - {fileID: 977360947741144371, guid: 9fe9cf034d2266147b53ae7088e73bff, type: 3}
-  - {fileID: 9106026199980825712, guid: 77fa4570e77b39d46b7e4d388482aedb, type: 3}
+  imageKeys:
+  - ThisOrThat/9goSkii.jpeg
+  - ThisOrThat/9sittingnearfire.jpeg

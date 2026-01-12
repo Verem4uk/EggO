@@ -20,6 +20,6 @@ MonoBehaviour:
   EnglishText: Do you have a pet? If not, would you like to get one in the future?
   PolishText: "Czy masz zwierz\u0119 domowe? Je\u015Bli nie, to czy chcia\u0142(a)by\u015B
     mie\u0107 jakie\u015B w przysz\u0142o\u015Bci?"
-  Images:
-  - {fileID: 2075271617830697031, guid: 851ba344a0b90b945b7b7ccd54e30fc3, type: 3}
-  - {fileID: 3885584326478366207, guid: ea5a8611a98a9bf4590b386036a06b5f, type: 3}
+  imageKeys:
+  - ThisOrThat/1cat.png
+  - ThisOrThat/1dog.png

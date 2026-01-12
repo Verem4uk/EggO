@@ -20,6 +20,6 @@ MonoBehaviour:
   EnglishText: Have you tried or would you like to try unusual/extreme recreation?
   PolishText: "Czy pr\xF3bowa\u0142e\u015B(a\u015B) lub chcia\u0142(a)by\u015B spr\xF3bowa\u0107
     nietypowego/ekstremalnego wypoczynku?"
-  Images:
-  - {fileID: 8031274077707995917, guid: 3a8c8745878edfa4db3ed31431a8e822, type: 3}
-  - {fileID: 528021183281343470, guid: 82c62bcafad38a1469cd208b9d9374d4, type: 3}
+  imageKeys:
+  - ThisOrThat/6diving.jpeg
+  - ThisOrThat/6skydiving.jpeg

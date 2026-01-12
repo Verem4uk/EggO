@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 21300000, guid: eda230ca8acdd0842893398b6e9fed63, type: 3}
+  imageKeys:
+  - OldPack/Witchers.png

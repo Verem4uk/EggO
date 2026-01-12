@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 21300000, guid: d10c384090078c14b9344b1737a3040a, type: 3}
+  imageKeys:
+  - OldPack/love.png

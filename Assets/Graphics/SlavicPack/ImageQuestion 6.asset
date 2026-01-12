@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 6853316077166303748, guid: d12ddaac99230f749bb754c87921712f, type: 3}
+  imageKeys:
+  - SlavicPack/Tree.jpeg

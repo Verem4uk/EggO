@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: -6761297397546389557, guid: b0d10c999e047884e87ba68e123b99c7, type: 3}
+  imageKeys:
+  - SlavicPack/lovers.jpeg

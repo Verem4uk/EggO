@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: -70138355173250512, guid: 594eb7502abf48040b7bfba782190d8e, type: 3}
+  imageKeys:
+  - SlavicPack/timeOver.jpeg

@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: -6628630741749967428, guid: bc857de6f5ed8a545b78cabd2e218b25, type: 3}
+  imageKeys:
+  - SlavicPack/celebrating.jpeg

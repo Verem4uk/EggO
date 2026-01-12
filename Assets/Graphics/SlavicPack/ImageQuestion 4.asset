@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 2582522100020477484, guid: b0643cc7e9076ba43a1ff2fcb9ee733b, type: 3}
+  imageKeys:
+  - SlavicPack/Mother.jpeg

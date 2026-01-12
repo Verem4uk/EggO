@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Question", menuName = "SO/Question")]
@@ -29,8 +28,18 @@ public class Question : LevelsElement, IQuestion
     public virtual bool HasImage() => false;
     public virtual Sprite[] GetImages() => null;
 
-    public override IQuestion GetNextElement(List<int> exceptIndexes = null)
+    private bool Used;
+
+    public override IQuestion GetNextElement()
     {
-        return exceptIndexes == null || exceptIndexes.Count == 0 ? this : null;
+        if(Used)
+        {
+            return null;
+        }
+
+        Used = true;
+        return this;
     }
+
+    public override void PrepareQuestions() => Used = false;    
 }

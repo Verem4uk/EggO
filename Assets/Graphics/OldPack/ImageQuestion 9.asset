@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 21300000, guid: 30260593ba8a2a246824b5949a4aac49, type: 3}
+  imageKeys:
+  - OldPack/praying.png

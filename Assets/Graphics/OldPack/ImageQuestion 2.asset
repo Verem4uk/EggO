@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: -5099292496197868168, guid: 41832a051feb4ab43a478431ce17773d, type: 3}
+  imageKeys:
+  - OldPack/brain.png

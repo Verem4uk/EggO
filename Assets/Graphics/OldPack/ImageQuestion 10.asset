@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 21300000, guid: 8de09b4d02b6291429f3785a386f99f4, type: 3}
+  imageKeys:
+  - OldPack/rain.png

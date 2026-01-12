@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: -2966200626249415253, guid: 17f4a5cd101d8bc40b7a743c1e36f9bb, type: 3}
+  imageKeys:
+  - OldPack/IronMaiden.png

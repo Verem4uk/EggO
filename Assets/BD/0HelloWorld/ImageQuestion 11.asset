@@ -22,6 +22,6 @@ MonoBehaviour:
     living on the trash heap?
   PolishText: "Miesi\u0105c pracy w biurze za minimaln\u0105 krajow\u0105 lub 10
     000 dolar\xF3w i miesi\u0105c \u017Cycia na \u015Bmietniku?"
-  Images:
-  - {fileID: -4016155155062655402, guid: d4f0124ddea4ad540b76ac8c9034fb5b, type: 3}
-  - {fileID: -4960004246433212186, guid: a949fc368e335df4699d5483552129e3, type: 3}
+  imageKeys:
+  - ThisOrThat/11lowpaymentofficejob.jpeg
+  - ThisOrThat/11trachbutmoney.jpeg

@@ -17,6 +17,6 @@ MonoBehaviour:
     \u0432\u0435\u0433\u0435\u0442\u0430\u0440\u0438\u0430\u043D\u0441\u0442\u0432\u0435?"
   EnglishText: What do you think about vegetarianism?
   PolishText: "Co my\u015Blisz o wegetarianizmie?"
-  Images:
-  - {fileID: -7499369215416399559, guid: 24297a3c21bbc744bb434ba247bde131, type: 3}
-  - {fileID: 8220230389387330440, guid: 4b03a557a1632d340b2c18c1c1b9bcf4, type: 3}
+  imageKeys:
+  - ThisOrThat/12meat.jpeg
+  - ThisOrThat/12vegetables.jpeg

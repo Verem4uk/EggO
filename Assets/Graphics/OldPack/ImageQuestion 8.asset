@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 21300000, guid: a966fd7b24f994c4bb3679e150aad860, type: 3}
+  imageKeys:
+  - OldPack/Postapokalypsis.png

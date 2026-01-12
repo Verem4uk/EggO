@@ -22,6 +22,6 @@ MonoBehaviour:
     been able to find time for?"
   PolishText: "Jak\u0105 aktywno\u015B\u0107 chcia\u0142(a)by\u015B wypr\xF3bowa\u0107
     od dawna, ale nie mo\u017Cesz znale\u017A\u0107 na ni\u0105 czasu?"
-  Images:
-  - {fileID: 7326405743383370440, guid: 900e7851b0d7fb54d8fca00b919a029f, type: 3}
-  - {fileID: 1831821621819114801, guid: 2c79b80dd85dc3e419acaddd45861360, type: 3}
+  imageKeys:
+  - ThisOrThat/7cars.jpeg
+  - ThisOrThat/7hourses.jpeg

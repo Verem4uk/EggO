@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: -9206765228364351484, guid: b02c9b76297f9e245af0eac43c6b786c, type: 3}
+  imageKeys:
+  - 18CenteryPack/007.jpeg

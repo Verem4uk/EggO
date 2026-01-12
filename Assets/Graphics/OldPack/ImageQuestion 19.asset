@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: -6976733073963839632, guid: 2213e89f3a3f58643b35670cd99daccd, type: 3}
+  imageKeys:
+  - OldPack/well.png

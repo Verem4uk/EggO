@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 3937709321908014680, guid: 32bda0eb4cfbcd147b0d5dbeeffee8f9, type: 3}
+  imageKeys:
+  - SlavicPack/competition.jpeg

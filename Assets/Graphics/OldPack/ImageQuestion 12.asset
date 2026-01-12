@@ -16,5 +16,5 @@ MonoBehaviour:
   RussianText: 
   EnglishText: 
   PolishText: 
-  Images:
-  - {fileID: 21300000, guid: 471fce71f620df748adb0ab59b5e74ad, type: 3}
+  imageKeys:
+  - OldPack/robot.png

@@ -16,6 +16,6 @@ MonoBehaviour:
   RussianText: "\u041A\u0430\u043A \u0432\u044B \u043E\u0442\u0434\u044B\u0445\u0430\u0435\u0442\u0435?"
   EnglishText: How do you relax?
   PolishText: Jak odpoczywasz?
-  Images:
-  - {fileID: 7646008151310888811, guid: 79f167dbf7b06e2478705d8fdca74145, type: 3}
-  - {fileID: -5627661730241851108, guid: 8555dc73cc904e94f8435528ff79e9e3, type: 3}
+  imageKeys:
+  - ThisOrThat/5club.jpeg
+  - ThisOrThat/5piknic.jpeg

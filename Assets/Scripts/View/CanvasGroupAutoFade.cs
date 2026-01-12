@@ -99,18 +99,16 @@ public class CanvasGroupAutoFadeWithImages : MonoBehaviour
 
     private IEnumerator HideRoutine()
     {
-        // Сначала Images OUT
+        
         yield return FadeImages(0f, imagesFadeOutDuration);
 
         /*
-        // Отключаем интерактив сразу
         cg.interactable = false;
         cg.blocksRaycasts = false;
-
-        // Затем CanvasGroup OUT
-        yield return FadeCanvasGroup(0f, fadeOutDuration);
         */
-
+        
+        yield return FadeCanvasGroup(0f, fadeOutDuration);
+        
         gameObject.SetActive(false);
         currentRoutine = null;
     }

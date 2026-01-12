@@ -30,8 +30,8 @@ MonoBehaviour:
     do wody. Jaki obraz pojawi\u0142 si\u0119 jako pierwszy w Pa\u0144stwa wyobra\u017Ani
     (bagno, jezioro, morze, ocean)? Co zrobi\u0105 Pa\u0144stwo dalej? (Pop\u0142ywa\u0107
     / Napi\u0107 si\u0119 wody / Obej\u015B\u0107 / Zosta\u0107 w chacie / Zawr\xF3ci\u0107)"
-  Images:
-  - {fileID: 5023081933725539679, guid: 897942606c17849429e8f4d071c411a4, type: 3}
-  - {fileID: -5130686204486642245, guid: 8971c154bf6364345adccb4c64516d1f, type: 3}
-  - {fileID: 4531421633079013050, guid: 73c778a4b914b9744aaece18cc41791a, type: 3}
-  - {fileID: -2670581200746741910, guid: 374b29367106aef4689462b6dbad9e78, type: 3}
+  imageKeys:
+  - PsychoTestPack/water0.png
+  - PsychoTestPack/water1.png
+  - PsychoTestPack/water2.png
+  - PsychoTestPack/water3.png
