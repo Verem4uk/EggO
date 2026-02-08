@@ -20,7 +20,7 @@ MonoBehaviour:
   TextColor: {r: 0, g: 0, b: 0, a: 1}
   BackGroundAudio: {fileID: 8300000, guid: 9aecd7ffd198edb499df08df5bca6ee8, type: 3}
   Elements:
-  - {fileID: 11400000, guid: a47af95723a9a2946882461cefd81c6b, type: 2}
   - {fileID: 11400000, guid: 8d4bada9d81b02f4293c950b7117e525, type: 2}
+  - {fileID: 11400000, guid: a47af95723a9a2946882461cefd81c6b, type: 2}
   - {fileID: 11400000, guid: 84ea6a2613960644e955b41792a2b481, type: 2}
   - {fileID: 11400000, guid: 119c9f2f099247641a17cab292071112, type: 2}
