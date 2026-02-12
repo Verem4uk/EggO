@@ -19,15 +19,29 @@ public class Controller : MonoBehaviour
     private ColorChanger Background;
 
     [SerializeField]
-    private AudioController AudioController;    
+    private AudioController AudioController;
+
+    private bool InputIsBlocked;
 
     public void OpenRoadMap()
     {
+        if (InputIsBlocked)
+        {
+            return;
+        }
+
+        InputIsBlocked = true;
         StartCoroutine(FadeOutAndSwitch());
     }
 
     public void PlaySession(int levelIndex)
     {
+        if(InputIsBlocked)
+        {
+            return;
+        }
+
+        InputIsBlocked = true;
         Debug.Log("Play session " + levelIndex);
         StartCoroutine(PlayAfterHide());        
         var level = Root.Levels[--levelIndex]; 
@@ -56,7 +70,8 @@ public class Controller : MonoBehaviour
 
         MainMenuView.alpha = 0f;
         MainMenuView.gameObject.SetActive(false);
-        RoadMap.gameObject.SetActive(true);        
+        RoadMap.gameObject.SetActive(true);
+        InputIsBlocked = false;
     }
 
     private IEnumerator PlayAfterHide()
@@ -64,7 +79,8 @@ public class Controller : MonoBehaviour
         yield return StartCoroutine(routine: RoadMap.HideSequence());
         yield return new WaitForSeconds(1.5f);
         RoadMap.gameObject.SetActive(false);
-        SessionView.gameObject.SetActive(true);        
+        SessionView.gameObject.SetActive(true);
+        InputIsBlocked = false;
     }
 
     public void BackToMenu()
