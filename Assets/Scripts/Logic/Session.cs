@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Session
 {    
@@ -9,7 +10,9 @@ public class Session
     private int CurrentElementIndex;
     private LevelsElement CurrentElement;
     private List<int> CurrentElementIndexes = new List<int>();
-                    
+
+    private float StartTime;
+
     public Session(int level)
     {   
         Level = Root.Levels[--level];
@@ -17,6 +20,9 @@ public class Session
         CurrentElementIndex = 0;
 
         PrepareQuestions();
+
+        StartTime = Time.time;
+        Analytics.StartSession(LevelIndex);
     }
 
     public void PrepareQuestions()
@@ -40,7 +46,8 @@ public class Session
         {
             if (CurrentElementIndex >= Level.Elements.Length)
             {
-                Saver.SetLevel(++LevelIndex);                
+                Saver.SetLevel(++LevelIndex);
+                Analytics.FinishSession(LevelIndex, (int)(Time.time - StartTime));
                 return null; // the end of the session
             }
 
