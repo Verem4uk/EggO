@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 763c49d2e90265d4b951191f1d423ad6, type: 3}
+  m_Name: LazyBalance
+  m_EditorClassIdentifier: 
+  Questions:
+  - {fileID: 11400000, guid: f83a07c22e496f441b25fb8b5523ebce, type: 2}
+  - {fileID: 11400000, guid: 6d3daeae28284404fb5af66e0ffa9573, type: 2}
