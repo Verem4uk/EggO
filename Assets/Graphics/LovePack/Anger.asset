@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff3b0881c561d3f4492f08ad0a16829b, type: 3}
-  m_Name: Special Question
+  m_Script: {fileID: 11500000, guid: 9ca9b781e1de8c342885434285044450, type: 3}
+  m_Name: Anger
   m_EditorClassIdentifier: 
   ID: 0
   RussianText: "\u0411\u044B\u043B \u0433\u0440\u0435\u0448\u043E\u043A?"
-  EnglishText: What do you see? (each person for each image)
-  PolishText: "Co Pan/Pani widzi? (ka\u017Cdy o ka\u017Cdym obrazku)"
+  EnglishText: Was there a little sin?
+  PolishText: "By\u0142 grzeszek?"
+  imageKeys:
+  - "LovePack/\u0433\u043D\u0435\u0432.png"
+  - "LovePack/\u043E\u0431\u043E\u0440\u043E\u043D\u0430.png"
+  - "LovePack/\u0442\u0435\u0440\u043F\u0438\u043B\u043E.png"
