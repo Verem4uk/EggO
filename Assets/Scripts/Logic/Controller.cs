@@ -12,6 +12,9 @@ public class Controller : MonoBehaviour
     [SerializeField]
     private RoadMapScreen RoadMap;
 
+    [SerializeField]
+    private CoffeeView CoffeeView;
+
     [SerializeField] 
     private CanvasGroup MainMenuView;
     
@@ -83,12 +86,24 @@ public class Controller : MonoBehaviour
         InputIsBlocked = false;
     }
 
+    public void GoToCoffeeScreen()
+    {
+        Background.ToggleColor(Color.white);
+        RoadMap.gameObject.SetActive(false);
+        SessionView.gameObject.SetActive(false);
+        CoffeeView.gameObject.SetActive(true);
+        AudioController.Stop();
+        
+        AudioController.SetDefault();
+    }
+
     public void BackToMenu()
     {
         Debug.Log("BackToMainMenu");
         Background.ToggleColor(Color.black);
         RoadMap.gameObject.SetActive(false);
         SessionView.gameObject.SetActive(false);
+        CoffeeView.gameObject.SetActive(false);
         MainMenuView.gameObject.SetActive(true);
         MainMenuView.alpha = 1;
 

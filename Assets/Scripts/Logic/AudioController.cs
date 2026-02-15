@@ -42,5 +42,9 @@ public class AudioController : MonoBehaviour
         AudioSource.clip = DefaultAudio;
         AudioSource.Play();
     }
-    
+
+    public void Stop()
+    {
+        AudioSource.Stop();
+    }    
 }

@@ -34,12 +34,12 @@ public class RoadMapScreen : MonoBehaviour
 
     private IEnumerator ShowSequence()
     {
-        yield return new WaitForSeconds(delayBeforeStart);
-
         foreach (var point in pointsMap)
         {
             point.ResetEggO();
         }
+
+        yield return new WaitForSeconds(delayBeforeStart);        
 
         StartCoroutine(FadeText(EggOText, .5f, true));
 

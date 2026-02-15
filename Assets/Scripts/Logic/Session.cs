@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Session
-{    
-    private string[] Names;
+{       
     private Level Level;
     private int LevelIndex;
 

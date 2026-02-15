@@ -31,18 +31,6 @@ public static class Analytics
         LogEvent("session_complete", level, duration);
     }
 
-    public static void InitRegistration()
-    {
-        Debug.Log("Init registration");
-        LogEvent("registration_start");
-    }
-
-    public static void SuccessRegistration()
-    {
-        Debug.Log("Success registration");
-        LogEvent("registration_success");
-    }
-
     public static void StartPurchase(int level)
     {
         Debug.Log("Start purchase " + level);
@@ -54,4 +42,17 @@ public static class Analytics
         Debug.Log("Complete purchase " + level);
         LogEvent("purchase_success", level);
     }
+
+    public static void SendSuccessFeedback(string text)
+    {
+        Debug.Log("Feedback after success " + text);
+        //LogEvent("feedback_success", text);
+    }
+
+    public static void SendFailFeedback(string text)
+    {
+        Debug.Log("Feedback after fail " + text);
+        //LogEvent("feedback_success", text);
+    }
+
 }
