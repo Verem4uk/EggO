@@ -7,12 +7,9 @@ public class PointMap : MonoBehaviour
 {
     [SerializeField]
     private int ID;
-
+        
     [SerializeField] 
-    private Image LockedEggO; 
-    
-    [SerializeField] 
-    private Image ActiveEggO;
+    private Button ActiveEggO;
 
     [SerializeField]
     private Image PastEggO;
@@ -39,17 +36,17 @@ public class PointMap : MonoBehaviour
 
         if (ID > maxPastLevel)
         {
-            yield return StartCoroutine(FadeInImage(LockedEggO, 0.5f));
+            ActiveEggO.interactable = false;
+            yield return StartCoroutine(FadeInImage(ActiveEggO.image, 0.5f));
         }        
     }
 
     public IEnumerator UnlockIfAvailable()
     {
         if (Saver.GetLevel() + 1 == ID)
-        {
-            yield return StartCoroutine(FadeOutImage(LockedEggO, 0.5f));
-            ActiveEggO.gameObject.SetActive(true);            
-            yield return StartCoroutine(FadeInImage(ActiveEggO, 0.5f));
+        {            
+            ActiveEggO.gameObject.SetActive(true);
+            ActiveEggO.interactable = true;
             Text.gameObject.SetActive(true);
             yield return StartCoroutine(FadeText(Text, 0.5f, true));
             Pulsation.enabled = true;
@@ -66,7 +63,7 @@ public class PointMap : MonoBehaviour
         if (ActiveEggO.gameObject.activeInHierarchy)
         {
             Pulsation.enabled = false;
-            yield return StartCoroutine(FadeOutImage(ActiveEggO, 0.5f));            
+            yield return StartCoroutine(FadeOutImage(ActiveEggO.image, 0.5f));            
             yield return StartCoroutine(FadeText(Text, 0.5f, false));
         }
         
@@ -74,12 +71,7 @@ public class PointMap : MonoBehaviour
         {            
             yield return StartCoroutine(FadeOutImage(PastEggO, 0.5f));
             yield return StartCoroutine(FadeText(Text, 0.5f, false));
-        }
-                   
-        if(LockedEggO.gameObject.activeInHierarchy)
-        {
-            yield return StartCoroutine(FadeOutImage(LockedEggO, 0.5f));
-        }         
+        }              
     }
 
     private IEnumerator FadeInImage(Image img, float duration) //appear
@@ -145,12 +137,11 @@ public class PointMap : MonoBehaviour
 
     public void ResetEggO()
     {
-        Pulsation.enabled = false;
-        ActiveEggO.gameObject.SetActive(false);
+        Pulsation.enabled = false;        
         Text.gameObject.SetActive(false);
-        SetAlpha(ActiveEggO, 0f);
-        SetAlpha(LockedEggO, 0f);
+        SetAlpha(ActiveEggO.image, 0f);        
         SetAlpha(Text, 0f);
+        ActiveEggO.interactable = false;
     }
 
     private void OnDisable()

@@ -27,21 +27,19 @@ public class CanvasGroupAutoFadeWithImages : MonoBehaviour
     {
         cg = GetComponent<CanvasGroup>();
 
-        // Стартуем скрытыми
         cg.alpha = 0f;
         cg.interactable = false;
         cg.blocksRaycasts = false;
 
-        // Картинки оставляем активными, но прозрачными (чтобы их можно было плавно показать)
         SetImagesAlpha(0f, onlyIfActive: false);
     }
 
     void OnEnable()
     {
-        Show(); // автопоказ
+        Show(); 
     }
 
-    /// <summary>Плавно показать: CanvasGroup -> Images.</summary>
+    
     public void Show(bool immediate = false)
     {
         if (immediate)
@@ -58,7 +56,6 @@ public class CanvasGroupAutoFadeWithImages : MonoBehaviour
         currentRoutine = StartCoroutine(ShowRoutine());
     }
 
-    /// <summary>Спрятать: Images -> CanvasGroup -> SetActive(false).</summary>
     public void HideAndDeactivate(bool immediate = false)
     {
         if (!gameObject.activeInHierarchy) return;
@@ -78,8 +75,6 @@ public class CanvasGroupAutoFadeWithImages : MonoBehaviour
         currentRoutine = StartCoroutine(HideRoutine());
     }
 
-    // ---------- Routines ----------
-
     private IEnumerator ShowRoutine()
     {
         // CanvasGroup IN
@@ -87,11 +82,9 @@ public class CanvasGroupAutoFadeWithImages : MonoBehaviour
         cg.blocksRaycasts = false;
         yield return FadeCanvasGroup(1f, fadeInDuration);
 
-        // Активируем интерактив после полного появления
         cg.interactable = true;
         cg.blocksRaycasts = true;
 
-        // Images IN (после CanvasGroup)
         yield return FadeImages(1f, imagesFadeInDuration);
 
         currentRoutine = null;
@@ -101,19 +94,12 @@ public class CanvasGroupAutoFadeWithImages : MonoBehaviour
     {
         
         yield return FadeImages(0f, imagesFadeOutDuration);
-
-        /*
-        cg.interactable = false;
-        cg.blocksRaycasts = false;
-        */
-        
+                
         yield return FadeCanvasGroup(0f, fadeOutDuration);
         
         gameObject.SetActive(false);
         currentRoutine = null;
     }
-
-    // ---------- Helpers ----------
 
     private IEnumerator FadeCanvasGroup(float target, float duration)
     {
@@ -134,13 +120,12 @@ public class CanvasGroupAutoFadeWithImages : MonoBehaviour
     {
         if (images == null || images.Length == 0) yield break;
 
-        // Снимем начальные альфы
         float[] startAlphas = new float[images.Length];
         for (int i = 0; i < images.Length; i++)
         {
             if (images[i] == null) continue;
             startAlphas[i] = images[i].color.a;
-            // гарантируем, что объекты активны для анимации
+            
             if (!images[i].gameObject.activeSelf) images[i].gameObject.SetActive(true);
         }
 
@@ -150,7 +135,7 @@ public class CanvasGroupAutoFadeWithImages : MonoBehaviour
         while (t < duration)
         {
             t += Delta;
-            float a = Mathf.Lerp(0f, 1f, t / duration); // нормализованный прогресс
+            float a = Mathf.Lerp(0f, 1f, t / duration); 
             for (int i = 0; i < images.Length; i++)
             {
                 var img = images[i];
@@ -163,14 +148,13 @@ public class CanvasGroupAutoFadeWithImages : MonoBehaviour
             yield return null;
         }
 
-        // финальные значения
+        
         for (int i = 0; i < images.Length; i++)
         {
             var img = images[i];
             if (img == null) continue;
             var c = img.color; c.a = targetAlpha; img.color = c;
-
-            // Если полностью скрыли — можно выключить объект (не обязательно, но экономит отрисовку)
+            
             if (Mathf.Approximately(targetAlpha, 0f))
                 img.gameObject.SetActive(false);
         }
@@ -185,7 +169,6 @@ public class CanvasGroupAutoFadeWithImages : MonoBehaviour
             if (img == null) continue;
             if (onlyIfActive && !img.gameObject.activeSelf) continue;
 
-            // Делаем активным при показе, при скрытии можно оставить активным (или выключать в FadeImages)
             if (alpha > 0f && !img.gameObject.activeSelf)
                 img.gameObject.SetActive(true);
 

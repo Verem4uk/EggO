@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using TMPro;
+using UnityEngine;
 
 
 public class RoadMapScreen : MonoBehaviour
@@ -10,7 +11,10 @@ public class RoadMapScreen : MonoBehaviour
     public PointMap[] pointsMap;
 
     [SerializeField]
-    private TranslatableText[] translatableTexts; 
+    private TranslatableText[] translatableTexts;
+
+    [SerializeField]
+    private TextMeshProUGUI EggOText;
 
     public float delayBeforeStart = 0.5f;
 
@@ -37,6 +41,8 @@ public class RoadMapScreen : MonoBehaviour
             point.ResetEggO();
         }
 
+        StartCoroutine(FadeText(EggOText, .5f, true));
+
         foreach (var point in pointsMap)
         {
             yield return StartCoroutine(point.Show());
@@ -50,7 +56,7 @@ public class RoadMapScreen : MonoBehaviour
 
     public IEnumerator HideSequence()
     {
-        //yield return new WaitForSeconds(delayBeforeStart);
+        StopAllCoroutines();
 
         foreach (var point in pointsMap)
         {
@@ -61,5 +67,31 @@ public class RoadMapScreen : MonoBehaviour
         yield return new WaitForSeconds(.5f);
 
         Canvas.HideAndDeactivate();
-    }   
+
+        StartCoroutine(FadeText(EggOText, .5f, false));
+
+        foreach (var point in pointsMap)
+        {
+            point.ResetEggO();
+        }
+    }
+
+    private IEnumerator FadeText(TextMeshProUGUI text, float duration, bool fadeIn)
+    {
+        float t = 0f;
+        Color original = text.color;
+
+        float startAlpha = original.a;
+        float endAlpha = fadeIn ? 1f : 0f;
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float alpha = Mathf.Lerp(startAlpha, endAlpha, t / duration);
+            text.color = new Color(original.r, original.g, original.b, alpha);
+            yield return null;
+        }
+
+        text.color = new Color(original.r, original.g, original.b, endAlpha);
+    }
 }

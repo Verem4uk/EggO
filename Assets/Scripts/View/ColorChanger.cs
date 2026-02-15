@@ -9,8 +9,7 @@ public class ColorChanger : MonoBehaviour
     public Color customColor;
     
     public void ToggleColor()
-    {
-        Debug.Log("Change color to " + customColor);
+    {        
         ToggleColor(customColor);        
     }
 
