@@ -32,6 +32,9 @@ public class CoffeeView : MonoBehaviour
     [SerializeField]
     private Question WhyNot;
 
+    [SerializeField]
+    private AudioSource AudioSource;
+
     private void OnEnable()
     {
         CoffeeQuestion.text = Ask.GetText();
@@ -46,6 +49,7 @@ public class CoffeeView : MonoBehaviour
         StartCoroutine(SuccessAnimation());
         Buttons.SetActive(false);
         AnswerField.gameObject.SetActive(true);
+        AudioSource.Play();
         Analytics.StartPurchase(Saver.LastPastLevel);
     }
 
