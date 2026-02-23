@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,10 +8,13 @@ public class CoffeeView : MonoBehaviour
     private Text CoffeeQuestion;
 
     [SerializeField]
+    private Controller Controller;
+
+    [SerializeField]
     private Image Image;
 
     [SerializeField]
-    private Sprite[] SpritesStack;
+    private Sprite StartSprite;
 
     [SerializeField]
     private Sprite SadSprite;
@@ -27,30 +29,29 @@ public class CoffeeView : MonoBehaviour
     private Question Ask;
 
     [SerializeField]
-    private Question Thanks;
-
-    [SerializeField]
     private Question WhyNot;
 
-    [SerializeField]
-    private AudioSource AudioSource;
+    private static string StripePaymentLink = "https://donate.stripe.com/dRm9AT4uffKkfu83EB6g800";
 
     private void OnEnable()
     {
         CoffeeQuestion.text = Ask.GetText();
         Buttons.SetActive(true);
         AnswerField.gameObject.SetActive(false);
-        Image.sprite = SpritesStack[0];
+        Image.sprite = StartSprite;
     }
 
     public void Buy()
     {
-        CoffeeQuestion.text = Thanks.GetText();
-        StartCoroutine(SuccessAnimation());
-        Buttons.SetActive(false);
-        AnswerField.gameObject.SetActive(true);
-        AudioSource.Play();
         Analytics.StartPurchase(Saver.LastPastLevel);
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        Application.ExternalEval($"window.open('{StripePaymentLink}', '_self');");
+#else
+        Application.OpenURL(StripePaymentLink);
+#endif    
+
+        Close();             
     }
 
     public void NoBuy()
@@ -64,19 +65,12 @@ public class CoffeeView : MonoBehaviour
     public void SendMessage()
     {
         Analytics.SendSuccessFeedback(AnswerField.text);
+        Close();
     }
 
     public void Close()
     {
+        Controller.BackToMenu();
         gameObject.SetActive(false);
-    }
-
-    public IEnumerator SuccessAnimation()
-    {
-        for(int i  = 1; i < SpritesStack.Length; i++)
-        {
-            Image.sprite = SpritesStack[i];
-            yield return new WaitForSeconds(.5f);
-        }        
     }
 }

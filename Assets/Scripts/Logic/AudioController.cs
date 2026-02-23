@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class AudioController : MonoBehaviour
@@ -25,16 +26,29 @@ public class AudioController : MonoBehaviour
         SoundImage.color = new Color(1, 1, 1, .5f);
     }
 
-    public void HandleAudio(Level level)
-    {
-        var audio = level.BackGroundAudio;
-        if (audio == null)
+    public async void HandleAudio(string key)
+    {        
+        if (string.IsNullOrEmpty(key))
         {
             AudioSource.Stop();
             return;
         }
-        AudioSource.clip = level.BackGroundAudio;
-        AudioSource.Play();
+
+        Debug.Log($"Start loading audio: {key}");
+
+        var handle = Addressables.LoadAssetAsync<AudioClip>(key);
+        var downloadedAudio = await handle.Task;
+
+        if (downloadedAudio != null)
+        {
+            Debug.Log($"Audio loaded: {downloadedAudio.name}");
+            AudioSource.clip = downloadedAudio;
+            AudioSource.Play();
+        }
+        else
+        {
+            Debug.LogError("Failed to load audio.");
+        }
     }
 
     public void SetDefault()

@@ -51,7 +51,7 @@ public class Controller : MonoBehaviour
         SessionView.Initialize(new Session(++levelIndex), level);
         Background.ToggleColor(level.BackgroundColor);
 
-        AudioController.HandleAudio(level);
+        AudioController.HandleAudio(level.BackGroundAudio);
     }    
 
     private IEnumerator FadeOutAndSwitch()
@@ -100,7 +100,7 @@ public class Controller : MonoBehaviour
     public void BackToMenu()
     {
         Debug.Log("BackToMainMenu");
-        Background.ToggleColor(Color.black);
+        Background.ToggleColor(Background.startColor);
         RoadMap.gameObject.SetActive(false);
         SessionView.gameObject.SetActive(false);
         CoffeeView.gameObject.SetActive(false);

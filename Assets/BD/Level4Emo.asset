@@ -18,10 +18,10 @@ MonoBehaviour:
   BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   SmokeColor: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 1}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
-  BackGroundAudio: {fileID: 8300000, guid: 6c828d30ee056cc42a2e09570ef3af00, type: 3}
+  BackGroundAudio: Sounds/Sonata.ogg
   Elements:
   - {fileID: 11400000, guid: a47af95723a9a2946882461cefd81c6b, type: 2}
   - {fileID: 11400000, guid: c599c2a75d390f04cb832632a3c22091, type: 2}
   - {fileID: 11400000, guid: 3a861442b3edee74189af029634215a8, type: 2}
-  - {fileID: 11400000, guid: 3bb90bca654efe840863471c202d3e02, type: 2}
+  - {fileID: 11400000, guid: a3f9c46f6b90cf341bd55ae2c45a9d7c, type: 2}
   - {fileID: 11400000, guid: 119c9f2f099247641a17cab292071112, type: 2}

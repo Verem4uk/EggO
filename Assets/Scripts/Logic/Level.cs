@@ -22,7 +22,7 @@ public class Level : ScriptableObject
     public Color TextColor;
 
     [SerializeField]
-    public AudioClip BackGroundAudio;
+    public string BackGroundAudio;
 
     [SerializeField]
     public LevelsElement[] Elements;

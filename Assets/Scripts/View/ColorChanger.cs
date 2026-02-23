@@ -7,6 +7,7 @@ public class ColorChanger : MonoBehaviour
     public Image targetImage;
     public float duration = 0.5f;
     public Color customColor;
+    public Color startColor;
     
     public void ToggleColor()
     {        
