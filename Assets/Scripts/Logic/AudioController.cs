@@ -1,53 +1,89 @@
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.Networking;
 
 public class AudioController : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField] 
     private AudioSource AudioSource;
 
-    [SerializeField]
+    [SerializeField] 
     private AudioClip DefaultAudio;
 
-    [SerializeField]
+    [SerializeField] 
     private Image SoundImage;
 
-    public void ToogleMute()
-    {
-        if(AudioSource.mute)
-        {
-            AudioSource.mute = false;
-            SoundImage.color = new Color(1, 1, 1, 1);
-            return;
-        }
+    [SerializeField]
+    private float FadeTime = 3f;
 
-        AudioSource.mute = true;
-        SoundImage.color = new Color(1, 1, 1, .5f);
+    private Coroutine fadeCoroutine;
+
+    public void ToggleMute()
+    {
+        AudioSource.mute = !AudioSource.mute;
+        SoundImage.color = AudioSource.mute ? new Color(1, 1, 1, 0.5f) : new Color(1, 1, 1, 1);
     }
 
-    public async void HandleAudio(string key)
-    {        
-        if (string.IsNullOrEmpty(key))
+    public void HandleAudio(string filename)
+    {
+        if (string.IsNullOrEmpty(filename))
         {
             AudioSource.Stop();
             return;
         }
 
-        Debug.Log($"Start loading audio: {key}");
+        string url = $"{Application.streamingAssetsPath}/Sounds/{filename}";
+        Debug.Log($"Start loading audio from: {url}");
 
-        var handle = Addressables.LoadAssetAsync<AudioClip>(key);
-        var downloadedAudio = await handle.Task;
+        if (fadeCoroutine != null)
+            StopCoroutine(fadeCoroutine);
 
-        if (downloadedAudio != null)
+        fadeCoroutine = StartCoroutine(LoadAndPlayAudio(url));
+    }
+
+    private IEnumerator LoadAndPlayAudio(string url)
+    {
+        yield return StopAudio();
+
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.OGGVORBIS))
         {
-            Debug.Log($"Audio loaded: {downloadedAudio.name}");
-            AudioSource.clip = downloadedAudio;
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError($"Failed to load audio: {www.error}");
+                yield break;
+            }
+
+            AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+            AudioSource.clip = clip;
             AudioSource.Play();
+                        
+            float t = 0f;
+            while (t < FadeTime)
+            {
+                t += Time.deltaTime;
+                AudioSource.volume = Mathf.Lerp(0f, 1f, t / FadeTime);
+                yield return null;
+            }
+            AudioSource.volume = 1f;
         }
-        else
+    }
+
+    private IEnumerator StopAudio()
+    {
+        if (AudioSource.isPlaying)
         {
-            Debug.LogError("Failed to load audio.");
+            float startVol = AudioSource.volume;
+            float t = 0f;
+            while (t < FadeTime)
+            {
+                t += Time.deltaTime;
+                AudioSource.volume = Mathf.Lerp(startVol, 0f, t / FadeTime);
+                yield return null;
+            }
+            AudioSource.Stop();
         }
     }
 
@@ -55,10 +91,16 @@ public class AudioController : MonoBehaviour
     {
         AudioSource.clip = DefaultAudio;
         AudioSource.Play();
+        AudioSource.volume = 1f;
     }
 
     public void Stop()
     {
-        AudioSource.Stop();
-    }    
+        if (fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
+        }
+
+        StartCoroutine(StopAudio());
+    }
 }

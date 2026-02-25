@@ -107,7 +107,7 @@ public class Controller : MonoBehaviour
         MainMenuView.gameObject.SetActive(true);
         MainMenuView.alpha = 1;
 
-        AudioController.SetDefault();
+        AudioController.Stop();
     }
         
     public void SwitchLanguage(int index)
