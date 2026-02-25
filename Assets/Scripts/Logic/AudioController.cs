@@ -45,9 +45,12 @@ public class AudioController : MonoBehaviour
     private IEnumerator LoadAudio(string url)
     {
         yield return StopAudio();
-
-        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.OGGVORBIS))
+        
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG))
         {
+            DownloadHandlerAudioClip dlHandler = (DownloadHandlerAudioClip)www.downloadHandler;
+            dlHandler.streamAudio = false; 
+
             yield return www.SendWebRequest();
 
             if (www.result != UnityWebRequest.Result.Success)
@@ -58,8 +61,9 @@ public class AudioController : MonoBehaviour
 
             AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
             AudioSource.clip = clip;
+            AudioSource.volume = 1f;
 
-            StartCoroutine(PlayAudio());            
+            StartCoroutine(PlayAudio());
         }
     }
 

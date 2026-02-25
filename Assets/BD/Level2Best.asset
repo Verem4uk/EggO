@@ -18,7 +18,7 @@ MonoBehaviour:
   BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   SmokeColor: {r: 1, g: 0.7652887, b: 0, a: 1}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
-  BackGroundAudio: GoldDance.ogg
+  BackGroundAudio: GoldDance.mp3
   Elements:
   - {fileID: 11400000, guid: a47af95723a9a2946882461cefd81c6b, type: 2}
   - {fileID: 11400000, guid: 95076b9ee44a1e34fb3ef86fe3469024, type: 2}
