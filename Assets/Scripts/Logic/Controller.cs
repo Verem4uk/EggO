@@ -92,9 +92,8 @@ public class Controller : MonoBehaviour
         RoadMap.gameObject.SetActive(false);
         SessionView.gameObject.SetActive(false);
         CoffeeView.gameObject.SetActive(true);
-        AudioController.Stop();
-        
-        AudioController.SetDefault();
+
+        AudioController.Stop();        
     }
 
     public void BackToMenu()

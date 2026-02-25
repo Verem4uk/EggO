@@ -1301,6 +1301,7 @@ MonoBehaviour:
   AudioSource: {fileID: 317581710}
   DefaultAudio: {fileID: 8300000, guid: 8a7c17d41e58325459dc9f13e83456f2, type: 3}
   SoundImage: {fileID: 2143048445}
+  FadeTime: 3
 --- !u!114 &319921468 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4720178602409452482, guid: 3f9306e0a6a7d4f4d90636d27a23d60e, type: 3}

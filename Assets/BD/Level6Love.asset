@@ -18,7 +18,7 @@ MonoBehaviour:
   BackgroundColor: {r: 1, g: 1, b: 1, a: 1}
   SmokeColor: {r: 1, g: 0, b: 0, a: 1}
   TextColor: {r: 0, g: 0, b: 0, a: 1}
-  BackGroundAudio: Sounds/LaBelleLaBette.ogg
+  BackGroundAudio: LaBelleLaBette.ogg
   Elements:
   - {fileID: 11400000, guid: a47af95723a9a2946882461cefd81c6b, type: 2}
   - {fileID: 11400000, guid: 29749c2406b7d854db7b5d49ba999475, type: 2}

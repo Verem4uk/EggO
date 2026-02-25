@@ -18,7 +18,7 @@ MonoBehaviour:
   BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   SmokeColor: {r: 1, g: 0, b: 0, a: 1}
   TextColor: {r: 1, g: 1, b: 1, a: 1}
-  BackGroundAudio: Sounds/war.ogg
+  BackGroundAudio: War.ogg
   Elements:
   - {fileID: 11400000, guid: a47af95723a9a2946882461cefd81c6b, type: 2}
   - {fileID: 11400000, guid: 1da52a70b3535f6498910b727d6fa8f3, type: 2}

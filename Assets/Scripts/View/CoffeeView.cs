@@ -25,7 +25,7 @@ public class CoffeeView : MonoBehaviour
         Analytics.StartPurchase(Saver.LastPastLevel);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-        WebGLBridge.OpenURLInNewTab(StripePaymentLink);
+        WebGLBridge.Open(StripePaymentLink);
 #else
         Application.OpenURL(StripePaymentLink);
 #endif    
@@ -38,7 +38,7 @@ public class CoffeeView : MonoBehaviour
         Analytics.RefusePurchase(Saver.LastPastLevel);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-        WebGLBridge.OpenURLInNewTab(NoCoffeeLink);
+        WebGLBridge.Open(NoCoffeeLink);
 #else
         Application.OpenURL(NoCoffeeLink);
 #endif    
