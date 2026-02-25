@@ -33,16 +33,16 @@ public class AudioController : MonoBehaviour
             return;
         }
 
-        string url = $"{Application.streamingAssetsPath}/Sounds/{filename}";
+        string url = $"https://verlema.life/EggO/StreamingAssets/Sounds/{filename}";
         Debug.Log($"Start loading audio from: {url}");
 
         if (fadeCoroutine != null)
             StopCoroutine(fadeCoroutine);
 
-        fadeCoroutine = StartCoroutine(LoadAndPlayAudio(url));
+        fadeCoroutine = StartCoroutine(LoadAudio(url));
     }
 
-    private IEnumerator LoadAndPlayAudio(string url)
+    private IEnumerator LoadAudio(string url)
     {
         yield return StopAudio();
 
@@ -58,17 +58,23 @@ public class AudioController : MonoBehaviour
 
             AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
             AudioSource.clip = clip;
-            AudioSource.Play();
-                        
-            float t = 0f;
-            while (t < FadeTime)
-            {
-                t += Time.deltaTime;
-                AudioSource.volume = Mathf.Lerp(0f, 1f, t / FadeTime);
-                yield return null;
-            }
-            AudioSource.volume = 1f;
+
+            StartCoroutine(PlayAudio());            
         }
+    }
+
+    private IEnumerator PlayAudio()
+    {
+        AudioSource.Play();
+
+        float t = 0f;
+        while (t < FadeTime)
+        {
+            t += Time.deltaTime;
+            AudioSource.volume = Mathf.Lerp(0f, 1f, t / FadeTime);
+            yield return null;
+        }
+        AudioSource.volume = 1f;
     }
 
     private IEnumerator StopAudio()
@@ -90,8 +96,7 @@ public class AudioController : MonoBehaviour
     public void SetDefault()
     {
         AudioSource.clip = DefaultAudio;
-        AudioSource.Play();
-        AudioSource.volume = 1f;
+        StartCoroutine(PlayAudio());
     }
 
     public void Stop()
