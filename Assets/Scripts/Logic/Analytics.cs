@@ -37,22 +37,9 @@ public static class Analytics
         LogEvent("purchase_start", level);
     }
 
-    public static void CompletePurchase(int level)
+    public static void RefusePurchase(int level)
     {
-        Debug.Log("Complete purchase " + level);
-        LogEvent("purchase_success", level);
+        Debug.Log("No purchase " + level);
+        LogEvent("purchase_refuse", level);
     }
-
-    public static void SendSuccessFeedback(string text)
-    {
-        Debug.Log("Feedback after success " + text);
-        //LogEvent("feedback_success", text);
-    }
-
-    public static void SendFailFeedback(string text)
-    {
-        Debug.Log("Feedback after fail " + text);
-        //LogEvent("feedback_success", text);
-    }
-
 }

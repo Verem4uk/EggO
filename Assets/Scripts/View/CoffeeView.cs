@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,34 +10,14 @@ public class CoffeeView : MonoBehaviour
     private Controller Controller;
 
     [SerializeField]
-    private Image Image;
-
-    [SerializeField]
-    private Sprite StartSprite;
-
-    [SerializeField]
-    private Sprite SadSprite;
-
-    [SerializeField]
-    private TMP_InputField AnswerField;
-
-    [SerializeField]
-    private GameObject Buttons;
-
-    [SerializeField]
     private Question Ask;
 
-    [SerializeField]
-    private Question WhyNot;
-
     private static string StripePaymentLink = "https://donate.stripe.com/dRm9AT4uffKkfu83EB6g800";
+    private static string NoCoffeeLink = "https://verlema.life/EggO/NoVirtualCoffee/";
 
     private void OnEnable()
     {
-        CoffeeQuestion.text = Ask.GetText();
-        Buttons.SetActive(true);
-        AnswerField.gameObject.SetActive(false);
-        Image.sprite = StartSprite;
+        CoffeeQuestion.text = Ask.GetText();        
     }
 
     public void Buy()
@@ -56,16 +35,16 @@ public class CoffeeView : MonoBehaviour
 
     public void NoBuy()
     {
-        CoffeeQuestion.text = WhyNot.GetText();
-        Image.sprite = SadSprite;
-        Buttons.SetActive(false);
-        AnswerField.gameObject.SetActive(true);
-    }
+        Analytics.RefusePurchase(Saver.LastPastLevel);
 
-    public void SendMessage()
-    {
-        Analytics.SendSuccessFeedback(AnswerField.text);
-        Close();
+#if UNITY_WEBGL && !UNITY_EDITOR
+        Application.ExternalEval($"window.open('{NoCoffeeLink}', '_self');");
+#else
+
+        Application.OpenURL(NoCoffeeLink);
+#endif    
+
+        Close();        
     }
 
     public void Close()
