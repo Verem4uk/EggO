@@ -13,11 +13,8 @@ public class SessionView : MonoBehaviour
     private NextButton NextButton;
     
     [SerializeField] 
-    private GameObject ExitButton;
+    private Controller Controller;
     
-    [SerializeField] 
-    private GameObject TrueExitButton;
-
     [SerializeField]
     private Material SmokeMaterial;
 
@@ -60,7 +57,7 @@ public class SessionView : MonoBehaviour
         CurrentQuestion = Session.GetQuestion();
         if(CurrentQuestion == null)
         {
-            ExitButton.GetComponent<Button>().onClick.Invoke();
+            Controller.GoToCoffeeScreen();
             return;
         }
         

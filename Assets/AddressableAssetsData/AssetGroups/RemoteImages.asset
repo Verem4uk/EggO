@@ -355,6 +355,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a2a0e7add48792449fd41bb0a94292d
+    m_Address: PsychoPack/Reincarnation.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5c649549c89462544a1b7a262cf69cfd
     m_Address: PsychoPack/lider.png
     m_ReadOnly: 0
