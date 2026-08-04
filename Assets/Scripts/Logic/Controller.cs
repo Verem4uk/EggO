@@ -29,6 +29,18 @@ public class Controller : MonoBehaviour
 
     private bool InputIsBlocked;
 
+    private void OnEnable()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+
+        int level = WebGLBridge.GetLevel();
+
+        Debug.Log("EGGO level from server: " + level);
+
+        Saver.InitLevel(level);
+#endif
+    }
+
     public void OpenRoadMap()
     {
         if (InputIsBlocked)
