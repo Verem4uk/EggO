@@ -33,10 +33,10 @@ MonoBehaviour:
     If
     there is no fence, it suggests that you are open and internally free. If there
     is a fence, it means you value personal space and expect the same from others.'
-  PolishText: "Klucz 3. Rozmiar domu, kt\xF3ry Pa\u0144stwo zobaczyli, odzwierciedla
-    skal\u0119 Pa\u0144stwa ambicji. Je\u015Bli dom jest bardzo du\u017Cy, by\u0107
-    mo\u017Ce maj\u0105 Pa\u0144stwo wysokie lub nawet wyg\xF3rowane oczekiwania
-    wobec \u017Cycia.\nJe\u015Bli nie ma ogrodzenia, oznacza to otwarto\u015B\u0107
-    i wewn\u0119trzn\u0105 wolno\u015B\u0107. Je\u015Bli ogrodzenie jest obecne,
-    oznacza to, \u017Ce ceni\u0105 Pa\u0144stwo swoj\u0105 przestrze\u0144 osobist\u0105
-    i oczekuj\u0105 tego samego od innych."
+  PolishText: "Klucz 3. Rozmiar domu, kt\xF3ry widzisz, odzwierciedla skal\u0119
+    Twoich ambicji. Je\u015Bli dom jest bardzo du\u017Cy, mo\u017Ce to oznacza\u0107,
+    \u017Ce masz wysokie lub nawet bardzo du\u017Ce oczekiwania wobec \u017Cycia.\nJe\u015Bli
+    nie ma ogrodzenia, mo\u017Ce to wskazywa\u0107 na otwarto\u015B\u0107 i poczucie
+    wewn\u0119trznej wolno\u015Bci. Je\u015Bli ogrodzenie jest obecne, mo\u017Ce
+    to oznacza\u0107, \u017Ce cenisz swoj\u0105 przestrze\u0144 osobist\u0105 i oczekujesz
+    tego samego od innych."

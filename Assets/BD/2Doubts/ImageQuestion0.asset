@@ -22,9 +22,9 @@ MonoBehaviour:
     \u043A\u0435\u043C-\u0442\u043E?"
   EnglishText: Imagine that you are in a forest. Describe the forest and share what
     you feel. Are you walking alone or with someone?
-  PolishText: "Prosz\u0119 wyobrazi\u0107 sobie, \u017Ce znajduj\u0105 si\u0119 Pa\u0144stwo
-    w lesie. Prosz\u0119 opisa\u0107 ten las i powiedzie\u0107, co Pa\u0144stwo czuj\u0105.
-    Czy id\u0105 Pa\u0144stwo sami, czy z kim\u015B?"
+  PolishText: "Wyobra\u017A sobie, \u017Ce znajdujesz si\u0119 w lesie. Opisz ten
+    las i powiedz, co czujesz. Czy towarzyszy Ci kto\u015B, czy jeste\u015B tam bez
+    towarzystwa?"
   imageKeys:
   - PsychoTestPack/forest0.png
   - PsychoTestPack/forest1.png

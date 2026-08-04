@@ -26,10 +26,10 @@ MonoBehaviour:
     first image that came to your mind (a swamp, a lake, the sea, or the ocean)?
     What will you do next? (Go for a swim / Drink the water / Walk around it / Stay
     in the cabin / Turn back)
-  PolishText: "Za chat\u0105 odkrywaj\u0105 Pa\u0144stwo \u015Bcie\u017Ck\u0119 prowadz\u0105c\u0105
-    do wody. Jaki obraz pojawi\u0142 si\u0119 jako pierwszy w Pa\u0144stwa wyobra\u017Ani
-    (bagno, jezioro, morze, ocean)? Co zrobi\u0105 Pa\u0144stwo dalej? (Pop\u0142ywa\u0107
-    / Napi\u0107 si\u0119 wody / Obej\u015B\u0107 / Zosta\u0107 w chacie / Zawr\xF3ci\u0107)"
+  PolishText: "Za chat\u0105 odkrywasz \u015Bcie\u017Ck\u0119 prowadz\u0105c\u0105
+    do wody. Jaki obraz pojawia si\u0119 jako pierwszy w Twojej wyobra\u017Ani (bagno,
+    jezioro, morze, ocean)? Co robisz dalej? (P\u0142ywasz / Napi\u0107 si\u0119
+    wody / Obchodzisz / Zostajesz w chacie / Zawracasz)"
   imageKeys:
   - PsychoTestPack/water0.png
   - PsychoTestPack/water1.png

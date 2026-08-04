@@ -20,9 +20,8 @@ MonoBehaviour:
     \u0440\u0435\u0430\u043A\u0446\u0438\u044E \u043D\u0430 \u043D\u0435\u0433\u043E."
   EnglishText: Imagine that you encounter an animal in the forest. Describe the animal
     and your reaction to it.
-  PolishText: "Prosz\u0119 wyobrazi\u0107 sobie, \u017Ce w lesie spotykaj\u0105 Pa\u0144stwo
-    zwierz\u0119. Prosz\u0119 opisa\u0107 to zwierz\u0119 oraz swoj\u0105 reakcj\u0119
-    na nie."
+  PolishText: "Prosz\u0119 wyobrazi\u0107 sobie, \u017Ce w lesie spotykasz zwierz\u0119.
+    Prosz\u0119 opisa\u0107 to zwierz\u0119 oraz swoj\u0105 reakcj\u0119 na nie."
   imageKeys:
   - PsychoTestPack/animal0.png
   - PsychoTestPack/animal1.png

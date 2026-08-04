@@ -28,11 +28,10 @@ MonoBehaviour:
     an empty table, or one that is set). Describe the table and the cup, as well
     as the contents of the cup (if any). Will you take any action (take it with you
     / break it / drink what\u2019s inside)?"
-  PolishText: "Je\u015Bli weszli Pa\u0144stwo do chaty, prosz\u0119 opisa\u0107,
-    co lub kogo tam zobaczyli (ludzi, pusty st\xF3\u0142 albo st\xF3\u0142 nakryty).
-    Prosz\u0119 opisa\u0107 st\xF3\u0142 i kubek oraz zawarto\u015B\u0107 kubka (je\u015Bli
-    co\u015B w nim jest). Czy podejm\u0105 Pa\u0144stwo jakie\u015B dzia\u0142anie
-    (zabra\u0107 ze sob\u0105 / rozbi\u0107 / wypi\u0107 zawarto\u015B\u0107)?"
+  PolishText: "Je\u015Bli wejdziesz do chaty, opisz, co lub kogo tam widzisz (ludzi,
+    pusty st\xF3\u0142 albo st\xF3\u0142 nakryty). Opisz st\xF3\u0142 i kubek oraz
+    jego zawarto\u015B\u0107 (je\u015Bli co\u015B w nim jest). Czy podejmujesz jakie\u015B
+    dzia\u0142anie (zabierasz ze sob\u0105 / rozbijasz / wypijasz zawarto\u015B\u0107)?"
   imageKeys:
   - PsychoTestPack/table0.png
   - PsychoTestPack/table1.png
