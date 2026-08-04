@@ -15,9 +15,6 @@ public class AudioController : MonoBehaviour
     private Image SoundImage;
 
     [SerializeField]
-    private Image SoundImage2;
-
-    [SerializeField]
     private float FadeTime = 3f;
 
     private Coroutine fadeCoroutine;
@@ -62,8 +59,7 @@ public class AudioController : MonoBehaviour
 
     private void UpdateView()
     {
-        SoundImage.color = AudioSource.mute ? new Color(1, 1, 1, 0.5f) : new Color(1, 1, 1, 1);
-        SoundImage2.color = AudioSource.mute ? new Color(1, 1, 1, 0.5f) : new Color(1, 1, 1, 1);
+        SoundImage.color = AudioSource.mute ? new Color(1, 1, 1, 0.5f) : new Color(1, 1, 1, 1);        
     }
 
     private IEnumerator LoadAudio(string url)

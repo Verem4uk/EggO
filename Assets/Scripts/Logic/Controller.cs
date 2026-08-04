@@ -24,6 +24,9 @@ public class Controller : MonoBehaviour
     [SerializeField]
     private AudioController AudioController;
 
+    [SerializeField]
+    private GameObject Buttons;
+
     private bool InputIsBlocked;
 
     public void OpenRoadMap()
@@ -74,6 +77,7 @@ public class Controller : MonoBehaviour
         MainMenuView.alpha = 0f;
         MainMenuView.gameObject.SetActive(false);
         RoadMap.gameObject.SetActive(true);
+        Buttons.gameObject.SetActive(true);
         InputIsBlocked = false;
     }
 
@@ -91,6 +95,7 @@ public class Controller : MonoBehaviour
         Background.ToggleColor(Color.white);
         RoadMap.gameObject.SetActive(false);
         SessionView.gameObject.SetActive(false);
+        Buttons.gameObject.SetActive(false);
         CoffeeView.gameObject.SetActive(true);
 
         AudioController.Stop();        
@@ -102,6 +107,7 @@ public class Controller : MonoBehaviour
         Background.ToggleColor(Background.startColor);
         RoadMap.gameObject.SetActive(false);
         SessionView.gameObject.SetActive(false);
+        Buttons.gameObject.SetActive(false);
         CoffeeView.gameObject.SetActive(false);
         MainMenuView.gameObject.SetActive(true);
         MainMenuView.alpha = 1;
