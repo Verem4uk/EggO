@@ -11,6 +11,9 @@ public static class WebGLBridge
     [DllImport("__Internal")]
     private static extern int GetEggoLevel();
 
+    [DllImport("__Internal")]
+    private static extern int GetEggoTrial();
+
     public static void Open(string url)
     {
         OpenURLInNewTab(url);
@@ -19,6 +22,11 @@ public static class WebGLBridge
     public static int GetLevel()
     {
         return GetEggoLevel();
+    }
+
+    public static bool IsTrial()
+    {
+        return GetEggoTrial() == 1;
     }
 
 #else
@@ -31,6 +39,11 @@ public static class WebGLBridge
     public static int GetEggoLevel()
     {        
         return 0;
+    }
+
+    public static bool IsTrial()
+    {
+        return false;
     }
 
 #endif

@@ -7,10 +7,19 @@ public static class Saver
 
     public static int LastPastLevel { get; private set; }
 
+    private static bool IsTrial;
+
+    public static void InitTrial(bool value)
+    {
+        IsTrial = value;
+    }
+
     public static void InitLevel(int value)
     {
         PlayerPrefs.SetInt("Level", value);        
     }
+
+    public static int MaxAvailableLevel() => IsTrial ? 2 : GetLevel() + 1;
 
     public static void SetLevel(int value)
     {

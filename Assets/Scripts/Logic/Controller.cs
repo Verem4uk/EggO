@@ -34,10 +34,12 @@ public class Controller : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
 
         int level = WebGLBridge.GetLevel();
+        bool trial = WebGLBridge.IsTrial();
 
         Debug.Log("EGGO level from server: " + level);
 
         Saver.InitLevel(level);
+        Saver.InitTrial(trial);
 #endif
     }
 
@@ -59,11 +61,17 @@ public class Controller : MonoBehaviour
             return;
         }
 
+        if(levelIndex > Saver.MaxAvailableLevel())
+        {
+            GoToCoffeeScreen();
+            return;
+        }
+
         InputIsBlocked = true;
         Debug.Log("Play session " + levelIndex);
         StartCoroutine(PlayAfterHide());        
-        var level = Root.Levels[--levelIndex]; 
-        SessionView.Initialize(new Session(++levelIndex), level);
+        var level = Root.Levels[levelIndex - 1]; 
+        SessionView.Initialize(new Session(levelIndex), level);
         Background.ToggleColor(level.BackgroundColor);
 
         AudioController.HandleAudio(level.BackGroundAudio);

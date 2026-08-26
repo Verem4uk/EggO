@@ -6,5 +6,9 @@ mergeInto(LibraryManager.library, {
 
     GetEggoLevel: function() {
         return window.EGGO_LEVEL || 0;
+    },
+
+    GetEggoTrial: function() {
+        return window.EGGO_TRIAL ? 1 : 0;
     }
 });
