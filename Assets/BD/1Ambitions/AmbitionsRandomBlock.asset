@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67ffdfb57993aa24e957761d3385c2bb, type: 3}
-  m_Name: ScaryBlock
+  m_Name: AmbitionsRandomBlock
   m_EditorClassIdentifier: 
-  AmountForOneSession: 5
-  Collection: {fileID: 11400000, guid: 4723c3a2c41e7eb43b7abcf8e1321266, type: 2}
+  AmountForOneSession: 3
+  Collection: {fileID: 11400000, guid: c23ea5861b970cd4792cfc4f2eff9082, type: 2}

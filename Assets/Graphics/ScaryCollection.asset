@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca34e2efce7b0b346a81bb635fd9d2d1, type: 3}
+  m_Name: ScaryCollection
+  m_EditorClassIdentifier: 
+  Questions:
+  - {fileID: 11400000, guid: ce686b3d5f521f64c92b5bea8beae00b, type: 2}
+  - {fileID: 11400000, guid: 9ec6e8a25b164ca42904a5f386615d1f, type: 2}
+  - {fileID: 11400000, guid: 80a101888a8256a4cb4c0f4a95e90712, type: 2}
+  - {fileID: 11400000, guid: 464420f5c8c44964693bb8bd45608262, type: 2}
+  - {fileID: 11400000, guid: 2651bf50208dff5488618fcd9a30e80d, type: 2}
+  - {fileID: 11400000, guid: d2c1f0b7c4d918442a736cdab81547fd, type: 2}
+  - {fileID: 11400000, guid: 0b9e7d599e532ce44b9db647dbea211e, type: 2}
+  - {fileID: 11400000, guid: 2c2812a64e918cf43a18df2822e1ee11, type: 2}
+  - {fileID: 11400000, guid: be5529181972dfa4fa537c5f950efade, type: 2}
+  - {fileID: 11400000, guid: 338ddca9f4efd904f9b0383433f4a49d, type: 2}
+  - {fileID: 11400000, guid: 8970c7b0ca8b99b469143c54d47707c6, type: 2}
+  - {fileID: 11400000, guid: f3a874645f56c9a489296441ee4bd35b, type: 2}
+  - {fileID: 11400000, guid: 96caa33ab7cd57041ac1dda3c917081e, type: 2}
+  - {fileID: 11400000, guid: 2657c2971232f224eb4fdbed982c6c30, type: 2}
+  - {fileID: 11400000, guid: a03f8fba59b566946840c87349ee1fed, type: 2}
+  - {fileID: 11400000, guid: 8d18970bc119cf24495b523a55e92341, type: 2}
+  - {fileID: 11400000, guid: e0f664c5df6969c43b813bbf5dc7fe7c, type: 2}
+  - {fileID: 11400000, guid: 3fdde34faaeb5004fbcf66ead0f74788, type: 2}
+  - {fileID: 11400000, guid: b6597d3955d4f924ba2d8c700ad30ffa, type: 2}

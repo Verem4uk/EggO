@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ffdfb57993aa24e957761d3385c2bb, type: 3}
-  m_Name: RandomBlock
+  m_Script: {fileID: 11500000, guid: ca34e2efce7b0b346a81bb635fd9d2d1, type: 3}
+  m_Name: DoubtsCollection
   m_EditorClassIdentifier: 
-  AmountForOneSession: 5
   Questions:
   - {fileID: 11400000, guid: be548977dc52d0548973b904515750b8, type: 2}
   - {fileID: 11400000, guid: 6b9451cab37510d4a9459c17a9130df9, type: 2}

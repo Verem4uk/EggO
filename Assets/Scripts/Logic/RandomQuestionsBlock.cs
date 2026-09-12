@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "RandomBlock", menuName = "SO/RandomBlock")]
@@ -8,27 +7,26 @@ public class RandomQuestionsBlock : LevelsElement
     public int AmountForOneSession = 5;
 
     [SerializeField]
-    public Question[] Questions;
+    public QuestionsCollection Collection;
 
     private Question[] PreparedQuestions;
-    private int nextIndex = 0;
+    private int nextIndex;
 
     public override void PrepareQuestions()
     {
-        List<Question> tempList = new List<Question>(Questions);
-        PreparedQuestions = new Question[AmountForOneSession];
+        int amount = Mathf.Min(
+            AmountForOneSession,
+            Collection.AvailableCount);
 
-        for (int i = 0; i < AmountForOneSession; i++)
+        PreparedQuestions = new Question[amount];
+
+        for (int i = 0; i < amount; i++)
         {
-            int randomIndex = Random.Range(0, tempList.Count);
-            var question = tempList[randomIndex];
+            Question question = Collection.TakeRandomQuestion();
             PreparedQuestions[i] = question;
-            tempList.RemoveAt(randomIndex);
 
-            if (question.HasImage())
-            {
-                ((ImageQuestion)question).PrepareImagesAsync();
-            }                
+            if (question is ImageQuestion imageQuestion)
+                imageQuestion.PrepareImagesAsync();
         }
 
         nextIndex = 0;
@@ -36,9 +34,17 @@ public class RandomQuestionsBlock : LevelsElement
 
     public override IQuestion GetNextElement()
     {
-        if (PreparedQuestions == null || nextIndex >= PreparedQuestions.Length)
+        if (PreparedQuestions == null ||
+            nextIndex >= PreparedQuestions.Length)
+        {
             return null;
+        }
 
         return PreparedQuestions[nextIndex++];
+    }
+    public string GetCounterInfo()
+    {
+        int total = PreparedQuestions?.Length ?? 0;
+        return $"{nextIndex}/{total}";
     }
 }

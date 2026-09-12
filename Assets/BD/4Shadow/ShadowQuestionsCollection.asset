@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ffdfb57993aa24e957761d3385c2bb, type: 3}
-  m_Name: RandomBlock
+  m_Script: {fileID: 11500000, guid: ca34e2efce7b0b346a81bb635fd9d2d1, type: 3}
+  m_Name: ShadowQuestionsCollection
   m_EditorClassIdentifier: 
-  AmountForOneSession: 8
   Questions:
   - {fileID: 11400000, guid: 32bd570add21bb54d916a04a2550603b, type: 2}
   - {fileID: 11400000, guid: 41c9f9d29ebcd8448be3d45cfadf44eb, type: 2}

@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ffdfb57993aa24e957761d3385c2bb, type: 3}
-  m_Name: RandomBlock
+  m_Script: {fileID: 11500000, guid: ca34e2efce7b0b346a81bb635fd9d2d1, type: 3}
+  m_Name: InfinityQuestionsCollection
   m_EditorClassIdentifier: 
-  AmountForOneSession: 3
   Questions:
   - {fileID: 11400000, guid: a03349744f362a448a4a620c332009f6, type: 2}
   - {fileID: 11400000, guid: c5554d771d1e67541a86a5e1e6ff9e6f, type: 2}

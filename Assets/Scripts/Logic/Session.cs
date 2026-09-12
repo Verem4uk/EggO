@@ -9,6 +9,7 @@ public class Session
     private int CurrentElementIndex;
     private LevelsElement CurrentElement;
     private List<int> CurrentElementIndexes = new List<int>();
+       
 
     private float StartTime;
 
@@ -25,19 +26,24 @@ public class Session
     }
 
     public void PrepareQuestions()
-    {
+    {        
         foreach (var element in Level.Elements)
         {
-            element.PrepareQuestions();            
+            if (element is RandomQuestionsBlock block) 
+            {
+                block.Collection.ResetPool();
+            }                       
         }
+
+        foreach (var element in Level.Elements)
+        {
+            element.PrepareQuestions();
+        }        
     }
 
-    public string GetCounterInfo()
-    {
-        return CurrentElement is RandomQuestionsBlock randomBlock
-            ? (CurrentElementIndexes.Count).ToString() + "/" + randomBlock.AmountForOneSession.ToString()
-            : "";
-    }
+    public string GetCounterInfo() => 
+        CurrentElement is RandomQuestionsBlock randomBlock ? 
+        randomBlock.GetCounterInfo() : "";
 
     public IQuestion GetQuestion()
     {
@@ -60,6 +66,7 @@ public class Session
             if (CurrentElementIndexes.Count >= randomBlock.AmountForOneSession)
             {
                 CurrentElement = null;
+                //the end of random block cause of amount for one session              
                 return GetQuestion();
             }
 
@@ -67,10 +74,12 @@ public class Session
             if (nextQuestion == null)
             {                
                 CurrentElement = null;
+                //the end of random block cause of the end of block
                 return GetQuestion();
             }
 
-            CurrentElementIndexes.Add(nextQuestion.GetID());
+            var questionID = nextQuestion.GetID();
+            CurrentElementIndexes.Add(questionID);           
             return nextQuestion;
         }
 
