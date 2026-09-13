@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 280c1e2a08d671e4e9d17e00465b8cb3
+guid: 45cc16eaf60758a4fa0583ea0b0ed92b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8023777996216889834
-    second: sound_0
-  - first:
-      213: -2806277469284157139
-    second: sound_1
-  - first:
-      213: 8408664488804372457
-    second: sound_2
-  - first:
-      213: 3705783076324197656
-    second: sound_3
+      213: 8484955477816817572
+    second: arrow-left-circle (2)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -148,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sound_0
+      name: arrow-left-circle (2)_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 84
-        width: 292
-        height: 344
+        x: 1
+        y: 0
+        width: 511
+        height: 511
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,74 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ae17a15639f2a5f60800000000000000
-      internalID: 8023777996216889834
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sound_1
-      rect:
-        serializedVersion: 2
-        x: 312
-        y: 193
-        width: 63
-        height: 131
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d29b22e82891e09d0800000000000000
-      internalID: -2806277469284157139
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sound_2
-      rect:
-        serializedVersion: 2
-        x: 359
-        y: 147
-        width: 81
-        height: 222
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9ef40a23dc391b470800000000000000
-      internalID: 8408664488804372457
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sound_3
-      rect:
-        serializedVersion: 2
-        x: 411
-        y: 94
-        width: 101
-        height: 327
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 81545f6e2169d6330800000000000000
-      internalID: 3705783076324197656
+      spriteID: 4a7b6464d0e90c570800000000000000
+      internalID: 8484955477816817572
       vertices: []
       indices: 
       edges: []
@@ -239,7 +164,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -249,10 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      sound_0: 8023777996216889834
-      sound_1: -2806277469284157139
-      sound_2: 8408664488804372457
-      sound_3: 3705783076324197656
+      arrow-left-circle (2)_0: 8484955477816817572
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
