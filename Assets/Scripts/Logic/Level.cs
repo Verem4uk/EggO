@@ -26,4 +26,8 @@ public class Level : ScriptableObject
 
     [SerializeField]
     public LevelsElement[] Elements;
+
+    public bool IsTheSecondToLastQuestion(LevelsElement element) => Elements[Elements.Length - 2] == element;
+
+    public bool IsTheLastQuestion(LevelsElement element) => Elements[Elements.Length - 1] == element;
 }

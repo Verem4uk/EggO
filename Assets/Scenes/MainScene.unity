@@ -201,10 +201,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 636487382}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 188386629}
+        m_TargetAssemblyTypeName: SessionView, Assembly-CSharp
+        m_MethodName: TryFinishSession
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -993,6 +993,7 @@ MonoBehaviour:
   - {fileID: 2032238032}
   NextButton: {fileID: 192473820}
   Controller: {fileID: 784557591}
+  WarningPanel: {fileID: 636487389}
   SmokeMaterial: {fileID: 2100000, guid: c1090dd311baec642be638125cceeac7, type: 2}
   ImageHolder: {fileID: 819790680}
   MinCellSize: 250
@@ -2292,6 +2293,7 @@ GameObject:
   - component: {fileID: 636487387}
   - component: {fileID: 636487386}
   - component: {fileID: 636487388}
+  - component: {fileID: 636487389}
   m_Layer: 5
   m_Name: WarningPanel
   m_TagString: Untagged
@@ -2422,6 +2424,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &636487389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636487382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df65dd047f456b1458b658fde6e491b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WarningQuestionText: {fileID: 1620472706}
+  WarningQuestion: {fileID: 11400000, guid: 60eb60193da8e0347a3486d68df18b2a, type: 2}
 --- !u!114 &642800158 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4720178602409452482, guid: 3f9306e0a6a7d4f4d90636d27a23d60e, type: 3}
@@ -5951,9 +5967,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 784557591}
-        m_TargetAssemblyTypeName: Controller, Assembly-CSharp
-        m_MethodName: BackToMenu
+      - m_Target: {fileID: 188386629}
+        m_TargetAssemblyTypeName: SessionView, Assembly-CSharp
+        m_MethodName: FinishSession
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

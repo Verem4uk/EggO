@@ -14,6 +14,9 @@ public class SessionView : MonoBehaviour
     
     [SerializeField] 
     private Controller Controller;
+
+    [SerializeField]
+    private WanningPanelView WarningPanel;
     
     [SerializeField]
     private Material SmokeMaterial;
@@ -100,5 +103,23 @@ public class SessionView : MonoBehaviour
             return;
         }
         ImageHolder.gameObject.SetActive(false);        
-    }    
+    }  
+
+    public void TryFinishSession()
+    {
+        if(Session.IsTheLastQuestion())
+        {
+            Controller.GoToCoffeeScreen();
+            return;
+        }
+
+        WarningPanel.gameObject.SetActive(true);
+    }
+    
+    public void FinishSession()
+    {
+        CurrentQuestion = Session.Interupt();
+        CurrentQuestionText.text = CurrentQuestion.GetText();
+        ImageHolder.gameObject.SetActive(false);
+    }
 }

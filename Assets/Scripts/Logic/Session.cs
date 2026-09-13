@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Session
@@ -9,8 +10,8 @@ public class Session
     private int CurrentElementIndex;
     private LevelsElement CurrentElement;
     private List<int> CurrentElementIndexes = new List<int>();
-       
 
+    private bool LevelFailed;
     private float StartTime;
 
     public Session(int level)
@@ -51,7 +52,11 @@ public class Session
         {
             if (CurrentElementIndex >= Level.Elements.Length)
             {
-                Saver.SetLevel(++LevelIndex);
+                if(!LevelFailed)
+                {
+                    Saver.SetLevel(++LevelIndex);
+                }
+                
                 Analytics.FinishSession(LevelIndex, (int)(Time.time - StartTime));
                 return null; // the end of the session
             }
@@ -93,6 +98,20 @@ public class Session
         CurrentElementIndexes.Add(question.GetID());
         return question;
     }
+
+    public IQuestion Interupt()
+    {
+        if(!Level.IsTheSecondToLastQuestion(CurrentElement) && !Level.IsTheLastQuestion(CurrentElement))           
+        {
+            LevelFailed = true;                        
+        }
+
+        Analytics.FinishSession(LevelIndex, (int)(Time.time - StartTime));        
+        CurrentElement = Level.Elements[Level.Elements.Length - 1];
+        return CurrentElement.GetNextElement();
+    }
+
+    public bool IsTheLastQuestion() => Level.IsTheLastQuestion(CurrentElement);
 }
 
 
