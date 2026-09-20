@@ -3,21 +3,24 @@ using UnityEngine.UI;
 
 public class SessionView : MonoBehaviour
 {
-    [SerializeField] 
+    [SerializeField]
     private Text CurrentQuestionText;
 
-    [SerializeField] 
+    [SerializeField]
     private Image[] Images;
 
-    [SerializeField] 
+    [SerializeField]
     private NextButton NextButton;
-    
-    [SerializeField] 
+
+    [SerializeField]
+    private Button BackButton;
+
+    [SerializeField]
     private Controller Controller;
 
     [SerializeField]
     private WanningPanelView WarningPanel;
-    
+
     [SerializeField]
     private Material SmokeMaterial;
 
@@ -34,80 +37,137 @@ public class SessionView : MonoBehaviour
     private int MaxCellSize = 800;
 
     private Session Session;
-    
+
     private IQuestion CurrentQuestion;
-    
+
+
     public void Initialize(Session session, Level level)
     {
-        Session = session;        
+        Session = session;
+
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
         Next();
+
         NextButton.UpdateButton(level.Icon, level.ButtonSound);
+
         SmokeMaterial.SetColor("_EmissionColor", level.SmokeColor);
+
         CurrentQuestionText.color = level.TextColor;
+
+        BackButton.interactable = false;
     }
+
+
+    public void Back()
+    {
+        CurrentQuestion = Session.GetPreviousQuestion();
+
+        if (CurrentQuestion == null)
+        {
+            BackButton.interactable = false;
+            return;
+        }
+
+        DisplayQuestion(CurrentQuestion);
+
+        BackButton.interactable = Session.CanGoBack();
+    }
+
 
     public void ChangeLanguage()
     {
-        if(CurrentQuestion != null)
+        if (CurrentQuestion != null)
         {
             CurrentQuestionText.text = CurrentQuestion.GetText();
-        }        
+        }
     }
-        
+
+
     public void Next()
-    {        
+    {
         CurrentQuestion = Session.GetQuestion();
-        if(CurrentQuestion == null)
+
+        if (CurrentQuestion == null)
         {
             Controller.GoToCoffeeScreen();
             return;
         }
-        
-        var text = CurrentQuestion.GetText();
-        if(text == null || text == "")
+
+        DisplayQuestion(CurrentQuestion);
+
+        BackButton.interactable = Session.CanGoBack();
+    }
+
+
+    private void DisplayQuestion(IQuestion question)
+    {
+        if (question == null)
+        {
+            Controller.GoToCoffeeScreen();
+            return;
+        }
+
+        var text = question.GetText();
+
+        if (string.IsNullOrEmpty(text))
         {
             text = Session.GetCounterInfo();
         }
 
         CurrentQuestionText.text = text;
-        
-        if (CurrentQuestion.HasImage())
+
+        if (question.HasImage())
         {
-            var images = CurrentQuestion.GetImages();
-            for(int i = 0; i < Images.Length; i++)
+            var images = question.GetImages();
+
+            for (int i = 0; i < Images.Length; i++)
             {
-                if(i < images.Length)
+                if (i < images.Length)
                 {
                     Images[i].sprite = images[i];
                     Images[i].gameObject.SetActive(true);
                     continue;
-                }                
+                }
+
                 Images[i].gameObject.SetActive(false);
             }
 
             switch (images.Length)
             {
                 case > 2:
-                    ImageHolder.cellSize = new Vector2(MinCellSize, MinCellSize);                    
+                    ImageHolder.cellSize = new Vector2(
+                        MinCellSize,
+                        MinCellSize
+                    );
                     break;
+
                 case 1:
-                    ImageHolder.cellSize = new Vector2(MaxCellSize, MaxCellSize);                    
+                    ImageHolder.cellSize = new Vector2(
+                        MaxCellSize,
+                        MaxCellSize
+                    );
                     break;
+
                 default:
-                    ImageHolder.cellSize = new Vector2(MidCellSize, MidCellSize);                    
+                    ImageHolder.cellSize = new Vector2(
+                        MidCellSize,
+                        MidCellSize
+                    );
                     break;
             }
 
             ImageHolder.gameObject.SetActive(true);
             return;
         }
-        ImageHolder.gameObject.SetActive(false);        
-    }  
+
+        ImageHolder.gameObject.SetActive(false);
+    }
+
 
     public void TryFinishSession()
     {
-        if(Session.IsTheLastQuestion())
+        if (Session.IsTheLastQuestion())
         {
             Controller.GoToCoffeeScreen();
             return;
@@ -115,11 +175,20 @@ public class SessionView : MonoBehaviour
 
         WarningPanel.gameObject.SetActive(true);
     }
-    
+
+
     public void FinishSession()
     {
         CurrentQuestion = Session.Interupt();
-        CurrentQuestionText.text = CurrentQuestion.GetText();
-        ImageHolder.gameObject.SetActive(false);
+
+        if (CurrentQuestion == null)
+        {
+            Controller.GoToCoffeeScreen();
+            return;
+        }
+
+        DisplayQuestion(CurrentQuestion);
+
+        BackButton.interactable = Session.CanGoBack();
     }
 }
