@@ -11,8 +11,7 @@ public class Session
     private LevelsElement MaxElement;
 
     private List<int> CurrentElementIndexes = new List<int>();
-
-    private bool LevelFailed;
+        
     private bool LevelCompleted;
     private float StartTime;
 
@@ -186,13 +185,9 @@ public class Session
     {
         if (!IsInterrupted)
         {
-            var elementToCheck = MaxElement ?? CurrentElement;
+            var elementToCheck = MaxElement ?? CurrentElement;            
 
-            LevelFailed =
-                !Level.IsTheSecondToLastQuestion(elementToCheck) &&
-                !Level.IsTheLastQuestion(elementToCheck);
-
-            if (!LevelFailed)
+            if (Level.IsCompleted(History.Capacity))
             {
                 CompleteLevel();
             }

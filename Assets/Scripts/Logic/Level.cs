@@ -10,6 +10,9 @@ public class Level : ScriptableObject
     public Sprite Icon;
 
     [SerializeField]
+    public int QuestionsToComplete;
+
+    [SerializeField]
     public AudioClip ButtonSound;
 
     [SerializeField]
@@ -27,7 +30,7 @@ public class Level : ScriptableObject
     [SerializeField]
     public LevelsElement[] Elements;
 
-    public bool IsTheSecondToLastQuestion(LevelsElement element) => Elements[Elements.Length - 2] == element;
+    public bool IsCompleted(int countOfPastQuestion) => countOfPastQuestion >= QuestionsToComplete;
 
     public bool IsTheLastQuestion(LevelsElement element) => Elements[Elements.Length - 1] == element;
 }

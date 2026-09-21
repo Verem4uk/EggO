@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 2
   Icon: {fileID: -7161711778296916251, guid: 1f64e2d1c0debac42a65d77e0884a201, type: 3}
+  QuestionsToComplete: 10
   ButtonSound: {fileID: 8300000, guid: 413edc986ae17c14aaa8d4c844e703fe, type: 3}
   BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   SmokeColor: {r: 1, g: 0.7652887, b: 0, a: 1}
