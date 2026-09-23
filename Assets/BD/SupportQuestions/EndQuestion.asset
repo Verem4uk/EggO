@@ -15,7 +15,7 @@ MonoBehaviour:
   ID: 0
   RussianText: "\u0427\u0442\u043E \u0432\u044B \u0443\u0437\u043D\u0430\u043B\u0438
     \u043D\u043E\u0432\u043E\u0433\u043E? \u0427\u0442\u043E \u0447\u0443\u0432\u0441\u0442\u0432\u0443\u0435\u0442\u0435
-    \u043F\u043E\u0441\u043B\u0435 \u0441\u0435\u0441\u0441\u0438\u0438?"
-  EnglishText: What did you discover about yourself? How do you feel after the session?
+    \u043F\u043E\u0441\u043B\u0435 \u0438\u0433\u0440\u044B?"
+  EnglishText: What did you discover about yourself? How do you feel after the game?
   PolishText: "Czego nowego uda\u0142o Ci si\u0119 dowiedzie\u0107? Co czujesz po
-    sesji?"
+    tej grze?"
