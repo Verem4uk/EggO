@@ -620,6 +620,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a7ef789e1d155f248b9b4b6982c39bf4
+    m_Address: "LovePack/\u0437\u0430\u0432\u0438\u0441\u0442\u044C.png"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a7f06d371ec6c664a8acc16dad6d55a8
     m_Address: PsychoPack/secret.png
     m_ReadOnly: 0
@@ -642,11 +647,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: abb9978a089387c40970c65ecfcc1715
     m_Address: PsychoPack/readytogo.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ad413bb159733e643937a914883ae10e
-    m_Address: "LovePack/\u0437\u0430\u0432\u0438\u0441\u0442\u044C.png"
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
