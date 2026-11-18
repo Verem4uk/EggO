@@ -1,4 +1,5 @@
-using System.Collections;
+using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,183 +9,130 @@ public class CanvasGroupAutoFadeWithImages : MonoBehaviour
     [Header("CanvasGroup Timings")]
     [SerializeField] private float fadeInDuration = 0.35f;
     [SerializeField] private float fadeOutDuration = 0.35f;
-
     [Header("Images Timings")]
     [SerializeField] private float imagesFadeInDuration = 0.25f;
     [SerializeField] private float imagesFadeOutDuration = 0.25f;
-
     [SerializeField] private bool useUnscaledTime = false;
-
-    [Header("Images to fade AFTER show / BEFORE hide")]
+    [Header("Local images to fade after show / before hide")]
     [SerializeField] private Image[] images;
 
-    private CanvasGroup cg;
-    private Coroutine currentRoutine;
+    private CanvasGroup Group;
+    private Tween AutomaticFade;
+    private bool ManagedExternally;
+    private readonly HashSet<Transform> ExcludedSubtrees = new HashSet<Transform>();
 
-    private float Delta => useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+    public void ExcludeImagesUnder(Transform root) => ExcludedSubtrees.Add(root);
 
-    void Awake()
+    private void Awake()
     {
-        cg = GetComponent<CanvasGroup>();
-
-        cg.alpha = 0f;
-        cg.interactable = false;
-        cg.blocksRaycasts = false;
-
-        SetImagesAlpha(0f, onlyIfActive: false);
+        EnsureGroup();
+        SetVisibleImmediate(false);
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
-        Show(); 
+        if (!ManagedExternally) Show();
     }
 
-    
+    public void SetManagedExternally()
+    {
+        ManagedExternally = true;
+        CancelAutomaticFade();
+    }
+
+    private void EnsureGroup()
+    {
+        if (Group == null) Group = GetComponent<CanvasGroup>();
+    }
+
+    public void SetInput(bool enabled)
+    {
+        EnsureGroup();
+        Group.interactable = enabled;
+        Group.blocksRaycasts = enabled;
+    }
+
+    public void SetVisibleImmediate(bool visible, bool input = true)
+    {
+        CancelAutomaticFade();
+        EnsureGroup();
+        Group.alpha = visible ? 1f : 0f;
+        SetInput(visible && input);
+        foreach (var image in images ?? System.Array.Empty<Image>())
+            if (IsLocal(image)) SetAlpha(image, Group.alpha);
+    }
+
+    // The caller owns these sequences, including cancellation and deactivation.
+    public Sequence ShowSequence(bool enableInput = true)
+    {
+        CancelAutomaticFade();
+        SetInput(false);
+        var sequence = DOTween.Sequence().Pause().SetUpdate(useUnscaledTime);
+        sequence.Append(Group.DOFade(1f, Mathf.Max(0, fadeInDuration)).SetEase(Ease.Linear));
+        AppendImages(sequence, 1f, imagesFadeInDuration);
+        sequence.AppendCallback(() => SetInput(enableInput));
+        return sequence;
+    }
+
+    public Sequence HideSequence()
+    {
+        CancelAutomaticFade();
+        SetInput(false);
+        var sequence = DOTween.Sequence().Pause().SetUpdate(useUnscaledTime);
+        AppendImages(sequence, 0f, imagesFadeOutDuration);
+        sequence.Append(Group.DOFade(0f, Mathf.Max(0, fadeOutDuration)).SetEase(Ease.Linear));
+        return sequence;
+    }
+
     public void Show(bool immediate = false)
     {
-        if (immediate)
-        {
-            StopFade();
-            cg.alpha = 1f;
-            cg.interactable = true;
-            cg.blocksRaycasts = true;
-            SetImagesAlpha(1f, onlyIfActive: false);
-            return;
-        }
-
-        StopFade();
-        currentRoutine = StartCoroutine(ShowRoutine());
+        if (immediate) { SetVisibleImmediate(true); return; }
+        AutomaticFade = ShowSequence().Play();
     }
 
     public void HideAndDeactivate(bool immediate = false)
     {
-        if (!gameObject.activeInHierarchy) return;
-
         if (immediate)
         {
-            StopFade();
-            SetImagesAlpha(0f, onlyIfActive: false);
-            cg.alpha = 0f;
-            cg.interactable = false;
-            cg.blocksRaycasts = false;
+            SetVisibleImmediate(false);
             gameObject.SetActive(false);
             return;
         }
-
-        StopFade();
-        currentRoutine = StartCoroutine(HideRoutine());
+        if (!gameObject.activeInHierarchy) return;
+        AutomaticFade = HideSequence().OnComplete(() => gameObject.SetActive(false)).Play();
     }
 
-    private IEnumerator ShowRoutine()
+    private void AppendImages(Sequence sequence, float alpha, float duration)
     {
-        // CanvasGroup IN
-        cg.interactable = false;
-        cg.blocksRaycasts = false;
-        yield return FadeCanvasGroup(1f, fadeInDuration);
-
-        cg.interactable = true;
-        cg.blocksRaycasts = true;
-
-        yield return FadeImages(1f, imagesFadeInDuration);
-
-        currentRoutine = null;
+        float start = sequence.Duration();
+        foreach (var image in images ?? System.Array.Empty<Image>())
+            if (IsLocal(image))
+                sequence.Insert(start, image.DOFade(alpha, Mathf.Max(0, duration)).SetEase(Ease.Linear));
     }
 
-    private IEnumerator HideRoutine()
+    private bool IsLocal(Image image)
     {
-        
-        yield return FadeImages(0f, imagesFadeOutDuration);
-                
-        yield return FadeCanvasGroup(0f, fadeOutDuration);
-        
-        gameObject.SetActive(false);
-        currentRoutine = null;
+        if (image == null || !image.transform.IsChildOf(transform)) return false;
+        foreach (var root in ExcludedSubtrees)
+            if (root != null && image.transform.IsChildOf(root)) return false;
+        return true;
     }
 
-    private IEnumerator FadeCanvasGroup(float target, float duration)
+    private static void SetAlpha(Graphic image, float alpha)
     {
-        float start = cg.alpha;
-        float t = 0f;
-        duration = Mathf.Max(0.0001f, duration);
-
-        while (t < duration)
-        {
-            t += Delta;
-            cg.alpha = Mathf.Lerp(start, target, t / duration);
-            yield return null;
-        }
-        cg.alpha = target;
+        var color = image.color;
+        color.a = alpha;
+        image.color = color;
     }
 
-    private IEnumerator FadeImages(float targetAlpha, float duration)
+    private void CancelAutomaticFade()
     {
-        if (images == null || images.Length == 0) yield break;
-
-        float[] startAlphas = new float[images.Length];
-        for (int i = 0; i < images.Length; i++)
-        {
-            if (images[i] == null) continue;
-            startAlphas[i] = images[i].color.a;
-            
-            if (!images[i].gameObject.activeSelf) images[i].gameObject.SetActive(true);
-        }
-
-        float t = 0f;
-        duration = Mathf.Max(0.0001f, duration);
-
-        while (t < duration)
-        {
-            t += Delta;
-            float a = Mathf.Lerp(0f, 1f, t / duration); 
-            for (int i = 0; i < images.Length; i++)
-            {
-                var img = images[i];
-                if (img == null) continue;
-                float from = startAlphas[i];
-                float to = targetAlpha;
-                float cur = Mathf.Lerp(from, to, a);
-                var c = img.color; c.a = cur; img.color = c;
-            }
-            yield return null;
-        }
-
-        
-        for (int i = 0; i < images.Length; i++)
-        {
-            var img = images[i];
-            if (img == null) continue;
-            var c = img.color; c.a = targetAlpha; img.color = c;
-            
-            if (Mathf.Approximately(targetAlpha, 0f))
-                img.gameObject.SetActive(false);
-        }
+        AutomaticFade?.Kill();
+        AutomaticFade = null;
     }
 
-    private void SetImagesAlpha(float alpha, bool onlyIfActive)
+    private void OnDisable()
     {
-        if (images == null) return;
-        for (int i = 0; i < images.Length; i++)
-        {
-            var img = images[i];
-            if (img == null) continue;
-            if (onlyIfActive && !img.gameObject.activeSelf) continue;
-
-            if (alpha > 0f && !img.gameObject.activeSelf)
-                img.gameObject.SetActive(true);
-
-            var c = img.color; c.a = alpha; img.color = c;
-
-            if (alpha == 0f && img.gameObject.activeSelf)
-                img.gameObject.SetActive(false);
-        }
-    }
-
-    private void StopFade()
-    {
-        if (currentRoutine != null)
-        {
-            StopCoroutine(currentRoutine);
-            currentRoutine = null;
-        }
+        SetVisibleImmediate(false);
     }
 }

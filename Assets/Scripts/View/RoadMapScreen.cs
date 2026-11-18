@@ -1,97 +1,77 @@
-using System.Collections;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-
 public class RoadMapScreen : MonoBehaviour
 {
-    [SerializeField]
-    private CanvasGroupAutoFadeWithImages Canvas;
-
+    [SerializeField] private CanvasGroupAutoFadeWithImages Canvas;
     public PointMap[] pointsMap;
-
-    [SerializeField]
-    private TranslatableText[] translatableTexts;
-
-    [SerializeField]
-    private TextMeshProUGUI EggOText;
-
+    [SerializeField] private TranslatableText[] translatableTexts;
+    [SerializeField] private TextMeshProUGUI EggOText;
     public float delayBeforeStart = 0.5f;
+    [SerializeField, Min(0)] private float pointHideStagger = 0.2f;
 
-    private void OnEnable()
-    {
-        StartCoroutine(ShowSequence());
-        UpdateTexts();        
-    }
+    private void Awake() => ConfigureFade();
+    private void OnEnable() => UpdateTexts();
 
     public void UpdateTexts()
     {
-        foreach (var text in translatableTexts)
-        {
-            text.Actualize();
-        }
+        foreach (var text in translatableTexts) text.Actualize();
     }
 
-    private IEnumerator ShowSequence()
+    // The Controller owns the entire sequence, including every point's animation.
+    public Sequence ShowSequence(int completedLevel)
     {
+        ConfigureFade();
+        Canvas.SetVisibleImmediate(false);
+        var color = EggOText.color;
+        color.a = 0f;
+        EggOText.color = color;
+        var sequence = DOTween.Sequence().Pause();
+        sequence.Join(Canvas.ShowSequence(enableInput: false));
+        float cursor = Mathf.Max(0f, delayBeforeStart);
+        sequence.Insert(cursor, EggOText.DOFade(1f, 0.5f).SetEase(Ease.Linear));
         foreach (var point in pointsMap)
         {
-            point.ResetEggO();
+            var show = point.ShowSequence(completedLevel);
+            sequence.Insert(cursor, show);
+            cursor += show.Duration();
         }
-
-        yield return new WaitForSeconds(delayBeforeStart);        
-
-        StartCoroutine(FadeText(EggOText, .5f, true));
-
         foreach (var point in pointsMap)
         {
-            yield return StartCoroutine(point.Show());
+            var unlock = point.UnlockSequence(completedLevel);
+            // DOTween does not insert empty sequences.
+            float duration = unlock.Duration();
+            if (duration > 0f) sequence.Insert(cursor, unlock);
+            else unlock.Kill();
+            cursor += duration;
         }
-
-        foreach (var point in pointsMap)
-        {
-            yield return StartCoroutine(point.UnlockIfAvailable());
-        }
+        return sequence;
     }
 
-    public IEnumerator HideSequence()
+    private void ConfigureFade()
     {
-        StopAllCoroutines();
-
-        foreach (var point in pointsMap)
-        {
-            point.Disable();
-            yield return new WaitForSeconds(.2f);
-        }
-
-        yield return new WaitForSeconds(.5f);
-
-        Canvas.HideAndDeactivate();
-
-        StartCoroutine(FadeText(EggOText, .5f, false));
-
-        foreach (var point in pointsMap)
-        {
-            point.ResetEggO();
-        }
+        Canvas.SetManagedExternally();
+        foreach (var point in pointsMap) Canvas.ExcludeImagesUnder(point.transform);
     }
 
-    private IEnumerator FadeText(TextMeshProUGUI text, float duration, bool fadeIn)
+    public Sequence HideSequence()
     {
-        float t = 0f;
-        Color original = text.color;
-
-        float startAlpha = original.a;
-        float endAlpha = fadeIn ? 1f : 0f;
-
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            float alpha = Mathf.Lerp(startAlpha, endAlpha, t / duration);
-            text.color = new Color(original.r, original.g, original.b, alpha);
-            yield return null;
-        }
-
-        text.color = new Color(original.r, original.g, original.b, endAlpha);
+        Canvas.SetInput(false);
+        var sequence = DOTween.Sequence().Pause();
+        for (int i = 0; i < pointsMap.Length; i++)
+            sequence.Insert(i * pointHideStagger, pointsMap[i].HideSequence());
+        sequence.Insert(0f, EggOText.DOFade(0f, 0.5f).SetEase(Ease.Linear));
+        sequence.Append(Canvas.HideSequence());
+        return sequence;
     }
+
+    public void SetInput(bool enabled) => Canvas.SetInput(enabled);
+
+    public void ResetView()
+    {
+        foreach (var point in pointsMap) point.ResetEggO();
+    }
+
+    private void OnDisable() => ResetView();
 }

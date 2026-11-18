@@ -1,151 +1,87 @@
-using System.Collections;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PointMap : MonoBehaviour
 {
-    [SerializeField]
-    private int ID;
-        
-    [SerializeField] 
-    private Button ActiveEggO;
+    [SerializeField] private int ID;
+    [SerializeField] private Button ActiveEggO;
+    [SerializeField] private Image PastEggO;
+    [SerializeField] private TextMeshProUGUI Text;
+    [SerializeField] private Pulsation Pulsation;
+    [SerializeField, Min(0)] private float fadeDuration = 0.5f;
 
-    [SerializeField]
-    private Image PastEggO;
+    // Some existing prefabs intentionally leave Button.targetGraphic unset.
+    private Image ActiveImage => ActiveEggO.image != null
+        ? ActiveEggO.image : ActiveEggO.GetComponent<Image>();
 
-    [SerializeField] 
-    private TextMeshProUGUI Text;    
-    
-    [SerializeField] 
-    private Pulsation Pulsation;        
-
-    public IEnumerator Show()
+    public Sequence ShowSequence(int completedLevel)
     {
-        var maxPastLevel = Saver.GetLevel();
+        ResetEggO();
+        bool completed = ID <= completedLevel;
+        ActiveEggO.gameObject.SetActive(true);
+        ActiveImage.enabled = !completed || PastEggO == null;
+        if (PastEggO != null) PastEggO.gameObject.SetActive(completed);
+        Text.gameObject.SetActive(completed);
 
-        if (ID <= maxPastLevel)
-        {
-            PastEggO.gameObject.SetActive(true);
-            
-            Text.gameObject.SetActive(true);
-
-            yield return StartCoroutine(FadeInImage(PastEggO, 0.5f));
-            yield return StartCoroutine(FadeText(Text, 0.5f, true));
-        }
-
-        if (ID > maxPastLevel)
-        {
-            ActiveEggO.interactable = false;
-            yield return StartCoroutine(FadeInImage(ActiveEggO.image, 0.5f));
-        }        
+        var sequence = DOTween.Sequence().Pause();
+        sequence.Append((completed && PastEggO != null ? PastEggO : ActiveImage)
+            .DOFade(1f, fadeDuration).SetEase(Ease.Linear));
+        if (completed) sequence.Append(Text.DOFade(1f, fadeDuration).SetEase(Ease.Linear));
+        return sequence;
     }
 
-    public IEnumerator UnlockIfAvailable()
+    public Sequence UnlockSequence(int completedLevel)
     {
-        if (Saver.GetLevel() + 1 == ID)
-        {            
-            ActiveEggO.gameObject.SetActive(true);
+        var sequence = DOTween.Sequence().Pause();
+        if (ID != completedLevel + 1) return sequence;
+        sequence.AppendCallback(() => Text.gameObject.SetActive(true));
+        sequence.Append(Text.DOFade(1f, fadeDuration).SetEase(Ease.Linear));
+        sequence.AppendCallback(() =>
+        {
             ActiveEggO.interactable = true;
-            Text.gameObject.SetActive(true);
-            yield return StartCoroutine(FadeText(Text, 0.5f, true));
             Pulsation.enabled = true;
-        }
+        });
+        return sequence;
     }
 
-    public void Disable()
+    public Sequence HideSequence()
     {
-        StartCoroutine(Hide());
-    }
-
-    public IEnumerator Hide()
-    {
-        if (ActiveEggO.gameObject.activeInHierarchy)
-        {
-            Pulsation.enabled = false;
-            yield return StartCoroutine(FadeOutImage(ActiveEggO.image, 0.5f));            
-            yield return StartCoroutine(FadeText(Text, 0.5f, false));
-        }
-        
-        if (PastEggO.gameObject.activeInHierarchy)
-        {            
-            yield return StartCoroutine(FadeOutImage(PastEggO, 0.5f));
-            yield return StartCoroutine(FadeText(Text, 0.5f, false));
-        }              
-    }
-
-    private IEnumerator FadeInImage(Image img, float duration) //appear
-    {
-        float t = 0f;
-        Color original = img.color;
-        img.color = new Color(original.r, original.g, original.b, 0);
-
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            float alpha = Mathf.Lerp(0f, 1f, t / duration);
-            img.color = new Color(original.r, original.g, original.b, alpha);
-            yield return null;
-        }
-
-        img.color = new Color(original.r, original.g, original.b, 1f);
-    }
-
-    private IEnumerator FadeOutImage(Image img, float duration) //disappear
-    {
-        float t = 0f;
-        Color original = img.color;
-
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            float alpha = Mathf.Lerp(original.a, 0f, t / duration);
-            img.color = new Color(original.r, original.g, original.b, alpha);
-            yield return null;
-        }
-
-        img.color = new Color(original.r, original.g, original.b, 0f);
-    }
-
-    
-
-    private IEnumerator FadeText(TextMeshProUGUI text, float duration, bool fadeIn)
-    {
-        float t = 0f;
-        Color original = text.color;
-
-        float startAlpha = original.a;
-        float endAlpha = fadeIn ? 1f : 0f;
-
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            float alpha = Mathf.Lerp(startAlpha, endAlpha, t / duration);
-            text.color = new Color(original.r, original.g, original.b, alpha);
-            yield return null;
-        }
-
-        text.color = new Color(original.r, original.g, original.b, endAlpha);
-    }
-
-    private void SetAlpha(Graphic graphic, float alpha)
-    {
-        if (graphic == null) return;
-        var c = graphic.color;
-        graphic.color = new Color(c.r, c.g, c.b, alpha);
+        ActiveEggO.interactable = false;
+        Pulsation.enabled = false;
+        var sequence = DOTween.Sequence().Pause();
+        var image = PastEggO != null && PastEggO.gameObject.activeSelf ? PastEggO : ActiveImage;
+        sequence.Append(image.DOFade(0f, fadeDuration).SetEase(Ease.Linear));
+        if (Text.gameObject.activeSelf)
+            sequence.Append(Text.DOFade(0f, fadeDuration).SetEase(Ease.Linear));
+        return sequence;
     }
 
     public void ResetEggO()
     {
-        Pulsation.enabled = false;        
-        Text.gameObject.SetActive(false);
-        SetAlpha(ActiveEggO.image, 0f);        
-        SetAlpha(Text, 0f);
+        Pulsation.enabled = false;
         ActiveEggO.interactable = false;
+        Text.gameObject.SetActive(false);
+        SetAlpha(ActiveImage, 0f);
+        SetAlpha(PastEggO, 0f);
+        SetAlpha(Text, 0f);
     }
 
-    private void OnDisable()
+    // Retained for the existing prefab's OnClick binding. The screen owns fading.
+    public void Disable()
     {
-        ResetEggO();
+        ActiveEggO.interactable = false;
+        Pulsation.enabled = false;
     }
+
+    private static void SetAlpha(Graphic graphic, float alpha)
+    {
+        if (graphic == null) return;
+        var color = graphic.color;
+        color.a = alpha;
+        graphic.color = color;
+    }
+
+    private void OnDisable() => ResetEggO();
 }

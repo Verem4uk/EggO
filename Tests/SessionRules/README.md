@@ -43,8 +43,9 @@ loads, retries, late arrivals after disposal and exactly-once external effects.
   through Next without advancing. Early exit remains available, with level 7's
   mandatory final-card route preserved.
 
-Navigation and localization retain their existing architecture. The new loading
-and retry messages support the existing three languages.
+Screen transitions are owned by Controller; see [animation checks](../AnimationSmokeTests.md).
+Localization retains its existing architecture. Loading and retry messages
+support the existing three languages.
 
 ## Configured rules
 

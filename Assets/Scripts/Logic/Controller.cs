@@ -1,165 +1,190 @@
-using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
-    [SerializeField] 
-    private Level[] Levels;
-    
-    [SerializeField] 
-    private SessionView SessionView;
+    public enum ScreenState { MainMenu, RoadMap, Session, Coffee }
 
-    [SerializeField]
-    private RoadMapScreen RoadMap;
+    [SerializeField] private Level[] Levels;
+    [SerializeField] private SessionView SessionView;
+    [SerializeField] private RoadMapScreen RoadMap;
+    [SerializeField] private CoffeeView CoffeeView;
+    [SerializeField] private CanvasGroup MainMenuView;
+    [SerializeField] private ColorChanger Background;
+    [SerializeField] private AudioController AudioController;
+    [SerializeField] private GameObject Buttons;
+    [SerializeField, Min(0)] private float menuExitDuration = 0.5f;
+    [SerializeField, Min(0)] private float menuExitPause = 0.5f;
+    [SerializeField, Min(0)] private float buttonsFadeDuration = 1f;
 
-    [SerializeField]
-    private CoffeeView CoffeeView;
+    public ScreenState CurrentScreen { get; private set; } = ScreenState.MainMenu;
+    public bool IsTransitioning => Transition != null && Transition.IsActive();
 
-    [SerializeField] 
-    private CanvasGroup MainMenuView;
-    
-    [SerializeField]
-    private ColorChanger Background;
-
-    [SerializeField]
-    private AudioController AudioController;
-
-    [SerializeField]
-    private GameObject Buttons;
-
-    private bool InputIsBlocked;
-
+    private Sequence Transition;
+    private CanvasGroup SharedButtons;
+    private CanvasGroupAutoFadeWithImages MenuFade;
+    private CanvasGroupAutoFadeWithImages SessionFade;
+    private CanvasGroupAutoFadeWithImages CoffeeFade;
     private SessionCoordinator ActiveSession;
+    private bool Configured;
+    private bool Started;
+
+    private void Awake() => Configure();
+
+    private void Configure()
+    {
+        if (Configured) return;
+        MenuFade = MainMenuView.GetComponent<CanvasGroupAutoFadeWithImages>();
+        SessionFade = SessionView.GetComponent<CanvasGroupAutoFadeWithImages>();
+        CoffeeFade = CoffeeView.GetComponent<CanvasGroupAutoFadeWithImages>();
+        MenuFade?.SetManagedExternally();
+        SessionFade?.SetManagedExternally();
+        CoffeeFade?.SetManagedExternally();
+        RoadMap.GetComponent<CanvasGroupAutoFadeWithImages>()?.SetManagedExternally();
+        SharedButtons = Buttons.GetComponent<CanvasGroup>();
+        if (SharedButtons == null) SharedButtons = Buttons.AddComponent<CanvasGroup>();
+        Configured = true;
+    }
 
     private void OnEnable()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
-
-        int level = WebGLBridge.GetLevel();
-        bool trial = WebGLBridge.IsTrial();
-
-        Debug.Log("EGGO level from server: " + level);
-
-        Saver.InitLevel(level);
-        Saver.InitTrial(trial);
+        Saver.InitLevel(WebGLBridge.GetLevel());
+        Saver.InitTrial(WebGLBridge.IsTrial());
 #endif
+        if (Started) BackToMenu();
+    }
+
+    private void Start()
+    {
+        Root.Initialize(Levels);
+        Started = true;
+        BackToMenu();
     }
 
     public void OpenRoadMap()
     {
-        if (InputIsBlocked)
+        Configure();
+        if (IsTransitioning || CurrentScreen != ScreenState.MainMenu) return;
+        MenuFade?.SetInput(false);
+        SetButtonsInput(false);
+        var sequence = DOTween.Sequence().Pause();
+        sequence.Append(MainMenuView.DOFade(0f, menuExitDuration).SetEase(Ease.Linear));
+        sequence.AppendCallback(() => Background.ToggleColor());
+        sequence.AppendInterval(menuExitPause);
+        sequence.AppendCallback(() =>
         {
-            return;
-        }
-
-        InputIsBlocked = true;
-        StartCoroutine(FadeOutAndSwitch());
+            SetScreens(ScreenState.RoadMap);
+            SharedButtons.alpha = 0f;
+        });
+        float showStart = sequence.Duration();
+        sequence.Append(RoadMap.ShowSequence(Saver.GetLevel()));
+        sequence.Insert(showStart, SharedButtons.DOFade(1f, buttonsFadeDuration).SetEase(Ease.Linear));
+        StartTransition(sequence, ScreenState.RoadMap);
     }
 
     public void PlaySession(int levelIndex)
     {
-        if(InputIsBlocked)
-        {
-            return;
-        }
-
-        if (levelIndex < 1 || levelIndex > Levels.Length)
-            return;
-
-        if(levelIndex > Saver.MaxAvailableLevel())
+        Configure();
+        if (IsTransitioning || CurrentScreen != ScreenState.RoadMap ||
+            levelIndex < 1 || levelIndex > Levels.Length) return;
+        if (levelIndex > Saver.MaxAvailableLevel())
         {
             GoToCoffeeScreen();
             return;
         }
 
-        InputIsBlocked = true;
-        Debug.Log("Play session " + levelIndex);
-        ReleaseSession();
         var level = Levels[levelIndex - 1];
         var plan = new SessionFactory(count => Random.Range(0, count)).Create(level, levelIndex);
+        ReleaseSession();
         ActiveSession = new SessionCoordinator(new Session(plan),
             new SessionImages(new AddressableSessionImageLoader()),
             new UnitySessionEffects(), () => Time.time);
         SessionView.Initialize(ActiveSession, level);
-        StartCoroutine(PlayAfterHide());
+        SetButtonsInput(false);
+
+        var sequence = DOTween.Sequence().Pause();
+        sequence.Append(RoadMap.HideSequence());
+        sequence.AppendCallback(() => SetScreens(ScreenState.Session));
+        if (SessionFade != null) sequence.Append(SessionFade.ShowSequence(enableInput: false));
+        StartTransition(sequence, ScreenState.Session);
         Background.ToggleColor(level.BackgroundColor);
-
         AudioController.HandleAudio(level.BackGroundAudio);
-    }    
-
-    private IEnumerator FadeOutAndSwitch()
-    {        
-        float duration = 0.5f; 
-        float time = 0f;
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            float alpha = Mathf.Lerp(1f, 0f, time / duration);
-            MainMenuView.alpha = alpha;
-            yield return null;
-        }
-
-        Background.ToggleColor();
-
-        yield return new WaitForSeconds(0.5f);
-
-        MainMenuView.alpha = 0f;
-        MainMenuView.gameObject.SetActive(false);
-        RoadMap.gameObject.SetActive(true);
-        Buttons.gameObject.SetActive(true);
-        InputIsBlocked = false;
-    }
-
-    private IEnumerator PlayAfterHide()
-    {
-        yield return StartCoroutine(routine: RoadMap.HideSequence());
-        yield return new WaitForSeconds(1.5f);
-        RoadMap.gameObject.SetActive(false);
-        SessionView.gameObject.SetActive(true);
-        InputIsBlocked = false;
     }
 
     public void GoToCoffeeScreen()
     {
+        Configure();
+        CancelTransition();
         ReleaseSession();
+        SetScreens(ScreenState.Coffee);
         Background.ToggleColor(Color.white);
-        RoadMap.gameObject.SetActive(false);
-        SessionView.gameObject.SetActive(false);
-        Buttons.gameObject.SetActive(false);
-        CoffeeView.gameObject.SetActive(true);
-
-        AudioController.Stop();        
+        AudioController.Stop();
+        if (CoffeeFade != null)
+            StartTransition(CoffeeFade.ShowSequence(enableInput: false), ScreenState.Coffee);
     }
 
     public void BackToMenu()
     {
+        Configure();
+        CancelTransition();
         ReleaseSession();
-        Debug.Log("BackToMainMenu");
+        SetScreens(ScreenState.MainMenu);
         Background.ToggleColor(Background.startColor);
-        RoadMap.gameObject.SetActive(false);
-        SessionView.gameObject.SetActive(false);
-        Buttons.gameObject.SetActive(false);
-        CoffeeView.gameObject.SetActive(false);
-        MainMenuView.gameObject.SetActive(true);
-        MainMenuView.alpha = 1;
-
         AudioController.Stop();
+        if (MenuFade != null)
+            StartTransition(MenuFade.ShowSequence(enableInput: false), ScreenState.MainMenu);
+        else MainMenuView.alpha = 1f;
     }
-        
+
+    private void SetScreens(ScreenState screen)
+    {
+        CurrentScreen = screen;
+        MainMenuView.gameObject.SetActive(screen == ScreenState.MainMenu);
+        RoadMap.gameObject.SetActive(screen == ScreenState.RoadMap);
+        SessionView.gameObject.SetActive(screen == ScreenState.Session);
+        CoffeeView.gameObject.SetActive(screen == ScreenState.Coffee);
+        Buttons.SetActive(screen == ScreenState.RoadMap || screen == ScreenState.Session);
+        SetButtonsInput(false);
+    }
+
+    private void StartTransition(Sequence sequence, ScreenState destination)
+    {
+        Transition = sequence;
+        sequence.SetUpdate(true).OnComplete(() =>
+        {
+            if (Transition != sequence) return;
+            Transition = null;
+            CurrentScreen = destination;
+            MenuFade?.SetInput(destination == ScreenState.MainMenu);
+            SessionFade?.SetInput(destination == ScreenState.Session);
+            CoffeeFade?.SetInput(destination == ScreenState.Coffee);
+            RoadMap.SetInput(destination == ScreenState.RoadMap);
+            SetButtonsInput(destination == ScreenState.RoadMap || destination == ScreenState.Session);
+        }).Play();
+    }
+
+    private void SetButtonsInput(bool enabled)
+    {
+        SharedButtons.interactable = enabled;
+        SharedButtons.blocksRaycasts = enabled;
+    }
+
+    private void CancelTransition()
+    {
+        var previous = Transition;
+        Transition = null;
+        previous?.Kill();
+    }
+
     public void SwitchLanguage(int index)
     {
-        Debug.Log("Change language to " + index);
         Root.ChangeLanguage(index);
-        
         SessionView.ChangeLanguage();
         RoadMap.UpdateTexts();
     }
 
-    public void ClearPrefs()
-    {
-        Saver.Clear();
-    }
+    public void ClearPrefs() => Saver.Clear();
 
     private void ReleaseSession()
     {
@@ -168,32 +193,22 @@ public class Controller : MonoBehaviour
         ActiveSession = null;
     }
 
+    private void OnDisable()
+    {
+        CancelTransition();
+        if (!Configured) return;
+        MenuFade?.SetInput(false);
+        SessionFade?.SetInput(false);
+        CoffeeFade?.SetInput(false);
+        RoadMap.SetInput(false);
+        SetButtonsInput(false);
+    }
+
     private void OnDestroy()
     {
+        CancelTransition();
         ActiveSession?.Dispose();
         ActiveSession = null;
-    }
-
-    //Entry Point
-    private void Start()
-    {
-        Root.Initialize(Levels);
-    }
-    
-    //Exit Point
-    private void OnApplicationPause(bool pauseStatus)
-    {
-        if (pauseStatus)
-        {
-            Debug.Log("Data was saved");
-            //Root.Save();
-        }
-    }
-
-    private void OnApplicationQuit()
-    {
-        Debug.Log("Data was saved");
-        //Root.Save();
     }
 }
 

@@ -1,135 +1,186 @@
+using System;
+using System.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using UnityEngine.Networking;
 
 public class AudioController : MonoBehaviour
 {
-    [SerializeField] 
-    private AudioSource AudioSource;
+    [SerializeField] private AudioSource AudioSource;
+    [SerializeField] private AudioClip DefaultAudio;
+    [SerializeField] private Image SoundImage;
+    [SerializeField] private float FadeTime = 3f;
 
-    [SerializeField] 
-    private AudioClip DefaultAudio;
+    public IAudioTrackLoader TrackLoader { private get; set; }
+    private IAudioTrackRequest PendingRequest;
+    private Tween VolumeFade;
+    private AudioClip OwnedClip;
+    private int OperationVersion;
+    private float UserVolume;
+    private float Envelope = 1f;
+    private bool Initialized;
 
-    [SerializeField] 
-    private Image SoundImage;
+    private void Awake() => Initialize();
 
-    [SerializeField]
-    private float FadeTime = 3f;
-
-    private Coroutine fadeCoroutine;
+    private void Initialize()
+    {
+        if (Initialized) return;
+        UserVolume = AudioSource.volume;
+        TrackLoader = TrackLoader ?? new UnityAudioTrackLoader();
+        Initialized = true;
+    }
 
     public void ToggleMute()
     {
+        Initialize();
         AudioSource.mute = !AudioSource.mute;
         UpdateView();
     }
 
     public void ChangeVolume(float value)
     {
-        AudioSource.volume = value;
-        if(value == 0)
-        {
-            AudioSource.mute = true;
-        }
-        else 
-        {
-            AudioSource.mute = false;
-        }
-
+        Initialize();
+        UserVolume = Mathf.Clamp01(value);
+        AudioSource.mute = UserVolume == 0f;
+        ApplyVolume();
         UpdateView();
     }
 
     public void HandleAudio(string filename)
     {
-        if (string.IsNullOrEmpty(filename))
-        {
-            AudioSource.Stop();
-            return;
-        }
-
-        string url = $"https://verlema.life/EggO/StreamingAssets/Sounds/{filename}";
-        Debug.Log($"Start loading audio from: {url}");
-
-        if (fadeCoroutine != null)
-            StopCoroutine(fadeCoroutine);
-
-        fadeCoroutine = StartCoroutine(LoadAudio(url));
+        Initialize();
+        if (string.IsNullOrEmpty(filename)) { Stop(); return; }
+        CancelOperation();
+        _ = LoadAudioAsync(
+            $"https://verlema.life/EggO/StreamingAssets/Sounds/{filename}", OperationVersion);
     }
 
-    private void UpdateView()
+    private async Task LoadAudioAsync(string url, int version)
     {
-        SoundImage.color = AudioSource.mute ? new Color(1, 1, 1, 0.5f) : new Color(1, 1, 1, 1);        
-    }
-
-    private IEnumerator LoadAudio(string url)
-    {
-        yield return StopAudio();
-        
-        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG))
+        IAudioTrackRequest request = null;
+        try
         {
-            DownloadHandlerAudioClip dlHandler = (DownloadHandlerAudioClip)www.downloadHandler;
-            dlHandler.streamAudio = false; 
-
-            yield return www.SendWebRequest();
-
-            if (www.result != UnityWebRequest.Result.Success)
+            await FadeToAsync(0f);
+            if (version != OperationVersion) return;
+            ClearClip();
+            request = TrackLoader.Load(url);
+            PendingRequest = request;
+            var clip = await request.Completion;
+            if (version != OperationVersion)
             {
-                Debug.LogError($"Failed to load audio: {www.error}");
-                yield break;
+                DestroyClip(clip);
+                return;
             }
-
-            AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+            if (clip == null) throw new InvalidOperationException("The downloaded audio clip is empty.");
+            OwnedClip = clip;
             AudioSource.clip = clip;
-            AudioSource.volume = 1f;
-
-            StartCoroutine(PlayAudio());
+            Envelope = 0f;
+            ApplyVolume();
+            AudioSource.Play();
+            await FadeToAsync(1f);
         }
-    }
-
-    private IEnumerator PlayAudio()
-    {
-        AudioSource.Play();
-
-        float t = 0f;
-        while (t < FadeTime)
+        catch (OperationCanceledException) { }
+        catch (Exception error)
         {
-            t += Time.deltaTime;
-            AudioSource.volume = Mathf.Lerp(0f, 1f, t / FadeTime);
-            yield return null;
+            if (version == OperationVersion)
+                Debug.LogWarning("Background audio could not be loaded: " + error.Message);
         }
-        AudioSource.volume = 1f;
-    }
-
-    private IEnumerator StopAudio()
-    {
-        if (AudioSource.isPlaying)
+        finally
         {
-            float startVol = AudioSource.volume;
-            float t = 0f;
-            while (t < FadeTime)
-            {
-                t += Time.deltaTime;
-                AudioSource.volume = Mathf.Lerp(startVol, 0f, t / FadeTime);
-                yield return null;
-            }
-            AudioSource.Stop();
+            if (PendingRequest == request) PendingRequest = null;
+            request?.Dispose();
         }
     }
 
     public void SetDefault()
     {
+        Initialize();
+        CancelOperation();
+        ClearClip();
+        if (DefaultAudio == null) return;
         AudioSource.clip = DefaultAudio;
-        StartCoroutine(PlayAudio());
+        Envelope = 0f;
+        ApplyVolume();
+        AudioSource.Play();
+        FadeTo(1f);
     }
 
     public void Stop()
     {
-        if (fadeCoroutine != null)
+        Initialize();
+        CancelOperation();
+        int version = OperationVersion;
+        FadeTo(0f).OnComplete(() =>
         {
-            StopCoroutine(fadeCoroutine);
-        }
-
-        StartCoroutine(StopAudio());
+            if (version == OperationVersion) ClearClip();
+        });
     }
+
+    public void StopImmediate()
+    {
+        if (AudioSource == null) return;
+        Initialize();
+        CancelOperation();
+        ClearClip();
+        Envelope = 0f;
+        ApplyVolume();
+    }
+
+    private Tween FadeTo(float target)
+    {
+        VolumeFade?.Kill();
+        VolumeFade = DOTween.To(() => Envelope, value =>
+        {
+            Envelope = value;
+            ApplyVolume();
+        }, target, Mathf.Max(0f, FadeTime)).SetEase(Ease.Linear).SetUpdate(true);
+        return VolumeFade;
+    }
+
+    private Task FadeToAsync(float target)
+    {
+        var completion = new TaskCompletionSource<bool>();
+        FadeTo(target).OnComplete(() => completion.TrySetResult(true))
+            .OnKill(() => completion.TrySetCanceled());
+        return completion.Task;
+    }
+
+    private void CancelOperation()
+    {
+        OperationVersion++;
+        var request = PendingRequest;
+        PendingRequest = null;
+        VolumeFade?.Kill();
+        VolumeFade = null;
+        request?.Dispose();
+    }
+
+    private void ApplyVolume() => AudioSource.volume = UserVolume * Envelope;
+
+    private void UpdateView()
+    {
+        var color = SoundImage.color;
+        color.a = AudioSource.mute ? 0.5f : 1f;
+        SoundImage.color = color;
+    }
+
+    private void ClearClip()
+    {
+        AudioSource.Stop();
+        AudioSource.clip = null;
+        DestroyClip(OwnedClip);
+        OwnedClip = null;
+    }
+
+    private static void DestroyClip(AudioClip clip)
+    {
+        if (clip == null) return;
+#if UNITY_EDITOR
+        if (!Application.isPlaying) { DestroyImmediate(clip); return; }
+#endif
+        Destroy(clip);
+    }
+
+    private void OnDisable() => StopImmediate();
+    private void OnDestroy() => StopImmediate();
 }

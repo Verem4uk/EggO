@@ -1,6 +1,6 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class ColorChanger : MonoBehaviour
 {
@@ -8,33 +8,20 @@ public class ColorChanger : MonoBehaviour
     public float duration = 0.5f;
     public Color customColor;
     public Color startColor;
-    
-    public void ToggleColor()
-    {        
-        ToggleColor(customColor);        
-    }
+    private Tween ColorTween;
+
+    public void ToggleColor() => ToggleColor(customColor);
 
     public void ToggleColor(Color color)
     {
-        StopAllCoroutines();     
-        if(color == null)
-        {
-            color = customColor; 
-        }
-        StartCoroutine(SmoothColorChange(color));
+        ColorTween?.Kill();
+        ColorTween = targetImage.DOColor(color, Mathf.Max(0f, duration))
+            .SetEase(Ease.Linear).SetUpdate(true);
     }
 
-    private IEnumerator SmoothColorChange(Color to)
+    private void OnDisable()
     {
-        float time = 0f;
-        var from = targetImage.color;
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            targetImage.color = Color.Lerp(from, to, time / duration);
-            yield return null;
-        }
-        targetImage.color = to;
+        ColorTween?.Kill();
+        ColorTween = null;
     }
 }
