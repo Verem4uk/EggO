@@ -14,7 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 7
   Icon: {fileID: 4784141496942899495, guid: 509aaf02c44a93a40aa468d456fd0927, type: 3}
-  QuestionsToComplete: 8
+  CompletionRequirements:
+  - Element: {fileID: 11400000, guid: 9eb5ce8c7c057a8428fc0f8fe85d25c2, type: 2}
+    MinimumQuestions: 0
+  - Element: {fileID: 11400000, guid: 70b3fbe3cd486fd43a8e83675e552549, type: 2}
+    MinimumQuestions: 0
+  - Element: {fileID: 11400000, guid: 0d6612664ba64894db4881849816ec11, type: 2}
+    MinimumQuestions: 0
+  - Element: {fileID: 11400000, guid: d6453253442413147b20fbe8fdbd62ee, type: 2}
+    MinimumQuestions: 0
+  - Element: {fileID: 11400000, guid: da9fb1b52b26b5b46911c6565d5fa3a6, type: 2}
+    MinimumQuestions: 0
+  FinishElements:
+  - {fileID: 11400000, guid: 4a578e3e561c1c746b73e9ef3729a1f7, type: 2}
+  - {fileID: 11400000, guid: da9fb1b52b26b5b46911c6565d5fa3a6, type: 2}
+  - {fileID: 11400000, guid: 119c9f2f099247641a17cab292071112, type: 2}
   ButtonSound: {fileID: 8300000, guid: 409d0cded3cd47b43a260b3b21048193, type: 3}
   BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   SmokeColor: {r: 1, g: 1, b: 1, a: 1}

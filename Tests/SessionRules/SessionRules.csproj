@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="UnityStubs.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/Session.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/Level.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/ILevelsElement.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/IQuestion.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/Question.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/ImageQuestion.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/QuestionsBlock.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/RandomQuestionsBlock.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/QuestionsCollection.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/Root.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/Saver.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/Analytics.cs" />
+  </ItemGroup>
+</Project>

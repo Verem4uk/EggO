@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 5
   Icon: {fileID: 1413263094322507177, guid: 9acf4c1599300fd42ad45e10a6179fe4, type: 3}
-  QuestionsToComplete: 10
+  CompletionRequirements:
+  - Element: {fileID: 11400000, guid: d6b1d487cc7e42d41902dd8f74e8ac23, type: 2}
+    MinimumQuestions: 0
+  FinishElements:
+  - {fileID: 11400000, guid: 119c9f2f099247641a17cab292071112, type: 2}
   ButtonSound: {fileID: 8300000, guid: 9e8ee9f135f270d4b826ed8f8e7bb4e9, type: 3}
   BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   SmokeColor: {r: 1, g: 0, b: 0, a: 1}

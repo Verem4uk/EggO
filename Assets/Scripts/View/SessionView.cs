@@ -173,6 +173,9 @@ public class SessionView : MonoBehaviour
             return;
         }
 
+        if (Session.IsFinishing)
+            return;
+
         WarningPanel.gameObject.SetActive(true);
     }
 

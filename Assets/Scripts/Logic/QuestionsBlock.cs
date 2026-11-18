@@ -9,6 +9,8 @@ public class QuestionsBlock : LevelsElement
 
     private int NextIndex = 0;
 
+    public override int QuestionCount => Questions?.Length ?? 0;
+
     public override void PrepareQuestions()
     {
         for (int i = 0; i < Questions.Length; i++)

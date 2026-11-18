@@ -12,6 +12,8 @@ public class RandomQuestionsBlock : LevelsElement
     private Question[] PreparedQuestions;
     private int nextIndex;
 
+    public override int QuestionCount => PreparedQuestions?.Length ?? 0;
+
     public override void PrepareQuestions()
     {
         int amount = Mathf.Min(

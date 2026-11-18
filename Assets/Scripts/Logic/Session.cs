@@ -1,234 +1,174 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Session
 {
-    private Level Level;
-    private int LevelIndex;
+    private readonly Level Level;
+    private readonly int LevelNumber;
+    private readonly float StartTime;
+    private readonly LevelsElement[] FinishElements;
 
     private int CurrentElementIndex;
+    private int FinishElementIndex;
     private LevelsElement CurrentElement;
-    private LevelsElement MaxElement;
+    private bool IsFinished;
 
-    private List<int> CurrentElementIndexes = new List<int>();
-        
-    private bool LevelCompleted;
-    private float StartTime;
+    // Count sequence positions, not IDs: different questions may share an ID.
+    private readonly Dictionary<LevelsElement, int> OpenedQuestions =
+        new Dictionary<LevelsElement, int>();
 
-    // History of all received questions
-    private List<IQuestion> History = new List<IQuestion>();
+    private sealed class HistoryEntry
+    {
+        public IQuestion Question;
+        public LevelsElement Element;
+        public int PositionInElement;
+        public string CounterInfo;
+    }
 
-    // Index of the current question in history
+    private readonly List<HistoryEntry> History = new List<HistoryEntry>();
     private int HistoryIndex = -1;
 
-    // Current question
-    private IQuestion CurrentQuestion;
-
-    // Session was interrupted through Interupt()
-    private bool IsInterrupted;
+    public bool IsFinishing { get; private set; }
 
     public Session(int level)
     {
-        Level = Root.Levels[--level];
-        LevelIndex = level;
-        CurrentElementIndex = 0;
+        if (Root.Levels == null || level < 1 || level > Root.Levels.Length)
+            throw new ArgumentOutOfRangeException(nameof(level));
+
+        Level = Root.Levels[level - 1];
+        LevelNumber = level;
+        FinishElements = Level.FinishElements != null && Level.FinishElements.Length > 0
+            ? Level.FinishElements
+            : new[] { Level.Elements[Level.Elements.Length - 1] };
 
         PrepareQuestions();
 
         StartTime = Time.time;
-        Analytics.StartSession(LevelIndex);
+        Analytics.StartSession(LevelNumber);
     }
 
-    public void PrepareQuestions()
+    private void PrepareQuestions()
     {
         foreach (var element in Level.Elements)
         {
             if (element is RandomQuestionsBlock block)
-            {
                 block.Collection.ResetPool();
-            }
         }
 
         foreach (var element in Level.Elements)
-        {
             element.PrepareQuestions();
-        }
     }
 
     public string GetCounterInfo() =>
-        CurrentElement is RandomQuestionsBlock randomBlock
-            ? randomBlock.GetCounterInfo()
-            : "";
+        HistoryIndex >= 0 ? History[HistoryIndex].CounterInfo : "";
 
-    public bool CanGoBack()
-    {
-        return HistoryIndex > 0;
-    }
+    public bool CanGoBack() => HistoryIndex > 0;
 
     public IQuestion GetQuestion()
     {
-        // If there are previously received questions ahead,
-        // return them without generating new questions.
         if (HistoryIndex < History.Count - 1)
-        {
-            HistoryIndex++;
-            CurrentQuestion = History[HistoryIndex];
+            return History[++HistoryIndex].Question;
 
-            return CurrentQuestion;
-        }
-
-        // Do not generate new questions after interruption.
-        // The history already contains the final question.
-        if (IsInterrupted)
-        {
+        if (IsFinished)
             return null;
-        }
 
-        // Get the next question using the existing generation logic.
-        var nextQuestion = GetNewQuestion();
-
-        if (nextQuestion == null)
-        {
-            return null;
-        }
-
-        // Add the newly generated question to history.
-        History.Add(nextQuestion);
-        HistoryIndex = History.Count - 1;
-
-        CurrentQuestion = nextQuestion;
-
-        return CurrentQuestion;
-    }
-
-    private IQuestion GetNewQuestion()
-    {
-        if (CurrentElement == null)
-        {
-            if (CurrentElementIndex >= Level.Elements.Length)
-            {
-                CompleteLevel();
-
-                Analytics.FinishSession(
-                    LevelIndex,
-                    (int)(Time.time - StartTime)
-                );
-
-                return null;
-            }
-
-            CurrentElement = Level.Elements[CurrentElementIndex];
-            CurrentElementIndex++;
-
-            // Remember the furthest element reached by the session.
-            MaxElement = CurrentElement;
-
-            CurrentElementIndexes.Clear();
-        }
-
-        if (CurrentElement is RandomQuestionsBlock randomBlock)
-        {
-            if (CurrentElementIndexes.Count >= randomBlock.AmountForOneSession)
-            {
-                CurrentElement = null;
-
-                // End of the random questions block
-                return GetNewQuestion();
-            }
-
-            var nextQuestion = randomBlock.GetNextElement();
-
-            if (nextQuestion == null)
-            {
-                CurrentElement = null;
-
-                // End of the random questions block
-                return GetNewQuestion();
-            }
-
-            var questionID = nextQuestion.GetID();
-
-            CurrentElementIndexes.Add(questionID);
-
-            return nextQuestion;
-        }
-
-        var question = CurrentElement.GetNextElement();
-
+        var question = GetNewQuestion();
         if (question == null)
         {
-            CurrentElement = null;
-
-            return GetNewQuestion();
+            Finish();
+            return null;
         }
 
-        CurrentElementIndexes.Add(question.GetID());
+        OpenedQuestions.TryGetValue(CurrentElement, out int openedCount);
+        openedCount++;
+        OpenedQuestions[CurrentElement] = openedCount;
+
+        History.Add(new HistoryEntry
+        {
+            Question = question,
+            Element = CurrentElement,
+            PositionInElement = openedCount,
+            CounterInfo = CurrentElement is RandomQuestionsBlock randomBlock
+                ? randomBlock.GetCounterInfo()
+                : ""
+        });
+        HistoryIndex = History.Count - 1;
+
+        // Both normal and early completion end on the same closing question.
+        if (IsTheLastQuestion())
+            Finish();
 
         return question;
     }
 
-    public IQuestion GetPreviousQuestion()
+    private IQuestion GetNewQuestion()
     {
-        if (!CanGoBack())
+        while (true)
         {
-            return null;
-        }
-
-        HistoryIndex--;
-
-        CurrentQuestion = History[HistoryIndex];
-
-        return CurrentQuestion;
-    }
-
-    public IQuestion Interupt()
-    {
-        if (!IsInterrupted)
-        {
-            var elementToCheck = MaxElement ?? CurrentElement;            
-
-            if (Level.IsCompleted(History.Capacity))
+            if (CurrentElement == null)
             {
-                CompleteLevel();
+                var elements = IsFinishing ? FinishElements : Level.Elements;
+                int index = IsFinishing ? FinishElementIndex : CurrentElementIndex;
+                if (index >= elements.Length)
+                    return null;
+
+                CurrentElement = elements[index];
+                if (IsFinishing)
+                    FinishElementIndex++;
+                else
+                    CurrentElementIndex++;
+
+                // A closing card already opened in this session is not generated again.
+                if (IsFinishing &&
+                    OpenedQuestions.TryGetValue(CurrentElement, out int openedCount) &&
+                    openedCount >= CurrentElement.QuestionCount)
+                {
+                    CurrentElement = null;
+                    continue;
+                }
             }
 
-            Analytics.FinishSession(
-                LevelIndex,
-                (int)(Time.time - StartTime)
-            );
+            var question = CurrentElement.GetNextElement();
+            if (question != null)
+                return question;
 
-            IsInterrupted = true;
+            CurrentElement = null;
         }
-
-        // Generate the final question of the session.
-        CurrentElement = Level.Elements[Level.Elements.Length - 1];
-
-        var finalQuestion = CurrentElement.GetNextElement();
-
-        if (finalQuestion == null)
-        {
-            return null;
-        }
-
-        History.Add(finalQuestion);
-        HistoryIndex = History.Count - 1;
-
-        CurrentQuestion = finalQuestion;
-
-        return CurrentQuestion;
     }
 
-    private void CompleteLevel()
+    public IQuestion GetPreviousQuestion()
     {
-        if (LevelCompleted)
-        {
-            return;
-        }
+        return CanGoBack() ? History[--HistoryIndex].Question : null;
+    }
 
-        LevelCompleted = true;
-        Saver.SetLevel(++LevelIndex);
+    // Keep the existing name because the view calls it when confirming early completion.
+    public IQuestion Interupt()
+    {
+        if (IsFinishing || IsFinished)
+            return HistoryIndex >= 0 ? History[HistoryIndex].Question : null;
+
+        IsFinishing = true;
+        CurrentElement = null;
+        // Finish from the furthest reached position, even when viewing older history.
+        HistoryIndex = History.Count - 1;
+        return GetQuestion();
+    }
+
+    private void Finish()
+    {
+        if (IsFinished)
+            return;
+
+        IsFinished = true;
+        if (Level.IsCompleted(OpenedQuestions))
+            Saver.SetLevel(LevelNumber);
+
+        Analytics.FinishSession(LevelNumber, (int)(Time.time - StartTime));
     }
 
     public bool IsTheLastQuestion() =>
-        Level.IsTheLastQuestion(CurrentElement);
+        HistoryIndex >= 0 &&
+        Level.IsTheLastQuestion(History[HistoryIndex].Element) &&
+        History[HistoryIndex].PositionInElement >= History[HistoryIndex].Element.QuestionCount;
 }
