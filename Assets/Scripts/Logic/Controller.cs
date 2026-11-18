@@ -29,6 +29,8 @@ public class Controller : MonoBehaviour
 
     private bool InputIsBlocked;
 
+    private SessionCoordinator ActiveSession;
+
     private void OnEnable()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -61,6 +63,9 @@ public class Controller : MonoBehaviour
             return;
         }
 
+        if (levelIndex < 1 || levelIndex > Levels.Length)
+            return;
+
         if(levelIndex > Saver.MaxAvailableLevel())
         {
             GoToCoffeeScreen();
@@ -69,9 +74,14 @@ public class Controller : MonoBehaviour
 
         InputIsBlocked = true;
         Debug.Log("Play session " + levelIndex);
-        StartCoroutine(PlayAfterHide());        
-        var level = Root.Levels[levelIndex - 1]; 
-        SessionView.Initialize(new Session(levelIndex), level);
+        ReleaseSession();
+        var level = Levels[levelIndex - 1];
+        var plan = new SessionFactory(count => Random.Range(0, count)).Create(level, levelIndex);
+        ActiveSession = new SessionCoordinator(new Session(plan),
+            new SessionImages(new AddressableSessionImageLoader()),
+            new UnitySessionEffects(), () => Time.time);
+        SessionView.Initialize(ActiveSession, level);
+        StartCoroutine(PlayAfterHide());
         Background.ToggleColor(level.BackgroundColor);
 
         AudioController.HandleAudio(level.BackGroundAudio);
@@ -112,6 +122,7 @@ public class Controller : MonoBehaviour
 
     public void GoToCoffeeScreen()
     {
+        ReleaseSession();
         Background.ToggleColor(Color.white);
         RoadMap.gameObject.SetActive(false);
         SessionView.gameObject.SetActive(false);
@@ -123,6 +134,7 @@ public class Controller : MonoBehaviour
 
     public void BackToMenu()
     {
+        ReleaseSession();
         Debug.Log("BackToMainMenu");
         Background.ToggleColor(Background.startColor);
         RoadMap.gameObject.SetActive(false);
@@ -147,6 +159,19 @@ public class Controller : MonoBehaviour
     public void ClearPrefs()
     {
         Saver.Clear();
+    }
+
+    private void ReleaseSession()
+    {
+        SessionView.ClearSession();
+        ActiveSession?.Dispose();
+        ActiveSession = null;
+    }
+
+    private void OnDestroy()
+    {
+        ActiveSession?.Dispose();
+        ActiveSession = null;
     }
 
     //Entry Point

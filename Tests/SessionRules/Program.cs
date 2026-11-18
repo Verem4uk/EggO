@@ -4,9 +4,10 @@ using UnityEngine;
 internal static class Program
 {
     private static int Assertions;
+    private static SessionCoordinator ActiveCoordinator;
     private static readonly int[] Boundaries = { 3, 10, 14, 10, 10, 8, 8 };
 
-    private static void Check(bool condition, string message)
+    internal static void Check(bool condition, string message)
     {
         Assertions++;
         if (!condition) throw new Exception(message);
@@ -14,6 +15,7 @@ internal static class Program
 
     private static (Level[], Session) Start(int level, Action<Level[]> configure = null, int seed = 42)
     {
+        ActiveCoordinator?.Dispose();
         var levels = new AssetLoader().LoadLevels();
         configure?.Invoke(levels);
         Saver.Clear();
@@ -21,19 +23,36 @@ internal static class Program
         UnityEngine.Random.Reset(seed);
         Time.time = 100;
         Root.Initialize(levels);
-        return (levels, new Session(level));
+        var plan = new SessionFactory(count => UnityEngine.Random.Range(0, count)).Create(levels[level - 1], level);
+        ActiveCoordinator = new SessionCoordinator(new Session(plan),
+            new SessionImages(new ImmediateImageLoader()), new UnitySessionEffects(), () => Time.time);
+        return (levels, ActiveCoordinator.Session);
+    }
+
+    internal static IQuestion Next(Session session)
+    {
+        var question = session.GetQuestion();
+        if (question != null) session.ConfirmCurrentQuestion();
+        return question;
+    }
+
+    internal static IQuestion Interrupt(Session session)
+    {
+        var question = session.Interupt();
+        if (question != null) session.ConfirmCurrentQuestion();
+        return question;
     }
 
     private static void Open(Session session, int amount)
     {
         for (int i = 0; i < amount; i++)
-            Check(session.GetQuestion() != null, "Unexpected end while opening question " + (i + 1));
+            Check(Next(session) != null, "Unexpected end while opening question " + (i + 1));
     }
 
     private static void Drain(Session session)
     {
         int limit = 100;
-        while (session.GetQuestion() != null && --limit > 0) { }
+        while (Next(session) != null && --limit > 0) { }
         Check(limit > 0, "Session did not terminate");
     }
 
@@ -46,7 +65,7 @@ internal static class Program
               ends[0].Contains("| level: " + level + " |"), "Analytics level number changed");
     }
 
-    private static void Main()
+    private static async Task Main()
     {
         // Every early-exit position around each boundary, with different generated selections.
         for (int seed = 0; seed < 5; seed++)
@@ -55,9 +74,9 @@ internal static class Program
         {
             var (_, session) = Start(level, seed: seed);
             Open(session, position);
-            var firstClosing = session.Interupt();
+            var firstClosing = Interrupt(session);
             Check(firstClosing != null, "Missing early-exit closing question");
-            Check(ReferenceEquals(firstClosing, session.Interupt()),
+            Check(ReferenceEquals(firstClosing, Interrupt(session)),
                 "Repeated interruption skipped a closing question");
             Drain(session);
             int expected = position >= Boundaries[level - 1] ? level : 0;
@@ -72,15 +91,15 @@ internal static class Program
             Drain(session);
             Check(Saver.GetLevel() == level, "Full completion was not saved");
             Check(session.IsTheLastQuestion(), "Final card was not recognized");
-            Check(session.GetQuestion() == null && session.GetQuestion() == null,
+            Check(Next(session) == null && Next(session) == null,
                 "Questions generated after completion");
-            session.Interupt();
+            Interrupt(session);
             CheckEvents(level);
 
             // Replaying completed history must neither generate new questions nor finish twice.
             Check(session.GetPreviousQuestion() != null, "Cannot revisit completed history");
             Check(!session.IsTheLastQuestion(), "An earlier history entry is treated as the final card");
-            session.GetQuestion();
+            Next(session);
             Check(session.IsTheLastQuestion(), "Final card lost after replay");
             CheckEvents(level);
         }
@@ -92,20 +111,20 @@ internal static class Program
             Check(session.GetCounterInfo() == "5/5", "Last image counter incorrect");
             session.GetPreviousQuestion();
             Check(session.GetCounterInfo() == "4/5", "Back counter follows generator instead of history");
-            session.Interupt();
+            Interrupt(session);
             Drain(session);
             Check(Saver.GetLevel() == 4, "Backtracking revoked reached completion");
         }
         {
             var (_, session) = Start(1);
-            var first = session.GetQuestion();
-            session.GetQuestion();
+            var first = Next(session);
+            Next(session);
             for (int i = 0; i < 10; i++)
             {
                 Check(ReferenceEquals(first, session.GetPreviousQuestion()), "History question changed");
-                session.GetQuestion();
+                Next(session);
             }
-            session.Interupt();
+            Interrupt(session);
             Drain(session);
             Check(Saver.GetLevel() == 0, "Repeated views counted toward progress");
         }
@@ -117,21 +136,21 @@ internal static class Program
             Open(session, position);
             var route = levels[6].FinishElements;
             var instruction = route[0] as Question;
-            var closing = session.Interupt();
+            var closing = Interrupt(session);
             if (position < 9)
             {
                 Check(ReferenceEquals(closing, instruction), "Missing final-card instruction");
-                closing = session.GetQuestion();
+                closing = Next(session);
             }
             if (position < 10)
             {
                 Check(closing is ImageQuestion, "Mandatory final image card skipped");
-                Check(ReferenceEquals(closing, session.Interupt()), "Repeated finish skipped final image");
+                Check(ReferenceEquals(closing, Interrupt(session)), "Repeated finish skipped final image");
                 Check(Saver.GetLevel() == 0, "Progress saved before closing sequence finished");
-                closing = session.GetQuestion();
+                closing = Next(session);
             }
             Check(ReferenceEquals(closing, levels[6].Elements.Last()), "Missing final reflection question");
-            Check(session.GetQuestion() == null, "Unexpected question after final reflection");
+            Check(Next(session) == null, "Unexpected question after final reflection");
             Check(Saver.GetLevel() == (position >= 8 ? 7 : 0), "Level 7 mandatory questions bypassed");
             CheckEvents(7);
         }
@@ -144,7 +163,7 @@ internal static class Program
                 block.Collection.Questions = block.Collection.Questions.Take(2).ToArray();
             });
             Open(session, 7); // mood + 3 text + instruction + 2 generated images
-            session.Interupt();
+            Interrupt(session);
             Drain(session);
             Check(Saver.GetLevel() == 2, "Shorter generated block was not recognized");
         }
@@ -161,14 +180,17 @@ internal static class Program
             var (_, session) = Start(1);
             Saver.SetLevel(6);
             Open(session, 3);
-            session.Interupt();
+            Interrupt(session);
             Drain(session);
             Check(Saver.GetLevel() == 6, "Existing progress was downgraded");
             CheckEvents(1);
         }
 
+        ActiveCoordinator.Dispose();
+        SessionIsolationTests.Run();
+        await SessionImagesTests.Run();
         Console.WriteLine($"PASS: {Assertions} assertions; actual seven level assets, five random seeds, " +
-            "completion boundaries, early-exit routes, history replay, short/empty pools and analytics.");
+            "completion boundaries, history, isolated plans, resource lifecycle and coordinator effects.");
     }
 }
 

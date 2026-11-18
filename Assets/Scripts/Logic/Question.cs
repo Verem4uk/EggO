@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,22 +26,7 @@ public class Question : LevelsElement, IQuestion
     [SerializeField, TextAreaAttribute]
     public string PolishText;
 
-    public int GetID() => ID;       
+    public int GetID() => ID;
     public virtual bool HasImage() => false;
-    public virtual Sprite[] GetImages() => null;
-
-    private bool Used;
-
-    public override IQuestion GetNextElement()
-    {
-        if(Used)
-        {
-            return null;
-        }
-
-        Used = true;
-        return this;
-    }
-
-    public override void PrepareQuestions() => Used = false;    
+    public virtual IReadOnlyList<string> ImageKeys => Array.Empty<string>();
 }

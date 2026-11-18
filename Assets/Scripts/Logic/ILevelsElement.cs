@@ -1,10 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 
+// Content definition only. Per-session state belongs to SessionPlan and Session.
 public abstract class LevelsElement : ScriptableObject
 {
-    public virtual int QuestionCount => 1;
-
-    public abstract IQuestion GetNextElement();
-    public abstract void PrepareQuestions();
 }

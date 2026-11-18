@@ -9,6 +9,13 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="UnityStubs.cs" />
+    <Compile Include="SessionIsolationTests.cs" />
+    <Compile Include="SessionImagesTests.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/SessionPlan.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/SessionFactory.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/SessionImages.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/AddressableSessionImageLoader.cs" />
+    <Compile Include="../../Assets/Scripts/Logic/SessionCoordinator.cs" />
     <Compile Include="../../Assets/Scripts/Logic/Session.cs" />
     <Compile Include="../../Assets/Scripts/Logic/Level.cs" />
     <Compile Include="../../Assets/Scripts/Logic/ILevelsElement.cs" />

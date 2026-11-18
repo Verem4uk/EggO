@@ -1,12 +1,11 @@
-using UnityEngine;
+using System.Collections.Generic;
 
 public interface IQuestion
 {
-    public int GetID();
-    public string GetText();
-
-    public bool HasImage();
-    public Sprite[] GetImages();
+    int GetID();
+    string GetText();
+    bool HasImage();
+    IReadOnlyList<string> ImageKeys { get; }
 }
 
 

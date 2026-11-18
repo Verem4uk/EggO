@@ -8,6 +8,12 @@ public class NextButton : MonoBehaviour
 
     [SerializeField]
     private AudioSource AudioSource;
+
+    public void SetInteractable(bool value)
+    {
+        var button = GetComponent<Button>();
+        if (button != null) button.interactable = value;
+    }
     
     public void UpdateButton(Sprite sprite, AudioClip clip)
     {

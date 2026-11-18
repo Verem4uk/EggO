@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Level", menuName = "SO/Level")]
@@ -44,30 +43,4 @@ public class Level : ScriptableObject
 
     [SerializeField]
     public LevelsElement[] Elements;
-
-    public bool IsCompleted(IReadOnlyDictionary<LevelsElement, int> openedQuestions)
-    {
-        if (CompletionRequirements == null || CompletionRequirements.Length == 0)
-            return false;
-
-        foreach (var requirement in CompletionRequirements)
-        {
-            if (requirement == null || requirement.Element == null)
-                return false;
-
-            int requiredCount = requirement.MinimumQuestions > 0
-                ? requirement.MinimumQuestions
-                : requirement.Element.QuestionCount;
-
-            if (requiredCount <= 0 ||
-                !openedQuestions.TryGetValue(requirement.Element, out int openedCount) ||
-                openedCount < requiredCount)
-                return false;
-        }
-
-        return true;
-    }
-
-    public bool IsTheLastQuestion(LevelsElement element) =>
-        Elements != null && Elements.Length > 0 && Elements[Elements.Length - 1] == element;
 }

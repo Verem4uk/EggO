@@ -1,63 +1,45 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+
+public enum SessionEndReason
+{
+    CompletedSequence,
+    EarlyFinish
+}
+
+public sealed class SessionResult
+{
+    public int LevelNumber { get; }
+    public bool LevelCompleted { get; }
+    public SessionEndReason Reason { get; }
+
+    internal SessionResult(int levelNumber, bool levelCompleted, SessionEndReason reason)
+    {
+        LevelNumber = levelNumber;
+        LevelCompleted = levelCompleted;
+        Reason = reason;
+    }
+}
 
 public class Session
 {
-    private readonly Level Level;
-    private readonly int LevelNumber;
-    private readonly float StartTime;
-    private readonly LevelsElement[] FinishElements;
+    public SessionPlan Plan { get; }
+    public SessionResult Result { get; private set; }
+    public event Action<SessionResult> Finished;
 
-    private int CurrentElementIndex;
-    private int FinishElementIndex;
-    private LevelsElement CurrentElement;
-    private bool IsFinished;
-
-    // Count sequence positions, not IDs: different questions may share an ID.
+    private int NextIndex;
+    private int FinishIndex;
     private readonly Dictionary<LevelsElement, int> OpenedQuestions =
         new Dictionary<LevelsElement, int>();
-
-    private sealed class HistoryEntry
-    {
-        public IQuestion Question;
-        public LevelsElement Element;
-        public int PositionInElement;
-        public string CounterInfo;
-    }
-
-    private readonly List<HistoryEntry> History = new List<HistoryEntry>();
+    private readonly HashSet<SessionPlan.Entry> OpenedEntries = new HashSet<SessionPlan.Entry>();
+    private readonly List<SessionPlan.Entry> History = new List<SessionPlan.Entry>();
     private int HistoryIndex = -1;
 
     public bool IsFinishing { get; private set; }
 
-    public Session(int level)
+    public Session(SessionPlan plan)
     {
-        if (Root.Levels == null || level < 1 || level > Root.Levels.Length)
-            throw new ArgumentOutOfRangeException(nameof(level));
-
-        Level = Root.Levels[level - 1];
-        LevelNumber = level;
-        FinishElements = Level.FinishElements != null && Level.FinishElements.Length > 0
-            ? Level.FinishElements
-            : new[] { Level.Elements[Level.Elements.Length - 1] };
-
-        PrepareQuestions();
-
-        StartTime = Time.time;
-        Analytics.StartSession(LevelNumber);
-    }
-
-    private void PrepareQuestions()
-    {
-        foreach (var element in Level.Elements)
-        {
-            if (element is RandomQuestionsBlock block)
-                block.Collection.ResetPool();
-        }
-
-        foreach (var element in Level.Elements)
-            element.PrepareQuestions();
+        Plan = plan ?? throw new ArgumentNullException(nameof(plan));
     }
 
     public string GetCounterInfo() =>
@@ -69,106 +51,80 @@ public class Session
     {
         if (HistoryIndex < History.Count - 1)
             return History[++HistoryIndex].Question;
-
-        if (IsFinished)
+        if (Result != null)
             return null;
 
-        var question = GetNewQuestion();
-        if (question == null)
+        SessionPlan.Entry entry = null;
+        if (IsFinishing)
         {
-            Finish();
-            return null;
-        }
-
-        OpenedQuestions.TryGetValue(CurrentElement, out int openedCount);
-        openedCount++;
-        OpenedQuestions[CurrentElement] = openedCount;
-
-        History.Add(new HistoryEntry
-        {
-            Question = question,
-            Element = CurrentElement,
-            PositionInElement = openedCount,
-            CounterInfo = CurrentElement is RandomQuestionsBlock randomBlock
-                ? randomBlock.GetCounterInfo()
-                : ""
-        });
-        HistoryIndex = History.Count - 1;
-
-        // Both normal and early completion end on the same closing question.
-        if (IsTheLastQuestion())
-            Finish();
-
-        return question;
-    }
-
-    private IQuestion GetNewQuestion()
-    {
-        while (true)
-        {
-            if (CurrentElement == null)
+            while (FinishIndex < Plan.FinishQuestions.Count)
             {
-                var elements = IsFinishing ? FinishElements : Level.Elements;
-                int index = IsFinishing ? FinishElementIndex : CurrentElementIndex;
-                if (index >= elements.Length)
-                    return null;
-
-                CurrentElement = elements[index];
-                if (IsFinishing)
-                    FinishElementIndex++;
-                else
-                    CurrentElementIndex++;
-
-                // A closing card already opened in this session is not generated again.
-                if (IsFinishing &&
-                    OpenedQuestions.TryGetValue(CurrentElement, out int openedCount) &&
-                    openedCount >= CurrentElement.QuestionCount)
+                var candidate = Plan.FinishQuestions[FinishIndex++];
+                if (!OpenedEntries.Contains(candidate))
                 {
-                    CurrentElement = null;
-                    continue;
+                    entry = candidate;
+                    break;
                 }
             }
-
-            var question = CurrentElement.GetNextElement();
-            if (question != null)
-                return question;
-
-            CurrentElement = null;
         }
+        else if (NextIndex < Plan.Questions.Count)
+            entry = Plan.Questions[NextIndex++];
+
+        if (entry == null)
+        {
+            Finish();
+            return null;
+        }
+
+        History.Add(entry);
+        HistoryIndex = History.Count - 1;
+        return entry.Question;
     }
 
-    public IQuestion GetPreviousQuestion()
+    // The view confirms after the text and all required images are ready to display.
+    public void ConfirmCurrentQuestion()
     {
-        return CanGoBack() ? History[--HistoryIndex].Question : null;
+        if (Result != null || HistoryIndex < 0) return;
+        var entry = History[HistoryIndex];
+        if (OpenedEntries.Add(entry))
+        {
+            OpenedQuestions.TryGetValue(entry.Element, out int count);
+            OpenedQuestions[entry.Element] = count + 1;
+        }
+        if (entry.IsClosing) Finish();
     }
 
-    // Keep the existing name because the view calls it when confirming early completion.
+    public IQuestion GetPreviousQuestion() =>
+        CanGoBack() ? History[--HistoryIndex].Question : null;
+
     public IQuestion Interupt()
     {
-        if (IsFinishing || IsFinished)
+        if (IsFinishing || Result != null)
             return HistoryIndex >= 0 ? History[HistoryIndex].Question : null;
 
         IsFinishing = true;
-        CurrentElement = null;
-        // Finish from the furthest reached position, even when viewing older history.
         HistoryIndex = History.Count - 1;
         return GetQuestion();
     }
 
     private void Finish()
     {
-        if (IsFinished)
-            return;
+        if (Result != null) return;
 
-        IsFinished = true;
-        if (Level.IsCompleted(OpenedQuestions))
-            Saver.SetLevel(LevelNumber);
+        bool completed = Plan.RequiredCounts.Count > 0;
+        foreach (var requirement in Plan.RequiredCounts)
+        {
+            if (requirement.Value <= 0 ||
+                !OpenedQuestions.TryGetValue(requirement.Key, out int count) ||
+                count < requirement.Value)
+                completed = false;
+        }
 
-        Analytics.FinishSession(LevelNumber, (int)(Time.time - StartTime));
+        Result = new SessionResult(Plan.LevelNumber, completed,
+            IsFinishing ? SessionEndReason.EarlyFinish : SessionEndReason.CompletedSequence);
+        Finished?.Invoke(Result);
     }
 
     public bool IsTheLastQuestion() =>
-        HistoryIndex >= 0 &&
-        Level.IsTheLastQuestion(History[HistoryIndex].Element) &&
-        History[HistoryIndex].PositionInElement >= History[HistoryIndex].Element.QuestionCount;
+        HistoryIndex >= 0 && History[HistoryIndex].IsClosing;
 }
