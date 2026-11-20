@@ -66,11 +66,15 @@ public class RoadMapScreen : MonoBehaviour
         return sequence;
     }
 
-    public void SetInput(bool enabled) => Canvas.SetInput(enabled);
+    public void SetInput(bool enabled)
+    {
+        if (Canvas != null) Canvas.SetInput(enabled);
+    }
 
     public void ResetView()
     {
-        foreach (var point in pointsMap) point.ResetEggO();
+        foreach (var point in pointsMap)
+            if (point != null) point.ResetEggO();
     }
 
     private void OnDisable() => ResetView();

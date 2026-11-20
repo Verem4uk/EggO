@@ -125,11 +125,18 @@ public static class AnimationSmokeTests
             var soundImage = Field<Image>(audio, "SoundImage");
             float soundAlpha = soundImage.color.a;
             controller.OpenRoadMap();
+            Field<Sequence>(controller, "Transition").SetUpdate(UpdateType.Manual);
+            DOTween.ManualUpdate(1.25f, 1.25f);
+            var shared = Field<CanvasGroup>(controller, "SharedButtons");
+            Check(shared.interactable && shared.blocksRaycasts && controller.IsTransitioning,
+                "Language and audio must be usable while the map is appearing.");
+            controller.SwitchLanguage(Saver.GetLanguage());
+            audio.ChangeVolume(0.6f);
+            Check(controller.IsTransitioning, "Using shared controls interrupted map appearance.");
             FinishTransition(controller);
             CheckScreen(controller, Controller.ScreenState.RoadMap);
             Check(Mathf.Approximately(soundImage.color.a, soundAlpha),
                 "A screen fader changed the shared sound button's opacity.");
-            var shared = Field<CanvasGroup>(controller, "SharedButtons");
             Check(shared.alpha == 1f && shared.interactable, "Shared buttons remained faded or blocked.");
 
             controller.PlaySession(1);
@@ -149,8 +156,21 @@ public static class AnimationSmokeTests
             controller.OpenRoadMap();
             FinishTransition(controller);
             controller.PlaySession(1);
+            var sessionTransition = Field<Sequence>(controller, "Transition");
+            sessionTransition.SetUpdate(UpdateType.Manual);
+            DOTween.ManualUpdate(0.5f, 0.5f);
+            Check(shared.alpha > 0f && shared.alpha < 1f && shared.interactable && shared.blocksRaycasts,
+                "Shared controls must remain usable while fading alongside the map.");
+            DOTween.ManualUpdate(0.5f, 0.5f);
+            Check(shared.alpha == 0f, "Shared controls remained visible while the map was hiding.");
+            float untilSessionReveal = sessionTransition.Duration() - sessionTransition.Elapsed() - 0.5f;
+            DOTween.ManualUpdate(untilSessionReveal, untilSessionReveal);
+            Check(shared.interactable && shared.blocksRaycasts && controller.IsTransitioning,
+                "Language and audio must be usable while the session is appearing.");
             FinishTransition(controller);
             CheckScreen(controller, Controller.ScreenState.Session);
+            Check(shared.alpha == 1f && shared.interactable,
+                "Shared controls did not reappear with session input.");
             var sessionCanvas = view.GetComponent<CanvasGroup>();
             Check(sessionCanvas.alpha == 1f && sessionCanvas.interactable, "Session input was not restored.");
             controller.GoToCoffeeScreen();
@@ -173,6 +193,7 @@ public static class AnimationSmokeTests
             ValidateLocalFader();
             ValidateLoopEffects();
             ValidateExitFade();
+            Checks += DestroyedUIScreenTests.Validate();
         }
         finally
         {

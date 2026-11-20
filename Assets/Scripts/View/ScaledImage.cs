@@ -9,6 +9,7 @@ public class ScaledImage : MonoBehaviour
     public void Show(Image image)
     {
         Image.sprite = image.sprite;
+        Image.preserveAspect = true;
         gameObject.SetActive(true);
     }
 }

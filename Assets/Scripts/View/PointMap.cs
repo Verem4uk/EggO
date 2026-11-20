@@ -22,7 +22,20 @@ public class PointMap : MonoBehaviour
         bool completed = ID <= completedLevel;
         ActiveEggO.gameObject.SetActive(true);
         ActiveImage.enabled = !completed || PastEggO == null;
-        if (PastEggO != null) PastEggO.gameObject.SetActive(completed);
+        if (PastEggO != null)
+        {
+            // Completed characters fade in at their normal brightness. Blocking the
+            // map during its reveal must not add a second disabled-state tint.
+            var completedButton = PastEggO.GetComponent<Button>();
+            if (completedButton != null)
+            {
+                var colors = completedButton.colors;
+                colors.disabledColor = colors.normalColor;
+                completedButton.colors = colors;
+                PastEggO.CrossFadeColor(colors.normalColor * colors.colorMultiplier, 0f, true, true);
+            }
+            PastEggO.gameObject.SetActive(completed);
+        }
         Text.gameObject.SetActive(completed);
 
         var sequence = DOTween.Sequence().Pause();
@@ -38,9 +51,15 @@ public class PointMap : MonoBehaviour
         if (ID != completedLevel + 1) return sequence;
         sequence.AppendCallback(() => Text.gameObject.SetActive(true));
         sequence.Append(Text.DOFade(1f, fadeDuration).SetEase(Ease.Linear));
+        sequence.Join(DOTween.To(() => ActiveImage.canvasRenderer.GetColor(),
+            color => ActiveImage.canvasRenderer.SetColor(color),
+            ActiveEggO.colors.normalColor * ActiveEggO.colors.colorMultiplier,
+            fadeDuration).SetEase(Ease.Linear));
         sequence.AppendCallback(() =>
         {
             ActiveEggO.interactable = true;
+            ActiveImage.CrossFadeColor(ActiveEggO.colors.normalColor * ActiveEggO.colors.colorMultiplier,
+                0f, true, true);
             Pulsation.enabled = true;
         });
         return sequence;
@@ -60,8 +79,14 @@ public class PointMap : MonoBehaviour
 
     public void ResetEggO()
     {
+        // Only clickable levels use the normal tint. Keep locked icons dimmed
+        // independently of the alpha used by their reveal/hide animations.
+        if (ActiveEggO.targetGraphic == null) ActiveEggO.targetGraphic = ActiveImage;
+        ActiveEggO.transition = Selectable.Transition.ColorTint;
         Pulsation.enabled = false;
         ActiveEggO.interactable = false;
+        ActiveImage.CrossFadeColor(ActiveEggO.colors.disabledColor * ActiveEggO.colors.colorMultiplier,
+            0f, true, true);
         Text.gameObject.SetActive(false);
         SetAlpha(ActiveImage, 0f);
         SetAlpha(PastEggO, 0f);

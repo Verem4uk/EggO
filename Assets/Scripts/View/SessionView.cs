@@ -24,6 +24,7 @@ public class SessionView : MonoBehaviour
     private int DisplayVersion;
     private bool ImagesLoading;
     private bool ImageLoadFailed;
+    private ResponsiveSessionLayout PortraitLayout => GetComponent<ResponsiveSessionLayout>();
 
     public void Initialize(SessionCoordinator coordinator, Level level)
     {
@@ -44,6 +45,7 @@ public class SessionView : MonoBehaviour
         ImagesLoading = false;
         ImageLoadFailed = false;
         ClearImages();
+        PortraitLayout?.SetImageCount(0);
         WarningPanel.gameObject.SetActive(false);
         NextButton.SetInteractable(true);
         BackButton.interactable = false;
@@ -91,6 +93,7 @@ public class SessionView : MonoBehaviour
     {
         if (coordinator == null || question == null) return;
         ClearImages();
+        PortraitLayout?.SetImageCount(question.HasImage() ? question.ImageKeys.Count : 0);
         ImageLoadFailed = false;
         ImagesLoading = question.HasImage();
         NextButton.SetInteractable(!ImagesLoading);
@@ -137,6 +140,7 @@ public class SessionView : MonoBehaviour
         if (ImagesLoading) text += "\n" + LoadingText();
         else if (ImageLoadFailed) text += "\n" + RetryText();
         CurrentQuestionText.text = text;
+        PortraitLayout?.Refresh();
     }
 
     private static string LoadingText() => Root.GetLanguageIndex() switch
@@ -169,12 +173,19 @@ public class SessionView : MonoBehaviour
         {
             if (i >= sprites.Count) continue;
             Images[i].sprite = sprites[i];
+            Images[i].preserveAspect = true;
             Images[i].gameObject.SetActive(true);
         }
 
-        int size = sprites.Count > 2 ? MinCellSize : sprites.Count == 1 ? MaxCellSize : MidCellSize;
-        ImageHolder.cellSize = new Vector2(size, size);
         ImageHolder.gameObject.SetActive(true);
+        if (PortraitLayout != null) PortraitLayout.SetImageCount(sprites.Count);
+        else
+        {
+            int size = sprites.Count > 2 ? MinCellSize : sprites.Count == 1 ? MaxCellSize : MidCellSize;
+            ImageHolder.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            ImageHolder.constraintCount = sprites.Count <= 2 ? 1 : 2;
+            ImageHolder.cellSize = new Vector2(size, size);
+        }
     }
 
     public void TryFinishSession()

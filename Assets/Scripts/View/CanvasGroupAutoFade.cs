@@ -40,14 +40,17 @@ public class CanvasGroupAutoFadeWithImages : MonoBehaviour
         CancelAutomaticFade();
     }
 
-    private void EnsureGroup()
+    private bool EnsureGroup()
     {
+        // A Unity wrapper can survive destruction of its native component.
+        if (this == null) return false;
         if (Group == null) Group = GetComponent<CanvasGroup>();
+        return Group != null;
     }
 
     public void SetInput(bool enabled)
     {
-        EnsureGroup();
+        if (!EnsureGroup()) return;
         Group.interactable = enabled;
         Group.blocksRaycasts = enabled;
     }
@@ -55,7 +58,7 @@ public class CanvasGroupAutoFadeWithImages : MonoBehaviour
     public void SetVisibleImmediate(bool visible, bool input = true)
     {
         CancelAutomaticFade();
-        EnsureGroup();
+        if (!EnsureGroup()) return;
         Group.alpha = visible ? 1f : 0f;
         SetInput(visible && input);
         foreach (var image in images ?? System.Array.Empty<Image>())
