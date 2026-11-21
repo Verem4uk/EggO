@@ -17,7 +17,7 @@ MonoBehaviour:
     \u0432\u044B \u0431\u044B \u0445\u043E\u0442\u0435\u043B\u0438 \u0441\u0435\u0431\u0435
     \u0436\u0438\u043B\u044C\u0435?"
   EnglishText: In what style would you like your home to be?
-  PolishText: "W jakim stylu chcia\u0142(a)by\u015B mie\u0107 swoje mieszkanie/dom?"
+  PolishText: "W jakim stylu jest Twoje wymarzone mieszkanie lub dom?"
   imageKeys:
   - ThisOrThat/15luxuru.jpeg
   - ThisOrThat/15minimalism.jpeg

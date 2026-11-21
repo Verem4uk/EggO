@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: Question0
   m_EditorClassIdentifier: 
   ID: 0
-  RussianText: "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0442\u0435\u0441\u044C:
-    \u0438\u043C\u044F, \u0447\u0435\u043C \u0437\u0430\u043D\u0438\u043C\u0430\u0435\u0442\u0435\u0441\u044C,
-    + \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u043D\u044B\u0439 \u0444\u0430\u043A\u0442"
+  RussianText: "Представьтесь: как вас зовут, чем вы занимаетесь и какой интересный факт можете о себе рассказать"
   EnglishText: 'Please introduce yourself: your name, what you do, and an interesting
     fact about you'
-  PolishText: "Prosz\u0119 si\u0119 przedstawi\u0107: imi\u0119, czym si\u0119 zajmujesz,
-    oraz ciekawostka o sobie"
+  PolishText: "Przedstaw się: jak masz na imię, czym się zajmujesz i jaką ciekawostkę możesz o sobie opowiedzieć."

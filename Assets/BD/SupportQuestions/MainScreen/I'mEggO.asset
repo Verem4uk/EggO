@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: I'mEggO
   m_EditorClassIdentifier: 
   ID: 0
-  RussianText: "\u042F - \u042D\u0433\u0433\u041E!\n\u0421\u044B\u0433\u0440\u0430\u0435\u043C
-    \u0432 \u0438\u0433\u0440\u0443?"
-  EnglishText: 'I''m EggO!
-
-    Let''s play the game?!'
-  PolishText: "Ja jestem EggO!\nZagramy w gr\u0119?"
+  RussianText: "Я — ЭггО!\nДавай сыграем!"
+  EnglishText: "I'm EggO!\nLet's play!"
+  PolishText: "Ja jestem EggO!\nZagrajmy!"

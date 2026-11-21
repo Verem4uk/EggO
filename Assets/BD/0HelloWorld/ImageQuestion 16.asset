@@ -15,9 +15,8 @@ MonoBehaviour:
   ID: 22
   RussianText: "\u0412\u044B \u043F\u0440\u0438\u0432\u044B\u043A\u043B\u0438 \u0441\u043B\u0443\u0448\u0430\u0442\u044C
     \u0440\u0430\u0437\u0443\u043C \u0438\u043B\u0438 \u0441\u0435\u0440\u0434\u0446\u0435?"
-  EnglishText: Are you used to listening to your mind or your heart?
-  PolishText: "Czy jeste\u015B przyzwyczajony do s\u0142uchania g\u0142osu rozumu
-    czy serca?"
+  EnglishText: "Do you usually follow your head or your heart?"
+  PolishText: "Zwykle kierujesz się rozumem czy sercem?"
   imageKeys:
   - ThisOrThat/16brain.jpeg
   - ThisOrThat/16heart.jpeg

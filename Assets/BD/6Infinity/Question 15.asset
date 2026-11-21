@@ -13,13 +13,7 @@ MonoBehaviour:
   m_Name: Question 15
   m_EditorClassIdentifier: 
   ID: 6
-  RussianText: "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u044C\u0442\u0435,
-    \u0447\u0442\u043E \u0432\u0430\u043C \u043E\u0441\u0442\u0430\u043B\u043E\u0441\u044C
-    \u0436\u0438\u0442\u044C \u0442\u043E\u043B\u044C\u043A\u043E \u043E\u0434\u0438\u043D
-    \u0433\u043E\u0434. \u0427\u0442\u043E\u0431\u044B \u0431\u044B \u0432\u044B
-    \u0438\u0437\u043C\u0435\u043D\u0438\u043B\u0438 \u0432 \u0432\u0430\u0448\u0435\u0439
-    \u0436\u0438\u0437\u043D\u0438?"
+  RussianText: "Представьте, что вам осталось жить только один год. Что бы вы изменили в своей жизни?"
   EnglishText: Imagine that you have only one year left to live. What would you change
     in your life?
-  PolishText: "Prosz\u0119 sobie wyobrazi\u0107, \u017Ce zosta\u0142 tylko jeden
-    rok \u017Cycia. Co zmienisz w swoim \u017Cyciu?"
+  PolishText: "Wyobraź sobie, że został Ci tylko rok życia. Co zmienisz w swoim życiu?"

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 0
   RussianText: "\u0411\u044B\u043B \u0433\u0440\u0435\u0448\u043E\u043A?"
-  EnglishText: Was there a little sin?
+  EnglishText: "Ever been guilty of this?"
   PolishText: "By\u0142 grzeszek?"
   imageKeys:
   - "LovePack/\u0437\u0430\u0432\u0438\u0441\u0442\u044C.png"

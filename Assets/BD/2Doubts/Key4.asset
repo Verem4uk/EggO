@@ -13,20 +13,6 @@ MonoBehaviour:
   m_Name: Key4
   m_EditorClassIdentifier: 
   ID: 9
-  RussianText: "\u041A\u043B\u044E\u0447 5. \u0420\u0430\u0437\u043C\u0435\u0440
-    \u0432\u043E\u0434\u043E\u0435\u043C\u0430 \u2014 \u044D\u0442\u043E \u0440\u0430\u0437\u043C\u0435\u0440
-    \u0432\u0430\u0448\u0435\u0433\u043E \u0436\u0435\u043B\u0430\u043D\u0438\u044F
-    \u043B\u044E\u0431\u0432\u0438.\r\n\u0427\u0435\u043C \u0431\u043E\u043B\u0435\u0435
-    \xAB\u043C\u043E\u043A\u0440\u044B\u0439\xBB \u0441\u043F\u043E\u0441\u043E\u0431
-    \u043F\u0435\u0440\u0435\u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F \u0432\u044B
-    \u0432\u044B\u0431\u0435\u0440\u0435\u0442\u0435, \u0442\u0435\u043C \u0431\u043E\u043B\u044C\u0448\u0435\u0435
-    \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u0432 \u0432\u0430\u0448\u0435\u0439
-    \u0436\u0438\u0437\u043D\u0438 \u0438\u043C\u0435\u044E\u0442 \u0440\u043E\u043C\u0430\u043D\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0435
-    \u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u044F."
-  EnglishText: "Key 5. The size of the body of water represents the depth of your
-    desire for love.\nThe more \u201Cimmersive\u201D the way you choose to interact
-    with the water, the more importance romantic relationships hold in your life."
-  PolishText: "Klucz 5. Rozmiar zbiornika wodnego odzwierciedla si\u0142\u0119 Twojego
-    pragnienia mi\u0142o\u015Bci.\nIm bardziej \u201Emokry\u201D spos\xF3b kontaktu
-    z wod\u0105 wybierasz, tym wi\u0119ksze znaczenie mog\u0105 mie\u0107 w Twoim
-    \u017Cyciu relacje romantyczne."
+  RussianText: "Ключ 5. Размер водоёма отражает силу вашего стремления к любви.\r\nЧем больше контакта с водой предполагают ваши действия, тем большее значение могут иметь для вас романтические отношения."
+  EnglishText: "Key 5. The size of the body of water reflects the strength of your desire for love.\nThe more contact with the water your actions involve, the more important romantic relationships may be to you."
+  PolishText: "Klucz 5. Rozmiar zbiornika wodnego odzwierciedla siłę Twojego pragnienia miłości.\nIm więcej kontaktu z wodą wymagają wybrane przez Ciebie działania, tym większe znaczenie mogą mieć dla Ciebie relacje romantyczne."

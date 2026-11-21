@@ -13,12 +13,9 @@ MonoBehaviour:
   m_Name: ImageQuestion 18
   m_EditorClassIdentifier: 
   ID: 24
-  RussianText: "\u041F\u0440\u0435\u0434\u043F\u043E\u0447\u0438\u0442\u0430\u0435\u0442\u0435
-    \u0431\u043E\u043B\u044C\u0448\u0435 \u043F\u043B\u0430\u043D\u0438\u0440\u043E\u0432\u0430\u0442\u044C
-    \u0438\u043B\u0438 \u0434\u0435\u0439\u0441\u0442\u0432\u0443\u0435\u0442\u0435
-    \u0441\u043F\u043E\u043D\u0442\u0430\u043D\u043D\u043E?"
+  RussianText: "Вы предпочитаете планировать или действовать спонтанно?"
   EnglishText: Do you prefer to plan things or act spontaneously?
-  PolishText: "Wolisz planowa\u0107, czy dzia\u0142a\u0107 spontanicznie?"
+  PolishText: "Wolisz planować czy działać spontanicznie?"
   imageKeys:
   - ThisOrThat/18planning.jpeg
   - ThisOrThat/18spontanious.jpeg

@@ -13,13 +13,9 @@ MonoBehaviour:
   m_Name: ImageQuestion 1
   m_EditorClassIdentifier: 
   ID: 7
-  RussianText: "\u0423 \u0432\u0430\u0441 \u0435\u0441\u0442\u044C \u0434\u043E\u043C\u0430\u0448\u043D\u0435\u0435
-    \u0436\u0438\u0432\u043E\u0442\u043D\u043E\u0435? \u0415\u0441\u043B\u0438 \u043D\u0435\u0442,
-    \u0442\u043E \u043C\u043E\u0436\u0435\u0442 \u0445\u043E\u0442\u0435\u043B\u0438
-    \u0431\u044B \u0437\u0430\u0432\u0435\u0441\u0442\u0438?"
+  RussianText: "У вас есть домашнее животное? Если нет, хотели бы вы его завести?"
   EnglishText: Do you have a pet? If not, would you like to get one in the future?
-  PolishText: "Czy masz zwierz\u0119 domowe? Je\u015Bli nie, to czy chcia\u0142(a)by\u015B
-    mie\u0107 jakie\u015B w przysz\u0142o\u015Bci?"
+  PolishText: "Czy masz zwierzę domowe? Jeśli nie, czy chcesz mieć jakieś w przyszłości?"
   imageKeys:
   - ThisOrThat/1cat.png
   - ThisOrThat/1dog.png

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: I'mTheBest
   m_EditorClassIdentifier: 
   ID: 0
-  RussianText: "\u042F - \u0441\u0430\u043C\u044B\u0439 \n\u043B\u0443\u0447\u0448\u0438\u0439!"
+  RussianText: "Я — самый\nлучший!"
   EnglishText: "I'm the \nbest!"
   PolishText: "Ja jestem \nnajlepszy!"

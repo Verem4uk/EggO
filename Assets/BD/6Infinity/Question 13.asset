@@ -13,17 +13,6 @@ MonoBehaviour:
   m_Name: Question 13
   m_EditorClassIdentifier: 
   ID: 4
-  RussianText: "\u0415\u0441\u043B\u0438 \u0431\u044B \u044D\u0442\u043E \u0431\u044B\u043B
-    \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0439 \u0432\u0435\u0447\u0435\u0440
-    \u0432 \u0432\u0430\u0448\u0435\u0439 \u0436\u0438\u0437\u043D\u0438, \u0438
-    \u0443\u0436\u0435 \u043D\u0438 \u0441 \u043A\u0435\u043C \u043D\u0435\u043B\u044C\u0437\u044F
-    \u0431\u044B\u043B\u043E \u0431\u044B \u043F\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u0442\u044C,
-    \u043A\u043E\u043C\u0443 \u0438 \u043E \u0447\u0435\u043C \u043D\u0435\u0441\u043A\u0430\u0437\u0430\u043D\u043D\u043E\u043C
-    \u0432\u044B \u0431\u044B \u0436\u0430\u043B\u0435\u043B\u0438 \u0431\u043E\u043B\u044C\u0448\u0435
-    \u0432\u0441\u0435\u0433\u043E?"
-  EnglishText: If this were the last evening of your life and you could no longer
-    talk to anyone, who would you regret the most not having spoken to, and what
-    unsaid things would you regret?
-  PolishText: "Wyobra\u017A sobie, \u017Ce to ostatni wiecz\xF3r Twojego \u017Cycia
-    i nie mo\u017Cesz ju\u017C z nikim porozmawia\u0107. Jakie s\u0142owa pozosta\u0142yby
-    niewypowiedziane?"
+  RussianText: "Если бы это был последний вечер вашей жизни и вы уже не могли ни с кем поговорить, о каких несказанных словах вы бы жалели больше всего? Кому вы хотели бы их сказать?"
+  EnglishText: "If this were the last evening of your life and you could no longer talk to anyone, what would you most regret not having said? Who would you have wanted to say it to?"
+  PolishText: "Wyobraź sobie, że to ostatni wieczór Twojego życia i nie możesz już z nikim porozmawiać. Jakich niewypowiedzianych słów żałujesz najbardziej? Do kogo miały być skierowane?"
