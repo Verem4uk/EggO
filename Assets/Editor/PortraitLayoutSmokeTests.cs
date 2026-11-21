@@ -26,6 +26,7 @@ public static class PortraitLayoutSmokeTests
     {
         try
         {
+            Checks += PortraitWordWrapTests.Validate();
             await Validate();
             foreach (var suite in new[] { typeof(SessionViewSmokeTests), typeof(AnimationSmokeTests) })
             {
@@ -153,7 +154,13 @@ public static class PortraitLayoutSmokeTests
                 Check(frame.ContentRect.rect.width <= 800.1f, "Tablet content was stretched beyond its maximum width.");
 
                 foreach (int count in new[] { 0, 1, 2, 4 })
-                foreach (var message in longTexts.Concat(new[] { "What does this picture remind you of?" }))
+                foreach (var message in longTexts.Concat(new[]
+                {
+                    "What does this picture remind you of?",
+                    "Какие напитки предпочитаете?",
+                    "Если бы у вас была возможность переместиться во времени, что бы вы сделали?",
+                    "В чём вы черпаете энергию и находите вдохновение?"
+                }))
                 {
                     for (int i = 0; i < images.Length; i++)
                     {
@@ -171,6 +178,8 @@ public static class PortraitLayoutSmokeTests
                     Check(layout.QuestionArea.Fits, $"Full question did not fit at {profile}, images={count}.");
                     var questionBounds = Bounds(layout.QuestionArea.Viewport, content);
                     Check(Contains(content.rect, questionBounds), "Question viewport escaped the safe content frame.");
+                    Check(questionBounds.yMax <= content.rect.yMax - 279f,
+                        "Question does not leave enough space below header controls.");
                     var nextBounds = Bounds(next, content);
                     Check(Contains(content.rect, nextBounds), "Next button escaped the safe frame.");
                     Check(questionBounds.yMin >= nextBounds.yMax + 20f,

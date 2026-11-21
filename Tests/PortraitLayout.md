@@ -22,6 +22,10 @@ the cells into the remaining space on smaller screens:
 
 All text is displayed at once. PortraitTextArea selects the largest font size
 that fits the fixed area, using the actual font's wrapping and line spacing.
+Each complete word must also fit horizontally, including punctuation and phrases
+joined with non-breaking spaces. Oversized words reduce the font instead of
+falling back to character wrapping. Questions leave an 85-unit gap below the
+header buttons, including when the text fills its available height.
 There are no ScrollRect, text masks or scrollbar controls on question, warning
 or coffee text. The maximum font size is retained where space permits; compact
 image questions also have a lower font-size ceiling before fitting. Text is

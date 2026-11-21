@@ -51,7 +51,8 @@ public sealed class ResponsiveSessionLayout : MonoBehaviour
         SetRect(Exit, new Vector2(1f, 0f), new Vector2(-45f - side * 0.5f, 40f + side * 0.5f),
             new Vector2(side, side));
 
-        float top = size.y - 220f;
+        // Header buttons end at 195 UI units; leave room before the question.
+        float top = size.y - 280f;
         float bottom = navigationHeight + 24f;
         float bodyHeight = Mathf.Max(1f, top - bottom);
         Question.SetMaximumFontSize(ImageCount == 0 ? questionFontSize : Mathf.RoundToInt(Mathf.Lerp(
