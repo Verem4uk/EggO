@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 [DefaultExecutionOrder(-100)]
@@ -30,6 +31,7 @@ public sealed class PortraitCanvas : MonoBehaviour
     public void Apply(Vector2 viewport, Rect safeArea)
     {
         if (SafeArea == null || Content == null || viewport.x <= 0 || viewport.y <= 0) return;
+        ApplyScaleMatch(viewport);
         LastSize = viewport;
         LastSafeArea = safeArea;
         if (safeArea.width <= 0 || safeArea.height <= 0) safeArea = new Rect(Vector2.zero, viewport);
@@ -39,6 +41,21 @@ public sealed class PortraitCanvas : MonoBehaviour
             Mathf.Clamp01(safeArea.yMax / viewport.y));
         SafeArea.offsetMin = SafeArea.offsetMax = Vector2.zero;
         ApplyWidth();
+    }
+
+    private void ApplyScaleMatch(Vector2 viewport)
+    {
+        var scaler = GetComponent<CanvasScaler>();
+        if (scaler == null || scaler.uiScaleMode != CanvasScaler.ScaleMode.ScaleWithScreenSize ||
+            scaler.screenMatchMode != CanvasScaler.ScreenMatchMode.MatchWidthOrHeight)
+            return;
+
+        // These canvases are authored as portrait layouts. Matching the width
+        // works well on phones, but makes every control grow with a wide
+        // desktop/tablet viewport. In landscape, match the height so the
+        // portrait content remains a readable column while backgrounds can
+        // still cover the full screen.
+        scaler.matchWidthOrHeight = viewport.x > viewport.y ? 1f : 0f;
     }
 
     private void ApplyWidth()

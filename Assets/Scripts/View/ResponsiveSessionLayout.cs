@@ -125,31 +125,17 @@ public sealed class ResponsiveSessionLayout : MonoBehaviour
             for (int i = 0; i < systems.Length; i++) SmokeEmitters[i] = systems[i].transform;
         }
 
-        float frameHeight = SmokeBounds.rect.height;
-        if (frameHeight <= 0f || SmokeEmitters == null) return;
+        if (SmokeBounds.rect.width <= 0f || SmokeBounds.rect.height <= 0f || SmokeEmitters == null) return;
 
-        // Keep the emitters close to the top and bottom, matching their original
-        // portrait placement while adapting to the current background height.
-        float topY = frameHeight * 0.46f;
-        float bottomY = -frameHeight * 0.42f;
+        // Anchor the two emitters to the actual camera viewport, not to the
+        // narrower portrait content rect. This keeps them in the screen's
+        // upper-left and lower-left corners on portrait and landscape screens.
         foreach (var smoke in SmokeEmitters)
         {
             if (smoke == null) continue;
-            var position = smoke.localPosition;
-            float targetY = position.y >= 0f ? topY : bottomY;
-            bool repositioned = Mathf.Abs(position.y - targetY) > 1f;
-            if (repositioned)
-            {
-                position.y = targetY;
-                smoke.localPosition = position;
-            }
-
-            // The scene stores these emitters at local Z=-16000. That value
-            // was tuned for one Canvas scale; on another viewport the scaled
-            // world position can end up behind the camera. Keep the emitter
-            // on the same screen point, but place it a fixed distance in
-            // front of the Canvas plane and therefore inside the camera.
-            repositioned |= KeepSmokeInFrontOfCanvas(smoke);
+            bool topEmitter = smoke.localPosition.y >= 0f;
+            bool repositioned = PlaceSmokeAtViewportCorner(smoke,
+                -0.04f, topEmitter ? 0.96f : 0.04f);
 
             // Clear particles created at the old emitter position after a
             // resolution change or a layout repositioning.
@@ -165,24 +151,24 @@ public sealed class ResponsiveSessionLayout : MonoBehaviour
         }
     }
 
-    private bool KeepSmokeInFrontOfCanvas(Transform smoke)
+    private bool PlaceSmokeAtViewportCorner(Transform smoke, float viewportX, float viewportY)
     {
         var canvas = Frame.GetComponentInParent<Canvas>();
         var camera = canvas != null ? canvas.worldCamera : Camera.main;
         if (camera == null || smoke.parent == null) return false;
 
-        var local = smoke.localPosition;
-        var pointOnCanvasPlane = smoke.parent.TransformPoint(new Vector3(local.x, local.y, 0f));
-        var viewportPoint = camera.WorldToViewportPoint(pointOnCanvasPlane);
-        if (viewportPoint.z <= camera.nearClipPlane) return false;
+        var pointOnCanvasPlane = smoke.parent.TransformPoint(Vector3.zero);
+        float canvasDepth = camera.WorldToViewportPoint(pointOnCanvasPlane).z;
+        if (canvasDepth <= camera.nearClipPlane) return false;
 
-        float targetDepth = Mathf.Clamp(viewportPoint.z - smokeCameraDepthOffset,
+        float targetDepth = Mathf.Clamp(canvasDepth - smokeCameraDepthOffset,
             camera.nearClipPlane + 0.1f, camera.farClipPlane - 0.1f);
         var targetWorldPosition = camera.ViewportToWorldPoint(
-            new Vector3(viewportPoint.x, viewportPoint.y, targetDepth));
-        if ((smoke.position - targetWorldPosition).sqrMagnitude < 0.01f) return false;
+            new Vector3(viewportX, viewportY, targetDepth));
+        var targetLocalPosition = smoke.parent.InverseTransformPoint(targetWorldPosition);
+        if ((smoke.localPosition - targetLocalPosition).sqrMagnitude < 0.01f) return false;
 
-        smoke.position = targetWorldPosition;
+        smoke.localPosition = targetLocalPosition;
         return true;
     }
 
