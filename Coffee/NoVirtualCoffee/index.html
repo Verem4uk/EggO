@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EggO_Coffee</title>
+<link rel="icon" type="image/png" href="favicon.png">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<style>
+body {
+  margin: 0;
+  padding-bottom: 60px; 
+  background: #ffffff;
+  color: #000000;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+
+/* ===== Language selector ===== */
+#lang-selector {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px 20px;
+}
+
+.lang-selector__btn {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  margin-left: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.lang-selector__btn.is-active {
+  background: #333;
+  color: #fff;
+  border-color: #333;
+}
+
+/* Header */
+header {
+  padding: 10px 0;
+}
+
+.logo img {
+  max-width: 200px;
+  width: 40%;
+  min-width: 120px;
+  display: block;
+  margin-left: 50px;
+  margin-right: auto;
+}
+
+/* Title */
+h1 {
+  margin: 40px 20px 20px 20px;
+  font-size: clamp(22px, 5vw, 36px);
+  line-height: 1.3;
+}
+
+/* ===== Interactive container ===== */
+#interactiveContainer {
+  max-width: 360px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 20px;
+}
+
+/* SadImage */
+#sadImage {
+  width: 100%;
+  height: auto;
+}
+
+/* Buttons and textarea same width */
+#drinkBtn,
+#submitReview,
+#reviewInput {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Buttons */
+#drinkBtn,
+#submitReview {
+  padding: 18px;
+  font-size: 16px;
+  color: white;
+  background-color: #333333;
+  text-transform: uppercase;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+/* Textarea */
+#reviewInput {
+  min-height: 120px;
+  padding: 18px;
+  font-size: 16px;
+  border: 2px solid #333333;
+  resize: vertical;
+  font-family: Arial, sans-serif;
+}
+
+@media (max-width: 480px) {
+  .logo img {
+    margin-left: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section id="lang-selector">
+  <div>
+    <button type="button" data-lang="en" class="lang-selector__btn">ENG</button>
+    <button type="button" data-lang="pl" class="lang-selector__btn">PL</button>
+    <button type="button" data-lang="ru" class="lang-selector__btn">RU</button>
+  </div>
+</section>
+
+<header class="logo">
+  <img src="Logo.png" alt="EggO Logo">
+</header>
+
+<h1 id="mainText"></h1>
+
+<div id="interactiveContainer">
+  <img id="sad" src="sad.png">
+  <div id="reviewSection">    
+    <textarea id="reviewInput"></textarea>
+    <button id="submitReview"></button>
+  </div>
+</div>
+
+<script>
+// ===== Firebase =====
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAJ1z5fRAgFhjwv5tEVCqp_1mS-noL9G2I",
+  authDomain: "eggo-dfbed.firebaseapp.com",
+  projectId: "eggo-dfbed",
+  storageBucket: "eggo-dfbed.firebasestorage.app",
+  messagingSenderId: "130466932483",
+  appId: "1:130466932483:web:da020e9230fd9b02aa2b36",
+  measurementId: "G-9SFVQRPPV2"
+};
+firebase.initializeApp(firebaseConfig);
+const analytics = firebase.analytics();
+const db = firebase.firestore();
+
+analytics.logEvent("donation_fail", {
+  source: "eggo webgl build"
+});
+
+// ===== Translations =====
+const translations = {
+  en: {
+    title: "Growth is important to us. Could you advise what we should improve to earn your support?",
+    placeholder: "Write your review...",
+    submit: "Send",
+    empty: "Field cannot be empty",
+    success: "Thank you for your feedback!",
+    error: "Error sending review. Try again later."
+  },
+  pl: {
+    title: "Dla nas ważny jest rozwój. Prosimy o wskazówki, co powinniśmy ulepszyć, aby zasłużyć na Państwa wsparcie?",
+    placeholder: "Napisz swoją opinię...",
+    submit: "Wyślij",
+    empty: "Pole nie może być puste",
+    success: "Dziękujemy za opinię!",
+    error: "Błąd wysyłania. Spróbuj ponownie później."
+  },
+  ru: {    
+    title: "Нам важно расти. Подскажите, что нам улучшить, чтобы заслужить вашу поддержку?",
+    placeholder: "Напишите ваш отзыв...",
+    submit: "Отправить",
+    empty: "Поле не может быть пустым",
+    success: "Спасибо за отзыв!",
+    error: "Ошибка отправки. Попробуйте позже."
+  }
+};
+
+const mainText = document.getElementById("mainText");
+const reviewInput = document.getElementById("reviewInput");
+const submitReview = document.getElementById("submitReview");
+const langButtons = document.querySelectorAll(".lang-selector__btn");
+
+let currentLang = "en";
+
+function setLanguage(lang) {
+  currentLang = lang;
+
+  mainText.textContent = translations[lang].title;
+  reviewInput.placeholder = translations[lang].placeholder;
+  submitReview.textContent = translations[lang].submit;
+
+  langButtons.forEach(btn => {
+    btn.classList.toggle("is-active", btn.dataset.lang === lang);
+  });
+
+  localStorage.setItem("selectedLang", lang);
+}
+
+const savedLang = localStorage.getItem("selectedLang") || "en";
+setLanguage(savedLang);
+
+langButtons.forEach(btn => {
+  btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
+});
+
+const img = document.getElementById("sad");
+
+// ===== Review submit =====
+submitReview.addEventListener("click", async () => {
+  const text = reviewInput.value.trim();
+
+  if (!text) {
+    alert(translations[currentLang].empty);
+    return;
+  }
+
+  // Сразу очищаем поле — это и будет визуальный отклик
+  reviewInput.value = "";
+  submitReview.disabled = true;
+
+  try {
+    await db.collection("reviews").add({
+      text: text,
+      lang: currentLang,
+      source : "no coffee",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      userAgent: navigator.userAgent
+    });
+
+  } catch (error) {
+    console.error(error);
+    alert(translations[currentLang].error);
+  }
+
+  submitReview.disabled = false;
+});
+</script>
+</body>
+</html>

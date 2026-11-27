@@ -29,6 +29,9 @@ public static class Saver
             PlayerPrefs.SetInt("Level", value);
         }
         LastPastLevel = value;
+#if UNITY_WEBGL && !UNITY_EDITOR
+        WebGLBridge.SaveLevel(value);
+#endif
     }
 
     public static int GetLevel() => PlayerPrefs.GetInt("Level");         

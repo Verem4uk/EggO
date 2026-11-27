@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{{ PRODUCT_NAME }}}</title>
+  <link rel="stylesheet" href="account.css">
+  <style>
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
+    #unity-container { position: fixed; inset: 0; width: 100%; height: 100%; height: 100dvh; }
+    #unity-canvas { display: block; width: 100%; height: 100%; background: #000; touch-action: none; }
+    #unity-loading { position: absolute; inset: 0; display: grid; place-content: center; color: #fff; font: 16px Arial; }
+    #unity-loading[hidden] { display: none; }
+    #unity-progress { width: min(280px, 75vw); }
+    #unity-warning { position: absolute; bottom: 10px; left: 10px; right: 10px; color: #fff; background: #8c2525; font: 14px Arial; }
+    #unity-warning:empty { display: none; }
+  </style>
+</head>
+<body>
+  <main id="unity-container">
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+    <div id="unity-loading"><span>EggO</span><progress id="unity-progress" max="1" value="0"></progress></div>
+    <div id="unity-warning" role="alert"></div>
+    <button id="eggo-account-button" type="button">My EggO</button>
+    <dialog id="eggo-account-dialog" aria-labelledby="eggo-account-title" aria-describedby="eggo-account-description">
+      <h2 id="eggo-account-title">Your EggO</h2>
+      <p id="eggo-account-description"></p>
+      <p id="eggo-account-status" role="status"></p>
+      <p id="eggo-account-access"></p>
+      <p id="eggo-account-error" role="alert"></p>
+      <button id="eggo-sign-in" type="button">Continue with Google</button>
+      <button id="eggo-account-retry" type="button" hidden>Try again</button>
+      <button id="eggo-sign-out" type="button" hidden>Sign out</button>
+      <button id="eggo-account-close" type="button">Close</button>
+    </dialog>
+  </main>
+
+  <!-- Same pinned SDK family as the existing Coffee pages. -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="account-store.js"></script>
+  <script src="firebase-backend.js"></script>
+  <script src="account-ui.js"></script>
+  <script>
+    const container = document.getElementById("unity-container");
+    const canvas = document.getElementById("unity-canvas");
+    function showBanner(message, type) {
+      if (type === "error") document.getElementById("unity-warning").textContent = message;
+      else console.warn(message);
+    }
+    const config = {
+      arguments: [],
+      dataUrl: "Build/{{{ DATA_FILENAME }}}",
+      frameworkUrl: "Build/{{{ FRAMEWORK_FILENAME }}}",
+#if USE_WASM
+      codeUrl: "Build/{{{ CODE_FILENAME }}}",
+#endif
+#if MEMORY_FILENAME
+      memoryUrl: "Build/{{{ MEMORY_FILENAME }}}",
+#endif
+#if SYMBOLS_FILENAME
+      symbolsUrl: "Build/{{{ SYMBOLS_FILENAME }}}",
+#endif
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
+      productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+      productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
+      showBanner,
+      matchWebGLToCanvasSize: true,
+      devicePixelRatio: window.devicePixelRatio || 1
+    };
+    const loader = document.createElement("script");
+    loader.src = "Build/{{{ LOADER_FILENAME }}}";
+    loader.onerror = () => showBanner("Could not load EggO. Reload the page to try again.", "error");
+    loader.onload = () => {
+      createUnityInstance(canvas, config, progress => {
+        document.getElementById("unity-progress").value = progress;
+      }).then(instance => {
+        document.getElementById("unity-loading").hidden = true;
+        window.EggoAccount.attachUnity(instance);
+        canvas.addEventListener("pointerdown", function () {
+          if (!document.fullscreenElement && container.requestFullscreen) {
+            try {
+              const request = container.requestFullscreen({ navigationUI: "hide" });
+              if (request) request.catch(() => {});
+            } catch (_) { /* Fullscreen is optional. */ }
+          }
+        }, { once: true });
+      }).catch(error => showBanner(String(error), "error"));
+    };
+    document.body.appendChild(loader);
+  </script>
+</body>
+</html>

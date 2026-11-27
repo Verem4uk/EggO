@@ -29,6 +29,60 @@ public class Controller : MonoBehaviour
     private bool Configured;
     private bool Started;
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [System.Serializable]
+    [UnityEngine.Scripting.Preserve]
+    private sealed class WebAccountState
+    {
+        public bool ready;
+        public string uid;
+        public int completedLevel;
+    }
+
+    private string AccountUid = "";
+    private int PendingAccountLevel;
+
+    // Called by the web account bridge; no Auth credentials enter Unity.
+    [UnityEngine.Scripting.Preserve]
+    public void ReceiveAccountState(string json)
+    {
+        var state = JsonUtility.FromJson<WebAccountState>(json);
+        if (state == null) return;
+        bool changedUser = AccountUid != (state.uid ?? "");
+        AccountUid = state.uid ?? "";
+        int previousLevel = Saver.GetLevel();
+        Saver.InitLevel(Mathf.Clamp(state.completedLevel, 0, Levels.Length));
+        if (!Started) return;
+        // An in-flight session must never earn progress for a different account.
+        if ((changedUser || !state.ready) && ActiveSession != null)
+            BackToMenu();
+        else if ((changedUser || previousLevel != Saver.GetLevel()) && CurrentScreen == ScreenState.RoadMap)
+        {
+            CancelTransition();
+            var refresh = RoadMap.ShowSequence(Saver.GetLevel());
+            refresh.Join(SharedButtons.DOFade(1f, buttonsFadeDuration));
+            StartTransition(refresh, ScreenState.RoadMap);
+        }
+    }
+
+    [UnityEngine.Scripting.Preserve]
+    public void CancelAccountRegistration() => PendingAccountLevel = 0;
+
+    private void Update()
+    {
+        if (PendingAccountLevel == 0 || IsTransitioning ||
+            !WebGLBridge.IsAccountReady() || !WebGLBridge.IsSignedIn()) return;
+        if (CurrentScreen != ScreenState.RoadMap)
+        {
+            PendingAccountLevel = 0;
+            return;
+        }
+        int level = PendingAccountLevel;
+        PendingAccountLevel = 0;
+        PlaySession(level);
+    }
+#endif
+
     private void Awake() => Configure();
 
     private void Configure()
@@ -61,6 +115,10 @@ public class Controller : MonoBehaviour
         Root.Initialize(Levels);
         Started = true;
         BackToMenu();
+#if UNITY_WEBGL && !UNITY_EDITOR
+        WebGLBridge.SetAccountLanguage(Root.GetLanguageIndex());
+        WebGLBridge.RegisterAccountReceiver(gameObject.name);
+#endif
     }
 
     public void OpenRoadMap()
@@ -88,7 +146,18 @@ public class Controller : MonoBehaviour
         Configure();
         if (IsTransitioning || CurrentScreen != ScreenState.RoadMap ||
             levelIndex < 1 || levelIndex > Levels.Length) return;
-        if (levelIndex > Saver.MaxAvailableLevel())
+#if UNITY_WEBGL && !UNITY_EDITOR
+        if (levelIndex >= 2 && (!WebGLBridge.IsAccountReady() || !WebGLBridge.IsSignedIn()))
+        {
+            PendingAccountLevel = levelIndex;
+            WebGLBridge.RequestRegistration();
+            return;
+        }
+        bool canPlay = WebGLBridge.CanPlayLevel(levelIndex);
+#else
+        bool canPlay = levelIndex <= Saver.MaxAvailableLevel();
+#endif
+        if (!canPlay)
         {
             GoToCoffeeScreen();
             return;
@@ -185,15 +254,23 @@ public class Controller : MonoBehaviour
     public void SwitchLanguage(int index)
     {
         Root.ChangeLanguage(index);
+        WebGLBridge.SetAccountLanguage(index);
         SessionView.ChangeLanguage();
         RoadMap.UpdateTexts();
     }
 
     public void ClearPrefs()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        // This legacy debug control must not erase account identity or reset
+        // earned cloud progress; account deletion is a separate future flow.
+        Debug.Log("[EggO] Cloud account progress cannot be reset through local preferences.", this);
+        return;
+#else
         int previousLevel = Saver.GetLevel();
         Saver.Clear();
         Debug.Log($"[EggO] Progress reset: level {previousLevel} -> {Saver.GetLevel()}. Local preferences cleared.", this);
+#endif
     }
 
     private void ReleaseSession()
