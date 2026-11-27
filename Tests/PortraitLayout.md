@@ -59,3 +59,18 @@ PortraitLayoutInstaller.Run is the idempotent editor migration that saves the
 responsive MainScene hierarchy. Existing object references and button events
 are retained; inactive text containers are included when upgrading an existing
 scene. PortraitLayoutAudit.Run exports hierarchy and Game View profiles to Logs.
+
+## Smoke across wide viewports
+
+ResponsiveSessionLayout extends the smoke prefab's authored lifetime only when
+the projected horizontal travel would otherwise end inside the viewport. It
+accounts for the puff radius beyond the right edge, preserves speed/emission,
+and restores the original lifetime on narrower screens. Pixel density alone
+does not extend lifetime: 1920x1080 and 3840x2160 use the same camera coverage.
+
+Run `SmokeViewportTests.Run` in batch Unity with `-force-d3d11` (without
+`-nographics` or `-quit`). The suite simulates the real prefab on three phone
+profiles, Full HD, 4K and ultrawide, checks stable repeated layout and resize
+back to portrait, and writes before/after PNGs to `Logs/SmokeViewport`.
+It does not save scenes or edit the prefab. Browser verification still requires
+a rebuilt WebGL player.

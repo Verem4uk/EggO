@@ -26,6 +26,7 @@ public sealed class ResponsiveSessionLayout : MonoBehaviour
     private RectTransform SmokeBounds;
     private Transform[] SmokeEmitters;
     private ParticleSystem[] SmokeSystems;
+    private float[] SmokeBaseLifetimes;
     private Vector2Int LastLoggedViewport = new Vector2Int(-1, -1);
     private Vector2Int LastSmokeViewport = new Vector2Int(-1, -1);
 
@@ -121,8 +122,13 @@ public sealed class ResponsiveSessionLayout : MonoBehaviour
 
             var systems = SmokeBounds.GetComponentsInChildren<ParticleSystem>(true);
             SmokeSystems = systems;
+            SmokeBaseLifetimes = new float[systems.Length];
             SmokeEmitters = new Transform[systems.Length];
-            for (int i = 0; i < systems.Length; i++) SmokeEmitters[i] = systems[i].transform;
+            for (int i = 0; i < systems.Length; i++)
+            {
+                SmokeEmitters[i] = systems[i].transform;
+                SmokeBaseLifetimes[i] = systems[i].main.startLifetimeMultiplier;
+            }
         }
 
         if (SmokeBounds.rect.width <= 0f || SmokeBounds.rect.height <= 0f || SmokeEmitters == null) return;
@@ -130,16 +136,18 @@ public sealed class ResponsiveSessionLayout : MonoBehaviour
         // Anchor the two emitters to the actual camera viewport, not to the
         // narrower portrait content rect. This keeps them in the screen's
         // upper-left and lower-left corners on portrait and landscape screens.
-        foreach (var smoke in SmokeEmitters)
+        for (int i = 0; i < SmokeEmitters.Length; i++)
         {
+            var smoke = SmokeEmitters[i];
             if (smoke == null) continue;
             bool topEmitter = smoke.localPosition.y >= 0f;
             bool repositioned = PlaceSmokeAtViewportCorner(smoke,
                 -0.04f, topEmitter ? 0.96f : 0.04f);
+            bool lifetimeChanged = FitSmokeLifetime(SmokeSystems[i], SmokeBaseLifetimes[i]);
 
             // Clear particles created at the old emitter position after a
             // resolution change or a layout repositioning.
-            if (restartParticles || repositioned)
+            if (restartParticles || repositioned || lifetimeChanged)
             {
                 var particleSystem = smoke.GetComponent<ParticleSystem>();
                 if (particleSystem != null)
@@ -149,6 +157,35 @@ public sealed class ResponsiveSessionLayout : MonoBehaviour
                 }
             }
         }
+    }
+
+    private bool FitSmokeLifetime(ParticleSystem system, float authoredLifetime)
+    {
+        var canvas = Frame.GetComponentInParent<Canvas>();
+        var camera = canvas != null ? canvas.worldCamera : Camera.main;
+        if (camera == null || system == null || authoredLifetime <= 0f) return false;
+        var main = system.main;
+        // SmokeEffect uses constant speed/lifetime and emits along local +Z.
+        // Keep its speed and density; only extend its travel before particles die.
+        if (main.startLifetime.mode != ParticleSystemCurveMode.Constant ||
+            main.startSpeed.mode != ParticleSystemCurveMode.Constant) return false;
+        float horizontalSpeed = main.startSpeed.constant *
+            Vector3.Dot(system.transform.forward, camera.transform.right);
+        if (horizontalSpeed <= 0.0001f) return false;
+
+        float depth = camera.WorldToViewportPoint(system.transform.position).z;
+        if (depth <= camera.nearClipPlane) return false;
+        var exit = camera.ViewportToWorldPoint(new Vector3(1.04f, 0.5f, depth));
+        float distance = Vector3.Dot(exit - system.transform.position, camera.transform.right);
+        // Move the whole puff beyond the edge before its abrupt lifetime cutoff.
+        float radius = main.startSize.constantMax * 0.5f;
+        float requiredLifetime = (Mathf.Max(0f, distance) + radius) / horizontalSpeed * 1.05f;
+        float lifetime = Mathf.Max(authoredLifetime, requiredLifetime);
+        if (Mathf.Abs(main.startLifetimeMultiplier - lifetime) < 0.001f) return false;
+        // Always compare against the cached prefab value, not the last adjusted
+        // value: repeated refreshes must not compound, and phones regain 20s.
+        main.startLifetimeMultiplier = lifetime;
+        return true;
     }
 
     private bool PlaceSmokeAtViewportCorner(Transform smoke, float viewportX, float viewportY)
@@ -200,6 +237,7 @@ public sealed class ResponsiveSessionLayout : MonoBehaviour
                     : Vector3.zero;
                 return $"{system.name}: active={system.gameObject.activeInHierarchy}, " +
                     $"playing={system.isPlaying}, emitting={system.isEmitting}, particles={system.particleCount}, " +
+                    $"lifetime={system.main.startLifetimeMultiplier:F1}s, " +
                     $"renderer={(renderer != null && renderer.enabled)}, anyCamera={(renderer != null && renderer.isVisible)}, " +
                     $"mainCameraFrustum={inMainCamera}, boundsPoint=({viewportPoint.x:F2},{viewportPoint.y:F2},{viewportPoint.z:F1}), " +
                     $"emitterPoint=({emitterPoint.x:F2},{emitterPoint.y:F2},{emitterPoint.z:F1}), " +
